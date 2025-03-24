@@ -1,0 +1,22 @@
+/* Main App container: full viewport height with a dark background and light text */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Optional: Background container covering the full viewport */
+.bg-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: scroll;
+}

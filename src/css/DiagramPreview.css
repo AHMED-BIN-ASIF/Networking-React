@@ -1,0 +1,211 @@
+.diagram-topology {
+    margin-top: 10px;
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+}
+.topo-img-wrapper {
+    position: relative;
+}
+.diagram-topology img {
+    width: 100%;
+}
+.network-label-grp {
+    color: #b00013;
+    font-family: "Lato", serif;
+    position: absolute;
+    z-index: 5;
+    line-height: 1;
+    font-size: 14px;
+  }
+  .network-label-name {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .network-label-domain {
+    font-weight: 600;
+    color: #555;
+    display: block;
+  }
+  .diagram-topology .vcn-name-label{
+    top: 16%;
+    left: 15%;
+  }
+  /* 2 */
+  .diagram-topology .public-name-label{
+    top: 31%;
+    left: 18%;
+  }
+  .diagram-topology .private-name-label {
+    top: 52%;
+    left: 18%;
+  }
+  .diagram-topology .rt-name-label {
+    top: 72%;
+    left: 18%;
+  }
+
+  /* Popup  */
+  .popup-btn {
+    position: absolute;
+    width: 50px;
+    height:55px;
+    /* background: #000; */
+    display: block;
+    cursor: pointer;
+    font-size: 10px;
+    font-family: "Lato", serif;
+    color: #b00013;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  .text-blue {
+    color: #3f71a6;
+  }
+  .popup-btn.btn-1 {
+    top: 25.5%;
+    right: 45%;
+  }
+  .popup-btn.btn-2 {
+    top: 48%;
+    right: 45%;
+  }
+  .popup-btn.btn-3 {
+    top: 69.5%;
+    right: 45%;
+  }
+  .popup-btn.btn-4 {
+    top: 25.5%;
+    right: 37%;
+  }
+  .popup-btn.btn-5 {
+    top: 49%;
+    right: 37%;
+  }
+  .popup-btn.btn-6 {
+    top: 69.5%;
+    right: 37%;
+  }
+  /* flow label  */
+  /* flow labels */
+.flow-label {
+    position: absolute;
+    background: #a2d8ff;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    color: #333;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: bold;
+  }
+  .flow-label.label-1 {
+    top: 31%;
+    left: 31%;
+  }
+  .flow-label.label-2 {
+    top: 52%;
+    left: 31%;
+  }
+  .flow-label.label-3 {
+    top: 72%;
+    left: 31%;
+  }
+  .flow-label.label-4 {
+    top: 16%;
+    right: 4%;
+  }
+  .flow-label.label-5 {
+    top: 76%;
+    right: 17.5%;
+  }
+.diagram-btm {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin: 20px 0 0;
+}
+  .generate-btn {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+.form-checkouts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    max-width: 60%;
+}
+.form-checkouts label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    font-size: 14px;
+}
+.form-checkouts input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+}
+@media screen and (max-width:1440px) {
+    .popup-btn.btn-1 {
+        top: 23%;
+        right: 44.5%;
+    }
+    .popup-btn.btn-2 {
+        top: 46%;
+        right: 44.5%;
+    }
+    .popup-btn.btn-3 {
+        top: 67%;
+        right: 44.5%;
+    }
+    .popup-btn.btn-4 {
+        top: 23%;
+        right: 36.5%;
+    }
+    .popup-btn.btn-5 {
+        top: 48%;
+        right: 36.5%;
+    }
+    .popup-btn.btn-6 {
+        top: 68%;
+        right: 36.5%;
+    }
+}
+@media screen and (max-width:1280px) {
+    .popup-btn.btn-1 {
+        top: 20%;
+        right: 44%;
+    }
+    .popup-btn.btn-2 {
+        top: 43%;
+        right: 44%;
+    }
+    .popup-btn.btn-3 {
+        top: 65%;
+        right: 44%;
+    }
+    .popup-btn.btn-4 {
+        top: 21%;
+        right: 36%;
+    }
+    .popup-btn.btn-5 {
+        top: 45%;
+        right: 36%;
+    }
+    .popup-btn.btn-6 {
+        top: 65%;
+        right: 36%;
+    }
+    .flow-label.label-4 {
+        right: 3%;
+    }
+    .flow-label.label-5 {
+        right: 16.5%;
+    }
+}
