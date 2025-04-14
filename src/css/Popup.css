@@ -1,0 +1,61 @@
+.popup {
+    /* display: none; */
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 10;
+    width: 50%;
+    max-width: 550px;
+    height: auto;
+    padding: 10px 20px 20px;
+}
+#popup1 {
+    inset: 0 auto auto 0;
+}
+#popup2 {
+    inset: 32% auto auto 0;
+}
+#popup3 {
+    inset: 64% auto auto 0;
+}
+#popup4 {
+    inset: 0% 0 auto auto;
+}
+#popup5 {
+    inset: 32% 0 auto auto;
+}
+#popup6 {
+    inset: 64% 0 auto auto;
+}
+.popup-content {
+    position: relative;
+}
+.close-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.popup-heading {
+    color: #3f3f3f;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+.popup table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.popup table th {
+    background-color: #f4f4f4;
+    text-align: left;
+}
+.popup table th,
+.popup table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    font-size: 12px;
+
+}

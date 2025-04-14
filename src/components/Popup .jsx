@@ -1,5 +1,5 @@
 import React from 'react';
-// import "../css/DiagramPreview.css"; // adjust as needed
+import "../css/Popup.css"; // adjust as needed
 
 const Popup = ({ id, title, isVisible, onClose, children }) => {
   if (!isVisible) return null;
