@@ -6,28 +6,19 @@ import Popup from './Popup ';
 // Flow lines configuration as provided
 const connectionMap = {
   'chk-pub-priv-db': [
-    ['top1-pub-1', 'top1-db-1'],
-    ['top1-priv-1', 'top1-db-1'],
-    ['top1-priv-2', 'top1-db-1']
+    ['top1-pub-1', 'top1-gateway-3'],
+    ['top1-priv-1', 'top1-gateway-3'],
+    ['top1-priv-2', 'top1-gateway-3'],
+    ['top1-gateway-3', 'top1-db-1',{ path: 'straight'}]
   ],
   'chk-pub-inet': [
-    ['top1-pub-1', 'top1-inet-1']
+    ['top1-pub-1', 'top1-gateway-1'],
+    ['top1-gateway-1', 'top1-inet-1']
   ],
   'chk-priv-inet': [
-    ['top1-priv-1', 'top1-inet-1', {
-      path: 'magnet',
-      startSocket: 'top',
-      endSocket: 'bottom',
-      startPlug: 'arrow1',
-      endPlug: 'arrow'
-    }],
-    ['top1-priv-2', 'top1-inet-1', {
-      path: 'magnet',
-      startSocket: 'top',
-      endSocket: 'bottom',
-      startPlug: 'arrow1',
-      endPlug: 'arrow'
-    }]
+    ['top1-priv-1', 'top1-gateway-2'],
+    ['top1-priv-2', 'top1-gateway-2'],
+    ['top1-gateway-2', 'top1-inet-1']
   ],
   'chk-pub-priv-bidirectional': [
     ['top1-pub-1', 'top1-priv-1', { path: 'straight', startPlug: 'arrow1', endPlug: 'arrow' }],
@@ -177,6 +168,9 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top1-db-1" className="flow-label label-5">
           {"DB1"}
         </div>
+        <div id="top1-gateway-1" className="gateway gtw-1"></div>
+        <div id="top1-gateway-2" className="gateway gtw-2"></div>
+        <div id="top1-gateway-3" className="gateway gtw-3"></div>
 
         {/* Popup buttons */}
         <div className="popup-btn btn-1" onClick={() => setPopups(prev => ({ ...prev, popup1: true }))}>

@@ -151,6 +151,24 @@
     width: 14px;
     height: 14px;
 }
+.gateway {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #33333300;
+}
+.gateway.gtw-1 {
+  top: 21.5%;
+  right: 27.5%;
+}
+.gateway.gtw-2 {
+  top: 49%;
+  right: 27.7%;
+}
+.gateway.gtw-3 {
+  right: 27.8%;
+  top: 76.6%;
+}
 @media screen and (max-width:1440px) {
     .popup-btn.btn-1 {
         top: 23%;
