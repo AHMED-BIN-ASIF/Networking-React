@@ -180,22 +180,22 @@ Create Routing Table Name: ${formData.publicRTName}
 
         {/* Popup buttons */}
         <div className="popup-btn btn-1" onClick={() => setPopups(prev => ({ ...prev, popup1: true }))}>
-          <span id="public-sl-name-1">Sl Name</span>
+          <span id="public-sl-name-1">{formData.publicSLName}</span>
         </div>
         <div className="popup-btn btn-2" onClick={() => setPopups(prev => ({ ...prev, popup2: true }))}>
-          <span id="private-sl-name-1">Sl Name</span>
+          <span id="private-sl-name-1">{formData.privateSLName}</span>
         </div>
         <div className="popup-btn btn-3" onClick={() => setPopups(prev => ({ ...prev, popup3: true }))}>
-          <span id="sl-label-1">Sl Name</span>
+          <span id="sl-label-1">{formData.SLName}</span>
         </div>
         <div className="popup-btn btn-4" onClick={() => setPopups(prev => ({ ...prev, popup4: true }))}>
-          <span id="public-rt-name-1">RT 1</span>
+          <span id="public-rt-name-1">{formData.publicRTName}</span>
         </div>
         <div className="popup-btn btn-5" onClick={() => setPopups(prev => ({ ...prev, popup5: true }))}>
-          <span id="private-rt-name-1">RT 2</span>
+          <span id="private-rt-name-1">{formData.privateRTName}</span>
         </div>
         <div className="popup-btn btn-6" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
-          <span id="priv-rt-name-1">RT 3</span>
+          <span id="priv-rt-name-1">{formData.RTName}</span>
         </div>
 
         {/* Network label groups */}
@@ -323,7 +323,7 @@ Create Routing Table Name: ${formData.publicRTName}
       )}
 
       {/* Popups */}
-      <Popup id="popup1" title="sl-pub" isVisible={popups.popup1} onClose={() =>
+      <Popup id="popup1" title={formData.publicSLName} isVisible={popups.popup1} onClose={() =>
         setPopups(prev => ({ ...prev, popup1: false }))
       }>
         <h5>Ingress</h5>
@@ -355,7 +355,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </tbody>
         </table>
       </Popup>
-      <Popup id="popup2" title="sl-pri" isVisible={popups.popup2} onClose={() =>
+      <Popup id="popup2" title={formData.privateSLName} isVisible={popups.popup2} onClose={() =>
         setPopups(prev => ({ ...prev, popup2: false }))
       }>
         <h5>Ingress</h5>
@@ -387,7 +387,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </tbody>
         </table>
       </Popup>
-      <Popup id="popup3" title="sl-pri-db" isVisible={popups.popup3} onClose={() =>
+      <Popup id="popup3" title={formData.SLName} isVisible={popups.popup3} onClose={() =>
         setPopups(prev => ({ ...prev, popup3: false }))
       }>
         <h5>Ingress</h5>
@@ -419,7 +419,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </tbody>
         </table>
       </Popup>
-      <Popup id="popup4" title="rt-vcn-pub-web" isVisible={popups.popup4} onClose={() =>
+      <Popup id="popup4" title={formData.publicRTName} isVisible={popups.popup4} onClose={() =>
         setPopups(prev => ({ ...prev, popup4: false }))
       }>
         <table>
@@ -447,7 +447,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </tbody>
         </table>
       </Popup>
-      <Popup id="popup5" title="rt-vcn-app+db" isVisible={popups.popup5} onClose={() =>
+      <Popup id="popup5" title={formData.privateRTName} isVisible={popups.popup5} onClose={() =>
         setPopups(prev => ({ ...prev, popup5: false }))
       }>
         <table>
@@ -475,7 +475,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </tbody>
         </table>
       </Popup>
-      <Popup id="popup6" title="rt-vcn-app+db" isVisible={popups.popup6} onClose={() =>
+      <Popup id="popup6" title={formData.RTName} isVisible={popups.popup6} onClose={() =>
         setPopups(prev => ({ ...prev, popup6: false }))
       }>
         <table>

@@ -6,6 +6,7 @@
 	transition: all 0.2s ease-in-out;
 	flex-shrink: 0;
 	/* The width is animated by Framer Motion (256px open, 80px closed) */
+	height: 100vh;
 }
 
 .sidebar-container {
@@ -14,6 +15,8 @@
 	display: flex;
 	flex-direction: column;
 	border-right: 1px solid #646464; /* Gray-700 */
+	overflow: auto;
+	position: fixed;
 }
 
 .sidebar-toggle {
