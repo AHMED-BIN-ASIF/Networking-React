@@ -62,6 +62,9 @@
     justify-content: center;
     align-items: flex-end;
   }
+  .popup-btn span {
+    white-space: nowrap;
+  }
   .text-blue {
     color: #3f71a6;
   }

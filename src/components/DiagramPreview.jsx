@@ -294,7 +294,7 @@ Create Routing Table Name: ${formData.publicRTName}
       {/* Generate TF Popup */}
       {popups.generateTF && (
         <div id="generate-TF-popup" className="generateTFPopup">
-          <span className="generateCloseBtn" onClick={() =>
+          {/* <span className="generateCloseBtn" onClick={() =>
             setPopups(prev => ({ ...prev, generateTF: false }))
           }>&times;</span>
           <h3>CODE FIELD</h3>
@@ -312,7 +312,7 @@ Create Routing Table Name: ${formData.publicRTName}
               <span id="code-subnet-label-1">{formData.SubnetName}</span> : <span id="code-subnet-no-1">{formData.SubnetRange}</span>
             </p>
           </div>
-          <a href="#" className="download-button" onClick={downloadFiles}>Download Files</a>
+          <a href="#" className="download-button" onClick={downloadFiles}>Download Files</a> */}
         </div>
       )}
 
