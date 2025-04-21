@@ -1,0 +1,259 @@
+.diagram-topology-two {
+    margin-top: 10px;
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+}
+.topo-img-wrapper {
+    position: relative;
+}
+.diagram-topology-two img {
+    width: 100%;
+}
+.network-tp2-label-grp {
+    color: #b00013;
+    font-family: "Lato", serif;
+    position: absolute;
+    z-index: 5;
+    line-height: 1;
+    font-size: 14px;
+  }
+  .network-tp2-label-name {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .network-tp2-label-domain {
+    font-weight: 600;
+    color: #555;
+    display: block;
+  }
+  .diagram-topology-two .nlg-1 {
+    top: 8%;
+    left: 12%;
+  }
+  /* 2 */
+  .diagram-topology-two .nlg-2{
+    top: 15%;
+    left: 15%;
+  }
+  .diagram-topology-two .nlg-3 {
+    top: 25.5%;
+    left: 15%;
+  }
+  .diagram-topology-two .nlg-4 {
+    top: 44%;
+    left: 12%;
+  }
+  .diagram-topology-two .nlg-5 {
+    top: 52%;
+    left: 15%;
+  }
+  .diagram-topology-two .nlg-6 {
+    top: 73%;
+    left: 12%;
+  }
+  .diagram-topology-two .nlg-7 {
+    top: 80%;
+    left: 15%;
+  }
+  /* Popup  */
+  .popup-btn {
+    position: absolute;
+    width: 50px;
+    height:55px;
+    /* background: #000; */
+    display: block;
+    cursor: pointer;
+    font-size: 10px;
+    font-family: "Lato", serif;
+    color: #b00013;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  .popup-btn span {
+    white-space: nowrap;
+  }
+  .text-blue {
+    color: #3f71a6;
+  }
+  .popup-btn.top1-btn-1 {
+    top: 11.5%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-2 {
+    top: 23%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-3 {
+    top: 49.5%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-4 {
+    top: 77.5%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-5 {
+    top: 12%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-6 {
+    top: 31%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-7 {
+    top: 57.5%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-8 {
+    top: 85.5%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-9 {
+    top: 10.5%;
+    right: 42%;
+  }
+  /* flow label  */
+  /* flow labels */
+.flow-label {
+    position: absolute;
+    background: #a2d8ff;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    color: #333;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: bold;
+  }
+  .flow-label.tp2-label-1 {
+    top: 17%;
+    left: 31%;
+  }
+  .flow-label.tp2-label-2 {
+    top: 27%;
+    left: 31%;
+  }
+  .flow-label.tp2-label-3 {
+    top: 53%;
+    left: 31%;
+  }
+  .flow-label.tp2-label-4 {
+    top: 81%;
+    left: 31%;
+  }
+  .flow-label.tp2-label-5 {
+    top: 16%;
+    right: 3%;
+  }
+  .flow-label.tp2-label-6 {
+    top: 76%;
+    right: 15%;
+  }
+.diagram-btm {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin: 20px 0 0;
+}
+  .generate-btn {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+.form-checkouts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    max-width: 60%;
+}
+.form-checkouts label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    font-size: 14px;
+}
+.form-checkouts input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+}
+.gateway {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #33333300;
+}
+.gateway.tp2-gtw-1 {
+  top: 21.5%;
+  right: 27.5%;
+}
+.gateway.tp2-gtw-2 {
+  top: 49%;
+  right: 27.7%;
+}
+.gateway.tp2-gtw-3 {
+  right: 27.8%;
+  top: 76.6%;
+}
+@media screen and (max-width:1440px) {
+    .popup-btn.top1-btn-1 {
+        top: 23%;
+        right: 44.5%;
+    }
+    .popup-btn.top1-btn-2 {
+        top: 46%;
+        right: 44.5%;
+    }
+    .popup-btn.top1-btn-3 {
+        top: 67%;
+        right: 44.5%;
+    }
+    .popup-btn.top1-btn-4 {
+        top: 23%;
+        right: 36.5%;
+    }
+    .popup-btn.top1-btn-5 {
+        top: 48%;
+        right: 36.5%;
+    }
+    .popup-btn.top1-btn-6 {
+        top: 68%;
+        right: 36.5%;
+    }
+}
+@media screen and (max-width:1280px) {
+    .popup-btn.top1-btn-1 {
+        top: 20%;
+        right: 44%;
+    }
+    .popup-btn.top1-btn-2 {
+        top: 43%;
+        right: 44%;
+    }
+    .popup-btn.top1-btn-3 {
+        top: 65%;
+        right: 44%;
+    }
+    .popup-btn.top1-btn-4 {
+        top: 21%;
+        right: 36%;
+    }
+    .popup-btn.top1-btn-5 {
+        top: 45%;
+        right: 36%;
+    }
+    .popup-btn.top1-btn-6 {
+        top: 65%;
+        right: 36%;
+    }
+    .flow-label.tp2-label-4 {
+        right: 3%;
+    }
+    .flow-label.tp2-label-5 {
+        right: 16.5%;
+    }
+}
