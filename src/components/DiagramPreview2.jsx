@@ -26,7 +26,7 @@ const connectionMap = {
   ]
 };
 
-const endpointIds = ['top2-pub-1', 'top2-priv-1', 'top2-priv-2', 'top2-db-1', 'top2-inet-1'];
+const endpointIds = ['top2-pub-1', 'top2-priv-1', 'top2-priv-2', 'top2-priv-3', 'top2-db-1', 'top2-inet-1'];
 
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) => 
@@ -162,7 +162,7 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top2-priv-2" className="flow-label tp2-label-3">
           {"PRIV2"}
         </div>
-        <div id="top2-priv-2" className="flow-label tp2-label-4">
+        <div id="top2-priv-3" className="flow-label tp2-label-4">
           {"PRIV2"}
         </div>
         <div id="top2-inet-1" className="flow-label tp2-label-5">
@@ -222,12 +222,12 @@ Create Routing Table Name: ${formData.publicRTName}
           <span className="network-label-domain" id="subnet-no-1">{formData.spokeAPrivSubnetCidr}</span>
         </div>
         <div className="network-label-grp nlg-5">
-          <span className="network-label-name" id="subnet-label1">{formData.spokeBPrivSubnetName}</span>
-          <span className="network-label-domain" id="subnet-no1">{formData.spokeBPrivSubnetCidr}</span>
-        </div>
-        <div className="network-label-grp nlg-6">
           <span className="network-label-name" id="subnet-label1">{formData.drgRt1HubAttachment}</span>
           <span className="network-label-domain" id="subnet-no1">{formData.vcnRt2HubAttachment}</span>
+        </div>
+        <div className="network-label-grp nlg-6">
+          <span className="network-label-name" id="subnet-label1">{formData.spokeBPrivSubnetName}</span>
+          <span className="network-label-domain" id="subnet-no1">{formData.spokeBPrivSubnetCidr}</span>
         </div>
         <div className="network-label-grp nlg-7">
           <span className="network-label-name" id="subnet-label1">{formData.vcnRiHubAttachment}</span>

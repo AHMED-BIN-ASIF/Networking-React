@@ -118,11 +118,11 @@ const Topology2 = () => {
       spanClass: "2"
     },
     {
-      groupName: 'Spoke VCN', subGroups: [
-        { groupName: 'A – Private Subnet', fields: fieldGroups['Spoke VCN A – Private Subnet'] },
-        { groupName: 'B – Private Subnet', fields: fieldGroups['Spoke VCN B – Private Subnet'] }
-      ],
-      spanClass: "2"
+      groupName: 'Spoke VCN A', fields: fieldGroups['Spoke VCN A – Private Subnet']
+    },
+    {
+      groupName: 'Spoke VCN B', fields: fieldGroups['Spoke VCN B – Private Subnet'] 
+      
     },
     { groupName: 'DRG Attachments / Imports', fields: fieldGroups['DRG Attachments / Imports'],spanClass:"1" },
     {
@@ -146,9 +146,6 @@ const Topology2 = () => {
               onFieldChange={handleUpdateFormData}
               onPopulate={handlePopulateFields}
             />
-            <div className="form-btn-grp">
-              <button type="submit" className="network-btn">Generate Network</button>
-            </div>
           </form>
 
           {previewData && (

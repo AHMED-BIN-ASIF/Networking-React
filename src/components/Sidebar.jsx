@@ -6,13 +6,13 @@ import "../css/Sidebar.css";
 
 const SIDEBAR_ITEMS = [
     { name: "Networking Home", icon: Home, href: "/" },
-    { name: "Simple Topology 1", icon: Network, href: "/topology-1" },
-    { name: "Simple Topology 2", icon: Network, href: "/topology-2" },
-    { name: "Simple Topology 3", icon: Network, href: "/topology-3" },
-    { name: "Simple Topology 4", icon: Network, href: "/topology-4" },
-    { name: "Simple Topology 5", icon: Network, href: "/topology-5" },
-    { name: "Simple Topology 6", icon: Network, href: "/topology-6" },
-    { name: "Simple Topology 7", icon: Network, href: "/topology-7" },
+    { name: " Topology 1", icon: Network, href: "/topology-1" },
+    { name: " Topology 2", icon: Network, href: "/topology-2" },
+    { name: " Topology 3", icon: Network, href: "/topology-3" },
+    { name: " Topology 4", icon: Network, href: "/topology-4" },
+    { name: " Topology 5", icon: Network, href: "/topology-5" },
+    { name: " Topology 6", icon: Network, href: "/topology-6" },
+    { name: " Topology 7", icon: Network, href: "/topology-7" },
   ];
 
 const Sidebar = () => {
