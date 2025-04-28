@@ -11,7 +11,9 @@ const Topology2 = () => {
     hubVcnName: '', hubVcnCidr: '', hubFwIp: '',
     hubPrivSubnetName: '', hubPrivSubnetCidr: '', hubPrivSlName: '', hubPrivRtName: '',
     hubPubSubnetName: '', hubPubSubnetCidr: '', hubPubSlName: '', hubPubRtName: '',
+    spokeAName: '', spokeACidr: '',
     spokeAPrivSubnetName: '', spokeAPrivSubnetCidr: '', spokeAPrivSlName: '', spokeAPrivRtName: '',
+    spokeBName: '', spokeBCidr: '',
     spokeBPrivSubnetName: '', spokeBPrivSubnetCidr: '', spokeBPrivSlName: '', spokeBPrivRtName: '',
     internetGwRtName: '', natGwRtName: '', serviceGwRtName: '',
     drgRt1HubAttachment: '', vcnRt2HubAttachment: '', vcnRiHubAttachment: '', drgRtSpokeAttachmentB: ''
@@ -47,8 +49,10 @@ const Topology2 = () => {
       hubVcnName: 'MyHubVCN', hubVcnCidr: '10.0.0.0/16', hubFwIp: '10.0.0.10',
       hubPrivSubnetName: 'Hub-Priv', hubPrivSubnetCidr: '10.0.1.0/24', hubPrivSlName: 'Hub-Priv-SL', hubPrivRtName: 'Hub-Priv-RT',
       hubPubSubnetName: 'Hub-Pub', hubPubSubnetCidr: '10.0.2.0/24', hubPubSlName: 'Hub-Pub-SL', hubPubRtName: 'Hub-Pub-RT',
-      spokeAPrivSubnetName: 'SpokeA-Priv', spokeAPrivSubnetCidr: '10.0.3.0/24', spokeAPrivSlName: 'SpokeA-Priv-SL', spokeAPrivRtName: 'SpokeA-Priv-RT',
-      spokeBPrivSubnetName: 'SpokeB-Priv', spokeBPrivSubnetCidr: '10.0.4.0/24', spokeBPrivSlName: 'SpokeB-Priv-SL', spokeBPrivRtName: 'SpokeB-Priv-RT',
+      spokeAName: 'SpokeA', spokeACidr: '10.0.3.0/24',
+      spokeAPrivSubnetName: 'VCN-A-Priv', spokeAPrivSubnetCidr: '10.0.3.0/24', spokeAPrivSlName: 'SpokeA-Priv-SL', spokeAPrivRtName: 'SpokeA-Priv-RT',
+      spokeBName: 'SpokeB', spokeBCidr: '10.0.4.0/24',
+      spokeBPrivSubnetName: 'VCN-B-Priv', spokeBPrivSubnetCidr: '10.0.4.0/24', spokeBPrivSlName: 'SpokeB-Priv-SL', spokeBPrivRtName: 'SpokeB-Priv-RT',
       internetGwRtName: 'IGW-RT', natGwRtName: 'NAT-RT', serviceGwRtName: 'SGW-RT',
       drgRt1HubAttachment: 'DRG-Hub-RT1', vcnRt2HubAttachment: 'VCN-Hub-RT2', vcnRiHubAttachment: 'VCN-Hub-RI', drgRtSpokeAttachmentB: 'DRG-SpokeB-RT'
     });
@@ -78,12 +82,20 @@ const Topology2 = () => {
       { key: 'hubPubSlName', label: 'Security List Name', id: 'hubPubSlName1', value: formData.hubPubSlName },
       { key: 'hubPubRtName', label: 'VCN Route Table Name', id: 'hubPubRtName1', value: formData.hubPubRtName }
     ],
+    'Spoke VCN A': [
+      { key: 'spokeAName', label: 'VCN A Name', id: 'spokeAName1', value: formData.spokeAName, required: true },
+      { key: 'spokeACidr', label: 'VCN A CIDR', id: 'spokeACidr1', value: formData.spokeACidr, required: true }
+    ],
     'Spoke VCN A – Private Subnet': [
       { key: 'spokeAPrivSubnetName', label: 'Subnet Name', id: 'spokeAPrivSubnetName1', value: formData.spokeAPrivSubnetName, required: true },
       { key: 'spokeAPrivSubnetCidr', label: 'Subnet CIDR', id: 'spokeAPrivSubnetCidr1', value: formData.spokeAPrivSubnetCidr, required: true },
       { key: 'spokeAPrivSlName', label: 'Security List Name', id: 'spokeAPrivSlName1', value: formData.spokeAPrivSlName },
       { key: 'spokeAPrivRtName', label: 'VCN Route Table Name', id: 'spokeAPrivRtName1', value: formData.spokeAPrivRtName }
     ],
+    'Spoke VCN B': [
+      { key: 'spokeBName', label: 'Subnet Name', id: 'spokeBName1', value: formData.spokeBName, required: true },
+      { key: 'spokeBCidr', label: 'Subnet CIDR', id: 'spokeBCidr1', value: formData.spokeBCidr, required: true },
+     ],
     'Spoke VCN B – Private Subnet': [
       { key: 'spokeBPrivSubnetName', label: 'Subnet Name', id: 'spokeBPrivSubnetName1', value: formData.spokeBPrivSubnetName, required: true },
       { key: 'spokeBPrivSubnetCidr', label: 'Subnet CIDR', id: 'spokeBPrivSubnetCidr1', value: formData.spokeBPrivSubnetCidr, required: true },
@@ -118,12 +130,19 @@ const Topology2 = () => {
       spanClass: "2"
     },
     {
-      groupName: 'Spoke VCN A', fields: fieldGroups['Spoke VCN A – Private Subnet']
+      groupName: 'Spoke VCN A', 
+      fields: fieldGroups['Spoke VCN A'],
+      subGroups: [
+        { groupName: 'Subnet VCN A', fields: fieldGroups['Spoke VCN A – Private Subnet'] },
+      ]
     },
     {
-      groupName: 'Spoke VCN B', fields: fieldGroups['Spoke VCN B – Private Subnet'] 
-      
-    },
+      groupName: 'Spoke VCN B', 
+      fields: fieldGroups['Spoke VCN B'],
+      subGroups: [
+        { groupName: 'Spoke VCN B', fields: fieldGroups['Spoke VCN B – Private Subnet']  },
+      ]
+    }, 
     { groupName: 'DRG Attachments / Imports', fields: fieldGroups['DRG Attachments / Imports'],spanClass:"1" },
     {
       groupName: 'Gateways', subGroups: [

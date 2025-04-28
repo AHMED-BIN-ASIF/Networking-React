@@ -177,28 +177,28 @@ Create Routing Table Name: ${formData.publicRTName}
 
         {/* Popup buttons */}
         <div className="popup-btn top1-btn-1" onClick={() => setPopups(prev => ({ ...prev, popup1: true }))}>
-          <span id="public-sl-name-1">{formData.publicSLName}sl</span>
+          <span id="public-sl-name-1">{formData.hubPrivSlName}</span>
         </div>
         <div className="popup-btn top1-btn-2" onClick={() => setPopups(prev => ({ ...prev, popup2: true }))}>
-          <span id="private-sl-name-1">{formData.privateSLName}psl</span>
+          <span id="private-sl-name-1">{formData.hubPubSlName}</span>
         </div>
         <div className="popup-btn top1-btn-3" onClick={() => setPopups(prev => ({ ...prev, popup3: true }))}>
-          <span id="sl-label-1">{formData.SLName}sln</span>
+          <span id="sl-label-1">{formData.spokeAPrivSlName}</span>
         </div>
         <div className="popup-btn top1-btn-4" onClick={() => setPopups(prev => ({ ...prev, popup4: true }))}>
-          <span id="public-rt-name-1">{formData.publicRTName}prt</span>
+          <span id="spokeb-sl-name-1">{formData.spokeBPrivSlName}</span>
         </div>
         <div className="popup-btn top1-btn-5" onClick={() => setPopups(prev => ({ ...prev, popup5: true }))}>
-          <span id="private-rt-name-1">{formData.privateRTName}prtn</span>
+          <span id="private-rt-name-1">{formData.hubPrivRtName}</span>
         </div>
         <div className="popup-btn top1-btn-6" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
-          <span id="priv-rt-name-1">{formData.RTName}rt</span>
+          <span id="priv-rt-name-1">{formData.hubPubRtName}</span>
         </div>
         <div className="popup-btn top1-btn-7" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
-          <span id="priv-rt-name-1">{formData.RTName}rt</span>
+          <span id="priv-rt-name-1">{formData.spokeAPrivRtName}</span>
         </div>
         <div className="popup-btn top1-btn-8" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
-          <span id="priv-rt-name-1">{formData.RTName}rt</span>
+          <span id="priv-rt-name-1">{formData.spokeBPrivRtName}</span>
         </div>
         <div className="popup-btn top1-btn-9" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
           <span id="priv-rt-name-1">{formData.RTName}rt</span>
@@ -218,20 +218,20 @@ Create Routing Table Name: ${formData.publicRTName}
           <span className="network-label-domain" id="private-cidr-1">{formData.hubPubSubnetCidr}</span>
         </div>
         <div className="network-label-grp nlg-4">
-          <span className="network-label-name" id="subnet-label-1">{formData.spokeAPrivSubnetName}</span>
-          <span className="network-label-domain" id="subnet-no-1">{formData.spokeAPrivSubnetCidr}</span>
+          <span className="network-label-name" id="subnet-label-1">{formData.spokeAName}</span>
+          <span className="network-label-domain" id="subnet-no-1">{formData.spokeACidr}</span>
         </div>
         <div className="network-label-grp nlg-5">
-          <span className="network-label-name" id="subnet-label1">{formData.drgRt1HubAttachment}</span>
-          <span className="network-label-domain" id="subnet-no1">{formData.vcnRt2HubAttachment}</span>
+          <span className="network-label-name" id="subnet-label1">{formData.spokeAPrivSubnetName}</span>
+          <span className="network-label-domain" id="subnet-no1">{formData.spokeAPrivSubnetCidr}</span>
         </div>
         <div className="network-label-grp nlg-6">
-          <span className="network-label-name" id="subnet-label1">{formData.spokeBPrivSubnetName}</span>
-          <span className="network-label-domain" id="subnet-no1">{formData.spokeBPrivSubnetCidr}</span>
+          <span className="network-label-name" id="subnet-label1">{formData.spokeBName}</span>
+          <span className="network-label-domain" id="subnet-no1">{formData.spokeBCidr}</span>
         </div>
         <div className="network-label-grp nlg-7">
-          <span className="network-label-name" id="subnet-label1">{formData.vcnRiHubAttachment}</span>
-          <span className="network-label-domain" id="subnet-no1">{formData.drgRtSpokeAttachmentB}</span>
+          <span className="network-label-name" id="subnet-label1">{formData.spokeBPrivSubnetName}</span>
+          <span className="network-label-domain" id="subnet-no1">{formData.spokeBPrivSubnetCidr}</span>
         </div>
       </div>
 
