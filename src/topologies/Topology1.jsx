@@ -36,7 +36,7 @@ const Topology1 = () => {
     popup6: false,
     generateTF: false,
   });
-
+  const popupwrap = Object.values(popups).some(flag => flag);
   // Flow checkbox state.
   const [flowCheckboxes, setFlowCheckboxes] = useState({
     'chk-show-endpoints': false,
@@ -119,6 +119,7 @@ const Topology1 = () => {
                 setPopups={setPopups}
                 flowCheckboxes={flowCheckboxes}
                 setFlowCheckboxes={setFlowCheckboxes}
+                popupwrap={popupwrap}
               />
             </div>
           )}

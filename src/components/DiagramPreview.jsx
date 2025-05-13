@@ -48,7 +48,8 @@ const DiagramPreview = ({
   popups,
   setPopups,
   flowCheckboxes,
-  setFlowCheckboxes
+  setFlowCheckboxes,
+  popupwrap
 }) => {
   const linesRef = useRef({});
 
@@ -317,38 +318,40 @@ Create Routing Table Name: ${formData.publicRTName}
       )}
 
       {/* Popups */}
-      <Popup id="popup1" title={formData.publicSLName} isVisible={popups.popup1} onClose={() =>
-        setPopups(prev => ({ ...prev, popup1: false }))
-      }>
-        <h5>Ingress</h5>
-        <table>
-          <thead>
-            <tr>
-              <th>Stateless</th>
-              <th>Source</th>
-              <th>IP Protocol</th>
-              <th>SRC Port Range</th>
-              <th>DST Port Range</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>No</td>
-              <td>CIDR + 0.0.0.0/0</td>
-              <td>All Protocols</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>No</td>
-              <td>Services + All regional services</td>
-              <td>All Protocols</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </Popup>
+      {popupwrap && 
+      <div className="popup-wrapper">
+  <Popup id="popup1" title={formData.publicSLName} isVisible={popups.popup1} onClose={() =>
+          setPopups(prev => ({ ...prev, popup1: false }))
+        }>
+          <h5>Ingress</h5>
+          <table>
+            <thead>
+              <tr>
+                <th>Stateless</th>
+                <th>Source</th>
+                <th>IP Protocol</th>
+                <th>SRC Port Range</th>
+                <th>DST Port Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>No</td>
+                <td>CIDR + 0.0.0.0/0</td>
+                <td>All Protocols</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>No</td>
+                <td>Services + All regional services</td>
+                <td>All Protocols</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
       <Popup id="popup2" title={formData.privateSLName} isVisible={popups.popup2} onClose={() =>
         setPopups(prev => ({ ...prev, popup2: false }))
       }>
@@ -497,6 +500,9 @@ Create Routing Table Name: ${formData.publicRTName}
           </tbody>
         </table>
       </Popup>
+      </div>}
+      
+      
     </div>
   );
 };

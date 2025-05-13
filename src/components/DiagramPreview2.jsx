@@ -48,7 +48,8 @@ const DiagramPreview2 = ({
   popups,
   setPopups,
   flowCheckboxes,
-  setFlowCheckboxes
+  setFlowCheckboxes,
+  popupwrap
 }) => {
   const linesRef = useRef({});
 
@@ -194,14 +195,14 @@ Create Routing Table Name: ${formData.publicRTName}
         <div className="popup-btn top1-btn-6" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
           <span id="priv-rt-name-1">{formData.hubPubRtName}</span>
         </div>
-        <div className="popup-btn top1-btn-7" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
+        <div className="popup-btn top1-btn-7" onClick={() => setPopups(prev => ({ ...prev, popup7: true }))}>
           <span id="priv-rt-name-1">{formData.spokeAPrivRtName}</span>
         </div>
-        <div className="popup-btn top1-btn-8" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
+        <div className="popup-btn top1-btn-8" onClick={() => setPopups(prev => ({ ...prev, popup8: true }))}>
           <span id="priv-rt-name-1">{formData.spokeBPrivRtName}</span>
         </div>
-        <div className="popup-btn top1-btn-9" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
-          <span id="priv-rt-name-1">{formData.RTName}rt</span>
+        <div className="popup-btn top1-btn-9" onClick={() => setPopups(prev => ({ ...prev, popup9: true }))}>
+          <span id="priv-rt-name-1">{formData.RTName}</span>
         </div>
 
         {/* Network label groups */}
@@ -339,12 +340,44 @@ Create Routing Table Name: ${formData.publicRTName}
           <a href="#" className="download-button" onClick={downloadFiles}>Download Files</a> */}
         </div>
       )}
-
-      {/* Popups */}
-      <Popup id="popup1" title={formData.publicSLName} isVisible={popups.popup1} onClose={() =>
+      {popupwrap && 
+        <div className="popup-wrapper">
+        <Popup id="popup1" title={formData.hubPrivSlName} isVisible={popups.popup1} onClose={() =>
         setPopups(prev => ({ ...prev, popup1: false }))
       }>
         <h5>Ingress</h5>
+          <table>
+            <thead>
+              <tr>
+                <th>Stateless</th>
+                <th>Source</th>
+                <th>IP Protocol</th>
+                <th>SRC Port Range</th>
+                <th>DST Port Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>No</td>
+                <td>CIDR + 0.0.0.0/0</td>
+                <td>All Protocols</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>No</td>
+                <td>Services + All regional services</td>
+                <td>All Protocols</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup2" title={formData.hubPubSlName} isVisible={popups.popup2} onClose={() =>
+          setPopups(prev => ({ ...prev, popup2: false }))
+        }>
+          <h5>Ingress</h5>
         <table>
           <thead>
             <tr>
@@ -372,11 +405,11 @@ Create Routing Table Name: ${formData.publicRTName}
             </tr>
           </tbody>
         </table>
-      </Popup>
-      <Popup id="popup2" title={formData.privateSLName} isVisible={popups.popup2} onClose={() =>
-        setPopups(prev => ({ ...prev, popup2: false }))
-      }>
-        <h5>Ingress</h5>
+        </Popup>
+        <Popup id="popup3" title={formData.spokeAPrivSlName} isVisible={popups.popup3} onClose={() =>
+          setPopups(prev => ({ ...prev, popup3: false }))
+        }>
+          <h5>Ingress</h5>
         <table>
           <thead>
             <tr>
@@ -404,123 +437,180 @@ Create Routing Table Name: ${formData.publicRTName}
             </tr>
           </tbody>
         </table>
-      </Popup>
-      <Popup id="popup3" title={formData.SLName} isVisible={popups.popup3} onClose={() =>
-        setPopups(prev => ({ ...prev, popup3: false }))
-      }>
-        <h5>Ingress</h5>
-        <table>
-          <thead>
-            <tr>
-              <th>Stateless</th>
-              <th>Source</th>
-              <th>IP Protocol</th>
-              <th>SRC Port Range</th>
-              <th>DST Port Range</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>No</td>
-              <td>CIDR + 0.0.0.0/0</td>
-              <td>All Protocols</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>No</td>
-              <td>Services + All regional services</td>
-              <td>All Protocols</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </Popup>
-      <Popup id="popup4" title={formData.publicRTName} isVisible={popups.popup4} onClose={() =>
-        setPopups(prev => ({ ...prev, popup4: false }))
-      }>
-        <table>
-          <thead>
-            <tr>
-              <th>Destination</th>
-              <th>Target Type</th>
-              <th>Target</th>
-              <th>Route Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>0.0.0.0/0</td>
-              <td>Internet Gateway</td>
-              <td>IGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
-              <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
-              <td>Service Gateway</td>
-              <td>SGW</td>
-              <td>Static</td>
-            </tr>
-          </tbody>
-        </table>
-      </Popup>
-      <Popup id="popup5" title={formData.privateRTName} isVisible={popups.popup5} onClose={() =>
-        setPopups(prev => ({ ...prev, popup5: false }))
-      }>
-        <table>
-          <thead>
-            <tr>
-              <th>Destination</th>
-              <th>Target Type</th>
-              <th>Target</th>
-              <th>Route Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>0.0.0.0/0</td>
-              <td>NAT Gateway</td>
-              <td>NGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
-              <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
-              <td>Service Gateway</td>
-              <td>SGW</td>
-              <td>Static</td>
-            </tr>
-          </tbody>
-        </table>
-      </Popup>
-      <Popup id="popup6" title={formData.RTName} isVisible={popups.popup6} onClose={() =>
-        setPopups(prev => ({ ...prev, popup6: false }))
-      }>
-        <table>
-          <thead>
-            <tr>
-              <th>Destination</th>
-              <th>Target Type</th>
-              <th>Target</th>
-              <th>Route Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>0.0.0.0/0</td>
-              <td>NAT Gateway</td>
-              <td>NGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
-              <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
-              <td>Service Gateway</td>
-              <td>SGW</td>
-              <td>Static</td>
-            </tr>
-          </tbody>
-        </table>
-      </Popup>
+        </Popup>
+        <Popup id="popup4" title={formData.spokeBPrivSlName} isVisible={popups.popup4} onClose={() =>
+          setPopups(prev => ({ ...prev, popup4: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>Internet Gateway</td>
+                <td>IGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup5" title={formData.hubPrivRtName} isVisible={popups.popup5} onClose={() =>
+          setPopups(prev => ({ ...prev, popup5: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>NAT Gateway</td>
+                <td>NGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup6" title={formData.hubPubRtName} isVisible={popups.popup6} onClose={() =>
+          setPopups(prev => ({ ...prev, popup6: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>NAT Gateway</td>
+                <td>NGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup7" title={formData.spokeAPrivRtName} isVisible={popups.popup7} onClose={() =>
+          setPopups(prev => ({ ...prev, popup6: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>NAT Gateway</td>
+                <td>NGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup8" title={formData.spokeBPrivRtName} isVisible={popups.popup8} onClose={() =>
+          setPopups(prev => ({ ...prev, popup6: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>NAT Gateway</td>
+                <td>NGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup9" title={formData.RTName} isVisible={popups.popup9} onClose={() =>
+          setPopups(prev => ({ ...prev, popup6: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>NAT Gateway</td>
+                <td>NGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+      </div>
+      }
+      
+      {/* Popups */}
+      
     </div>
   );
 };

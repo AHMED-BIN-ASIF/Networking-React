@@ -25,10 +25,10 @@ const Topology2 = () => {
     popup1: false, popup2: false, popup3: false, popup4: false,
     popup5: false, popup6: false, popup7: false, popup8: false,
     popup9: false, popup10: false, popup11: false, popup12: false,
-    popup13: false, popup14: false, popup15: false, popup16: false,
-    popup17: false, popup18: false, popup19: false, popup20: false,
+    popup13: false, popup14: false, popup15: false,
     popup21: false, generateTF: false
   });
+  const popupwrap = Object.values(popups).some(flag => flag);
 
   // Flow checkbox state
   const [flowCheckboxes, setFlowCheckboxes] = useState({
@@ -175,6 +175,7 @@ const Topology2 = () => {
                 setPopups={setPopups}
                 flowCheckboxes={flowCheckboxes}
                 setFlowCheckboxes={setFlowCheckboxes}
+                popupwrap={popupwrap}
               />
             </div>
           )}
