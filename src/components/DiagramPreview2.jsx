@@ -523,7 +523,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </table>
         </Popup>
         <Popup id="popup7" title={formData.spokeAPrivRtName} isVisible={popups.popup7} onClose={() =>
-          setPopups(prev => ({ ...prev, popup6: false }))
+          setPopups(prev => ({ ...prev, popup7: false }))
         }>
           <table>
             <thead>
@@ -551,7 +551,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </table>
         </Popup>
         <Popup id="popup8" title={formData.spokeBPrivRtName} isVisible={popups.popup8} onClose={() =>
-          setPopups(prev => ({ ...prev, popup6: false }))
+          setPopups(prev => ({ ...prev, popup8: false }))
         }>
           <table>
             <thead>
@@ -579,7 +579,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </table>
         </Popup>
         <Popup id="popup9" title={formData.RTName} isVisible={popups.popup9} onClose={() =>
-          setPopups(prev => ({ ...prev, popup6: false }))
+          setPopups(prev => ({ ...prev, popup9: false }))
         }>
           <table>
             <thead>
