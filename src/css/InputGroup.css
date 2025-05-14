@@ -70,3 +70,6 @@
   .sub-col-1 {
     grid-template-columns: repeat(1, 1fr);
   }
+  .sub-col-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }

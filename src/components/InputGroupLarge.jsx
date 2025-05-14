@@ -49,7 +49,7 @@ const InputGroupLarge = ({ title, fields = [], subGroups = [], onFieldChange, sp
             )}
 
             {subGroups.length > 0 && (
-              <div className={`input-inner-grid ${subGroups.length==1 ? "sub-col-1": "" }`}>
+              <div className={`input-inner-grid ${subGroups.length==1 ? "sub-col-1": "" } sub-col-${subGroups.length}`}>
                 {subGroups.map((group, idx) => (
                   <InputGroup
                     key={group.groupName || idx}
