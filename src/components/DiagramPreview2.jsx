@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Topo2 from "../assets/images/topo-2.jpeg";
+import Topo2 from "../assets/images/topo-2.jpg";
 import "../css/DiagramPreview2.css";
 import Popup from './Popup ';
 
@@ -161,16 +161,19 @@ Create Routing Table Name: ${formData.publicRTName}
           {"PRIV1"}
         </div>
         <div id="top2-priv-2" className="flow-label tp2-label-3">
-          {"PRIV2"}
+          {"PRIV3"}
         </div>
         <div id="top2-priv-3" className="flow-label tp2-label-4">
-          {"PRIV2"}
+          {"PRIV4"}
         </div>
         <div id="top2-inet-1" className="flow-label tp2-label-5">
           {"INET1"}
         </div>
         <div id="top2-db-1" className="flow-label tp2-label-6">
           {"DB1"}
+        </div>
+        <div id="top2-fw-1" className="flow-label tp2-label-7">
+          {"FW1"}
         </div>
         <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
         <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>

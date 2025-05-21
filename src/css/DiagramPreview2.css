@@ -100,15 +100,15 @@
     right: 48%;
   }
   .popup-btn.top1-btn-6 {
-    top: 31%;
+    top: 31.5%;
     right: 48%;
   }
   .popup-btn.top1-btn-7 {
-    top: 57.5%;
+    top: 58%;
     right: 48%;
   }
   .popup-btn.top1-btn-8 {
-    top: 85.5%;
+    top: 86%;
     right: 48%;
   }
   .popup-btn.top1-btn-9 {
@@ -175,6 +175,10 @@
   .flow-label.tp2-label-6 {
     top: 76%;
     right: 15%;
+  }
+  .flow-label.tp2-label-7 {
+    top: 49%;
+    right: 3%;
   }
 .diagram-btm {
     display: flex;
