@@ -9,7 +9,7 @@ const Topology2 = () => {
   // Form data state for Hub & Spoke topology
   const [formData, setFormData] = useState({
     hubVcnName: '', hubVcnCidr: '', hubFwIp: '',
-    hubPrivSubnetName: '', hubPrivSubnetCidr: '', hubPrivSlName: '', hubPrivRtName: '',
+    hubPrivSubnetName: '', hubPrivSubnetCidr: '', hubPrivSlName: '', hubPrivRtName: '', firewallIp: '',
     hubPubSubnetName: '', hubPubSubnetCidr: '', hubPubSlName: '', hubPubRtName: '',
     spokeAName: '', spokeACidr: '',
     spokeAPrivSubnetName: '', spokeAPrivSubnetCidr: '', spokeAPrivSlName: '', spokeAPrivRtName: '',
@@ -47,7 +47,7 @@ const Topology2 = () => {
   const handlePopulateFields = () => {
     setFormData({
       hubVcnName: 'MyHubVCN', hubVcnCidr: '10.0.0.0/16', hubFwIp: '10.0.0.10',
-      hubPrivSubnetName: 'Hub-Priv', hubPrivSubnetCidr: '10.0.1.0/24', hubPrivSlName: 'Hub-Priv-SL', hubPrivRtName: 'Hub-Priv-RT',
+      hubPrivSubnetName: 'Hub-Priv', hubPrivSubnetCidr: '10.0.1.0/24', hubPrivSlName: 'Hub-Priv-SL', hubPrivRtName: 'Hub-Priv-RT', firewallIp: '10.1.100',
       hubPubSubnetName: 'Hub-Pub', hubPubSubnetCidr: '10.0.2.0/24', hubPubSlName: 'Hub-Pub-SL', hubPubRtName: 'Hub-Pub-RT',
       spokeAName: 'SpokeA', spokeACidr: '10.0.3.0/24',
       spokeAPrivSubnetName: 'VCN-A-Priv', spokeAPrivSubnetCidr: '10.0.3.0/24', spokeAPrivSlName: 'SpokeA-Priv-SL', spokeAPrivRtName: 'SpokeA-Priv-RT',
@@ -74,7 +74,8 @@ const Topology2 = () => {
       { key: 'hubPrivSubnetName', label: 'Subnet Name', id: 'hubPrivSubnetName1', value: formData.hubPrivSubnetName, required: true },
       { key: 'hubPrivSubnetCidr', label: 'Subnet CIDR', id: 'hubPrivSubnetCidr1', value: formData.hubPrivSubnetCidr, required: true },
       { key: 'hubPrivSlName', label: 'Security List Name', id: 'hubPrivSlName1', value: formData.hubPrivSlName },
-      { key: 'hubPrivRtName', label: 'VCN Route Table Name', id: 'hubPrivRtName1', value: formData.hubPrivRtName }
+      { key: 'hubPrivRtName', label: 'VCN Route Table Name', id: 'hubPrivRtName1', value: formData.hubPrivRtName },
+      { key: 'firewallIp', label: 'Firewall Ip', id: 'firewallIp1', value: formData.firewallIp }
     ],
     'Hub Public Subnet': [
       { key: 'hubPubSubnetName', label: 'Subnet Name', id: 'hubPubSubnetName1', value: formData.hubPubSubnetName, required: true },

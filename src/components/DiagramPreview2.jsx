@@ -26,7 +26,7 @@ const connectionMap = {
   ]
 };
 
-const endpointIds = ['top2-pub-1', 'top2-priv-1', 'top2-priv-2', 'top2-priv-3', 'top2-db-1', 'top2-inet-1'];
+const endpointIds = ['top2-pub-1', 'top2-priv-1', 'top2-priv-2', 'top2-priv-3', 'top2-db-1', 'top2-inet-1', 'top2-fw-1'];
 
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) => 
@@ -174,6 +174,7 @@ Create Routing Table Name: ${formData.publicRTName}
         </div>
         <div id="top2-fw-1" className="flow-label tp2-label-7">
           {"FW1"}
+          <span>{formData.firewallIp}</span>
         </div>
         <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
         <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
@@ -196,34 +197,37 @@ Create Routing Table Name: ${formData.publicRTName}
           <span id="private-rt-name-1">{formData.hubPrivRtName}</span>
         </div>
         <div className="popup-btn top1-btn-6" onClick={() => setPopups(prev => ({ ...prev, popup6: true }))}>
-          <span id="priv-rt-name-1">{formData.hubPubRtName}</span>
+          <span  >{formData.hubPubRtName}</span>
         </div>
         <div className="popup-btn top1-btn-7" onClick={() => setPopups(prev => ({ ...prev, popup7: true }))}>
-          <span id="priv-rt-name-1">{formData.spokeAPrivRtName}</span>
+          <span  >{formData.spokeAPrivRtName}</span>
         </div>
         <div className="popup-btn top1-btn-8" onClick={() => setPopups(prev => ({ ...prev, popup8: true }))}>
-          <span id="priv-rt-name-1">{formData.spokeBPrivRtName}</span>
+          <span  >{formData.spokeBPrivRtName}</span>
         </div>
         <div className="popup-btn top1-btn-9" onClick={() => setPopups(prev => ({ ...prev, popup9: true }))}>
-          <span id="priv-rt-name-1">{formData.drgRt1HubAttachment}</span>
+          <span  >{formData.internetGwRtName}</span>
         </div>
         <div className="popup-btn top1-btn-10" onClick={() => setPopups(prev => ({ ...prev, popup10: true }))}>
-          <span id="priv-rt-name-1">{formData.vcnRt2HubAttachment}</span>
+          <span  >{formData.natGwRtName}</span>
         </div>
         <div className="popup-btn top1-btn-11" onClick={() => setPopups(prev => ({ ...prev, popup11: true }))}>
-          <span id="priv-rt-name-1">{formData.vcnRiHubAttachment}</span>
+          <span  >{formData.serviceGwRtName}</span>
         </div>
         <div className="popup-btn top1-btn-12" onClick={() => setPopups(prev => ({ ...prev, popup12: true }))}>
-          <span id="priv-rt-name-1">{formData.drgRtSpokeAttachmentB}</span>
+          <span  >{formData.vcnRiHubAttachment}</span>
         </div>
         <div className="popup-btn top1-btn-13" onClick={() => setPopups(prev => ({ ...prev, popup13: true }))}>
-          <span id="priv-rt-name-1">{formData.internetGwRtName}</span>
+          <span  >{formData.drgRtSpokeAttachmentB}</span>
         </div>
         <div className="popup-btn top1-btn-14" onClick={() => setPopups(prev => ({ ...prev, popup14: true }))}>
-          <span id="priv-rt-name-1">{formData.natGwRtName}</span>
+          <span  >{formData.drgRt1HubAttachment}</span>
         </div>
         <div className="popup-btn top1-btn-15" onClick={() => setPopups(prev => ({ ...prev, popup15: true }))}>
-          <span id="priv-rt-name-1">{formData.serviceGwRtName}</span>
+          <span  >{formData.vcnRt2HubAttachment}</span>
+        </div>
+        <div className="popup-btn top1-btn-16" onClick={() => setPopups(prev => ({ ...prev, popup16: true }))}>
+          <span  >{formData.vcnRt2HubAttachment}</span>
         </div>
 
         {/* Network label groups */}
@@ -326,6 +330,7 @@ Create Routing Table Name: ${formData.publicRTName}
               popup13: true,
               popup14: true,
               popup15: true,
+              popup16: true,
               generateTF: true,
             })
           }>Open All</button>
@@ -617,7 +622,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup9" title={formData.drgRt1HubAttachment} isVisible={popups.popup9} onClose={() =>
+        <Popup id="popup9" title={formData.internetGwRtName} isVisible={popups.popup9} onClose={() =>
           setPopups(prev => ({ ...prev, popup9: false }))
         }>
           <table>
@@ -645,7 +650,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup10" title={formData.vcnRt2HubAttachment} isVisible={popups.popup10} onClose={() =>
+        <Popup id="popup10" title={formData.natGwRtName} isVisible={popups.popup10} onClose={() =>
           setPopups(prev => ({ ...prev, popup10: false }))
         }>
           <table>
@@ -673,7 +678,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup11" title={formData.vcnRiHubAttachment} isVisible={popups.popup11} onClose={() =>
+        <Popup id="popup11" title={formData.serviceGwRtName} isVisible={popups.popup11} onClose={() =>
           setPopups(prev => ({ ...prev, popup11: false }))
         }>
           <table>
@@ -701,7 +706,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup12" title={formData.drgRtSpokeAttachmentB} isVisible={popups.popup12} onClose={() =>
+        <Popup id="popup12" title={formData.vcnRiHubAttachment} isVisible={popups.popup12} onClose={() =>
           setPopups(prev => ({ ...prev, popup12: false }))
         }>
           <table>
@@ -729,7 +734,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup13" title={formData.internetGwRtName} isVisible={popups.popup13} onClose={() =>
+        <Popup id="popup13" title={formData.drgRtSpokeAttachmentB} isVisible={popups.popup13} onClose={() =>
           setPopups(prev => ({ ...prev, popup13: false }))
         }>
           <table>
@@ -757,7 +762,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup14" title={formData.natGwRtName} isVisible={popups.popup14} onClose={() =>
+        <Popup id="popup14" title={formData.drgRt1HubAttachment} isVisible={popups.popup14} onClose={() =>
           setPopups(prev => ({ ...prev, popup14: false }))
         }>
           <table>
@@ -785,8 +790,36 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup15" title={formData.serviceGwRtName} isVisible={popups.popup15} onClose={() =>
+        <Popup id="popup15" title={formData.vcnRt2HubAttachment} isVisible={popups.popup15} onClose={() =>
           setPopups(prev => ({ ...prev, popup15: false }))
+        }>
+          <table>
+            <thead>
+              <tr>
+                <th>Destination</th>
+                <th>Target Type</th>
+                <th>Target</th>
+                <th>Route Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>NAT Gateway</td>
+                <td>NGW</td>
+                <td>Static</td>
+              </tr>
+              <tr>
+                <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            </tbody>
+          </table>
+        </Popup>
+        <Popup id="popup16" title={formData.vcnRt2HubAttachment} isVisible={popups.popup16} onClose={() =>
+          setPopups(prev => ({ ...prev, popup16: false }))
         }>
           <table>
             <thead>
