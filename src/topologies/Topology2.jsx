@@ -16,7 +16,7 @@ const Topology2 = () => {
     spokeBName: '', spokeBCidr: '',
     spokeBPrivSubnetName: '', spokeBPrivSubnetCidr: '', spokeBPrivSlName: '', spokeBPrivRtName: '',
     internetGwRtName: '', natGwRtName: '', serviceGwRtName: '',
-    drgRt1HubAttachment: '', vcnRt2HubAttachment: '', vcnRiHubAttachment: '', drgRtSpokeAttachmentB: ''
+    drgRt1HubAttachment: '', vcnRt1HubAttachment:'', vcnRt2HubAttachment: '', vcnRiHubAttachment: '', drgRtSpokeAttachmentB: ''
   });
 
   // Preview data & popup state
@@ -54,7 +54,7 @@ const Topology2 = () => {
       spokeBName: 'SpokeB', spokeBCidr: '10.0.4.0/24',
       spokeBPrivSubnetName: 'VCN-B-Priv', spokeBPrivSubnetCidr: '10.0.4.0/24', spokeBPrivSlName: 'SpokeB-Priv-SL', spokeBPrivRtName: 'SpokeB-Priv-RT',
       internetGwRtName: 'IGW-RT', natGwRtName: 'NAT-RT', serviceGwRtName: 'SGW-RT',
-      drgRt1HubAttachment: 'DRG-Hub-RT1', vcnRt2HubAttachment: 'VCN-Hub-RT2', vcnRiHubAttachment: 'VCN-Hub-RI', drgRtSpokeAttachmentB: 'DRG-SpokeB-RT'
+      drgRt1HubAttachment: 'DRG-Hub-RI1', vcnRt1HubAttachment: "DRG-Hub-RT1", vcnRt2HubAttachment: 'VCN-Hub-RT1', drgRtSpokeAttachmentA: 'DRG-SpokeA-RT', drgRtSpokeAttachmentB: 'DRG-SpokeB-RT'
     });
   };
 
@@ -113,9 +113,10 @@ const Topology2 = () => {
       { key: 'serviceGwRtName', label: 'VCN Service GW Route Table', id: 'serviceGwRtName1', value: formData.serviceGwRtName }
     ],
     'DRG Attachments / Imports': [
-      { key: 'drgRt1HubAttachment', label: 'DRG RT1 Hub Attachment', id: 'drgRt1HubAttachment1', value: formData.drgRt1HubAttachment },
+      { key: 'drgRt1HubAttachment', label: 'DRG RI1 Hub Attachment', id: 'drgRt1HubAttachment1', value: formData.drgRt1HubAttachment },
+      { key: 'vcnRt1HubAttachment', label: 'DRG RT1 Hub Attachment', id: 'vcnRt1HubAttachment1', value: formData.vcnRt1HubAttachment },
       { key: 'vcnRt2HubAttachment', label: 'VCN RT2 Hub Attachment', id: 'vcnRt2HubAttachment1', value: formData.vcnRt2HubAttachment },
-      { key: 'vcnRiHubAttachment', label: 'VCN RI Hub Attachment', id: 'vcnRiHubAttachment1', value: formData.vcnRiHubAttachment },
+      { key: 'vcnRiHubAttachment', label: 'DRG RT Spoke A Attachment', id: 'vcnRiHubAttachment1', value: formData.drgRtSpokeAttachmentA },
       { key: 'drgRtSpokeAttachmentB', label: 'DRG RT Spoke B Attachment', id: 'drgRtSpokeAttachmentB1', value: formData.drgRtSpokeAttachmentB }
     ]
   };

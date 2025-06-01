@@ -161,10 +161,10 @@ Create Routing Table Name: ${formData.publicRTName}
           {"PRIV1"}
         </div>
         <div id="top2-priv-2" className="flow-label tp2-label-3">
-          {"PRIV3"}
+          {"PRIV2"}
         </div>
         <div id="top2-priv-3" className="flow-label tp2-label-4">
-          {"PRIV4"}
+          {"PRIV3"}
         </div>
         <div id="top2-inet-1" className="flow-label tp2-label-5">
           {"INET1"}
@@ -215,7 +215,7 @@ Create Routing Table Name: ${formData.publicRTName}
           <span  >{formData.serviceGwRtName}</span>
         </div>
         <div className="popup-btn top1-btn-12" onClick={() => setPopups(prev => ({ ...prev, popup12: true }))}>
-          <span  >{formData.vcnRiHubAttachment}</span>
+          <span  >{formData.drgRtSpokeAttachmentA}</span>
         </div>
         <div className="popup-btn top1-btn-13" onClick={() => setPopups(prev => ({ ...prev, popup13: true }))}>
           <span  >{formData.drgRtSpokeAttachmentB}</span>
@@ -224,7 +224,7 @@ Create Routing Table Name: ${formData.publicRTName}
           <span  >{formData.drgRt1HubAttachment}</span>
         </div>
         <div className="popup-btn top1-btn-15" onClick={() => setPopups(prev => ({ ...prev, popup15: true }))}>
-          <span  >{formData.vcnRt2HubAttachment}</span>
+          <span  >{formData.vcnRt1HubAttachment}</span>
         </div>
         <div className="popup-btn top1-btn-16" onClick={() => setPopups(prev => ({ ...prev, popup16: true }))}>
           <span  >{formData.vcnRt2HubAttachment}</span>
