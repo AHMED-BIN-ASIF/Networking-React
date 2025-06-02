@@ -188,6 +188,23 @@
     justify-content: center;
     text-align: center;
   }
+  
+  .flow-label-fw1 {
+    position: absolute;
+    border-radius: 4px;
+    color: #b00013;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: bold;
+  }
+  .flow-label-fw1.tp2-label-7-1 {
+    top: 19%;
+    left: 24%;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    text-align: center;
+  }
 .diagram-btm {
     display: flex;
     align-items: start;

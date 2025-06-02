@@ -155,10 +155,10 @@ Create Routing Table Name: ${formData.publicRTName}
         <img src={Topo2} alt="topo2" />
         {/* Fixed endpoint elements with specific IDs */}
         <div id="top2-pub-1" className="flow-label tp2-label-1">
-          {"PUB1"}
+          {"PRIV1"}
         </div>
         <div id="top2-priv-1" className="flow-label tp2-label-2">
-          {"PRIV1"}
+          {"PUB1"}
         </div>
         <div id="top2-priv-2" className="flow-label tp2-label-3">
           {"PRIV2"}
@@ -172,9 +172,13 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top2-db-1" className="flow-label tp2-label-6">
           {"DB1"}
         </div>
-        <div id="top2-fw-1" className="flow-label tp2-label-7">
-          {"FW1"}
-          <span>{formData.firewallIp}</span>
+        <div id="top2-fw-1" >
+          <div className="flow-label tp2-label-7" >
+            {"FW1"}
+          </div>
+          <span className=' flow-label-fw1 tp2-label-7-1'>Firewall IP</span>
+
+        
         </div>
         <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
         <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
