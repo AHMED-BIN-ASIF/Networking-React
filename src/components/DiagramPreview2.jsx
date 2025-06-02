@@ -706,7 +706,7 @@ Create Routing Table Name: ${formData.publicRTName}
             </tbody>
           </table>
         </Popup>
-        <Popup id="popup12" title={formData.vcnRiHubAttachment} isVisible={popups.popup12} onClose={() =>
+        <Popup id="popup12" title={formData.drgRtSpokeAttachmentA} isVisible={popups.popup12} onClose={() =>
           setPopups(prev => ({ ...prev, popup12: false }))
         }>
           <table>
