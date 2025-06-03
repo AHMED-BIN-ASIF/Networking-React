@@ -176,9 +176,7 @@ Create Routing Table Name: ${formData.publicRTName}
           <div className="flow-label tp2-label-7" >
             {"FW1"}
           </div>
-          <span className=' flow-label-fw1 tp2-label-7-1'>Firewall IP</span>
-
-        
+          <span className=' flow-label-fw1 tp2-label-7-1'>{formData.firewallIp}</span>
         </div>
         <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
         <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
