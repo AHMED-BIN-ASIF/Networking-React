@@ -252,6 +252,10 @@
   right: 40.8%;
   top: 27%;
 }
+.gateway.tp2-gtw-4 {
+  right: 32%;
+  top: 52.5%;
+}
 @media screen and (max-width:1440px) {
     .popup-btn.top1-btn-1 {
         top: 23%;
