@@ -9,6 +9,7 @@ const connectionMap = {
     ['top2-pub-1', 'top2-gateway-3'],
     ['top2-priv-1', 'top2-gateway-3'],
     ['top2-priv-2', 'top2-gateway-3'],
+    ['top2-priv-3', 'top2-gateway-3'],
     ['top2-gateway-3', 'top2-db-1', { path: 'straight' }]
   ],
   'chk-pub-inet': [
@@ -18,11 +19,14 @@ const connectionMap = {
   'chk-priv-inet': [
     ['top2-priv-1', 'top2-gateway-2'],
     ['top2-priv-2', 'top2-gateway-2', { path: 'straight'}],
+    ['top2-priv-3', 'top2-gateway-2', { path: 'straight'}],
     ['top2-gateway-2', 'top2-inet-1', { path: 'straight'}]
   ],
   'chk-pub-priv-bidirectional': [
-    ['top2-pub-1', 'top2-priv-1', { path: 'straight', startPlug: 'arrow1', endPlug: 'arrow' }],
-    ['top2-pub-1', 'top2-priv-2', { path: 'arc', startPlug: 'arrow1', endPlug: 'arrow' }]
+    ['top2-pub-1', 'top2-fw-1', { path: 'straight'}],
+    ['top2-fw-1', 'top2-priv-1', { path: 'straight'}],
+    ['top2-fw-1', 'top2-priv-2' ],
+    ['top2-fw-1', 'top2-priv-3', { path: 'straight'}]
   ],
   'chk-priv-db': [
     ['top2-priv-1', 'top2-gateway-3'],
@@ -195,8 +199,8 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top2-db-1" className="flow-label tp2-label-6">
           {"DB1"}
         </div>
-        <div id="top2-fw-1" >
-          <div className="flow-label tp2-label-7" >
+        <div >
+          <div id="top2-fw-1" className="flow-label tp2-label-7" >
             {"FW1"}
           </div>
           <span className=' flow-label-fw1 tp2-label-7-1'>{formData.firewallIp}</span>
@@ -383,7 +387,7 @@ Create Routing Table Name: ${formData.publicRTName}
               className="flow-checkbox"
               checked={flowCheckboxes['chk-pub-priv-db']}
               onChange={handleFlowCheckboxChange}
-            /> Flow from PUB1/PRIV1/PRIV2 → DB1
+            /> Flow from PUB1/PRIV1/PRIV2/PRIV3 → DB1
           </label>
 
           <label>
@@ -403,7 +407,7 @@ Create Routing Table Name: ${formData.publicRTName}
               className="flow-checkbox"
               checked={flowCheckboxes['chk-priv-inet']}
               onChange={handleFlowCheckboxChange}
-            /> Flow from PRIV1/PRIV2 → INET1
+            /> Flow from PRIV1/PRIV2/PRIV3 → INET1
           </label>
 
           <label>
@@ -413,7 +417,7 @@ Create Routing Table Name: ${formData.publicRTName}
               className="flow-checkbox"
               checked={flowCheckboxes['chk-pub-priv-bidirectional']}
               onChange={handleFlowCheckboxChange}
-            /> Flow from PUB1 ↔ PRIV1/PRIV2
+            /> Flow from PUB1 ↔ PRIV1/PRIV2/PRIV3
           </label>
 
           <label>
