@@ -5,22 +5,43 @@ import Popup from "./Popup ";
 
 // Flow lines configuration as provided
 const connectionMap = {
+  'chk-priv-inet': [
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight'}],
+    ['top2-priv-2', 'top2-fw-1', ],
+    ['top2-priv-3', 'top2-fw-1', ],
+    ['top2-fw-1', 'top2-gateway-2', { path: 'arc'}],
+    ['top2-gateway-2', 'top2-inet-1', { path: 'straight'}],
+  ],
+  'chk-pub-inet': [
+    ['top2-inet-1', 'top2-gateway-1'],
+    ['top2-gateway-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
+  ],
+  'chk-priv1-pub': [
+    ['top2-priv-1', 'top2-pub-1',  { path: 'straight'}],
+  ],
+  'chk-pub-priv1': [
+    ['top2-pub-1', 'top2-priv-1',  { path: 'straight'}]
+  ],
   'chk-priv-pub': [
-    ['top2-priv-1', 'top2-pub-1',  { path: 'straight', startPlug: 'arrow1', endPlug: 'arrow' }],
-    ['top2-priv-2', 'top2-pub-1', { path: 'straight' }],
-    ['top2-priv-3', 'top2-pub-1', { path: 'arc' }]
-  ],
-  'chk-priv-priv': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight', startPlug: 'arrow1', endPlug: 'arrow' }],
-    ['top2-priv-3', 'top2-fw-1', ]
-  ],
-  'chk-pub-priv-bidirectional': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
     ['top2-priv-2', 'top2-fw-1', { path: 'straight'}],
-    ['top2-priv-3', 'top2-fw-1', { startPlug: 'arrow1', endPlug: 'arrow' }],
+    ['top2-priv-3', 'top2-fw-1',  { path: 'straight'}],
+    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
+  ],
+  'chk-pub-priv2/3': [
+    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-3', { path: 'straight'}],
+  ],
+  'chk-priv1-priv2/3': [
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-3', { path: 'straight'}],
+  ],
+  'chk-priv2/3-priv1': [
+    ['top2-priv-2', 'top2-fw-1', { path: 'straight'}],
+    ['top2-priv-3', 'top2-fw-1',  { path: 'straight'}],
+    ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
   ],
   'chk-pub-priv-db': [
     ['top2-pub-1', 'top2-gateway-3'],
@@ -28,18 +49,6 @@ const connectionMap = {
     ['top2-priv-2', 'top2-gateway-3'],
     ['top2-priv-3', 'top2-gateway-3'],
     ['top2-gateway-3', 'top2-db-1', { path: 'straight' }]
-  ],
-  'chk-pub-inet': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-1', { path: 'arc' }],
-    ['top2-gateway-1', 'top2-inet-1']
-  ],
-  'chk-priv-inet': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight'}],
-    ['top2-priv-2', 'top2-fw-1', ],
-    ['top2-priv-3', 'top2-fw-1', ],
-    ['top2-fw-1', 'top2-gateway-2', { path: 'arc'}],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight'}],
   ],
   'chk-priv-db': [
     ['top2-priv-1', 'top2-gateway-3'],
@@ -56,7 +65,8 @@ const endpointIds = [
   "top2-priv-3",
   "top2-db-1",
   "top2-inet-1",
-  "top2-fw-1",
+  // "top2-fw-1",
+  "fw1-grp"
 ];
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) =>
@@ -203,7 +213,8 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top2-db-1" className="flow-label tp2-label-6">
           {"DB1"}
         </div>
-        <div >
+        
+        <div id="fw1-grp">
           <div id="top2-fw-1" className="flow-label tp2-label-7" >
             {"FW1"}
           </div>
@@ -386,29 +397,74 @@ Create Routing Table Name: ${formData.publicRTName}
           <label>
             <input
               type="checkbox"
-              id="chk-priv-pub"
+              id="chk-priv-inet"
               className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv-pub']}
+              checked={flowCheckboxes['chk-priv-inet']}
               onChange={handleFlowCheckboxChange}
-            /> Flow from PRIV1/PRIV2/PRIV3 → PUB1
-          </label>
-           <label>
-            <input
-              type="checkbox"
-              id="chk-priv-priv"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv-priv']}
-              onChange={handleFlowCheckboxChange}
-            /> Flow from PUB1/PRIV1/PRIV2/PRIV3 → FW1 → PRIV2
+            /> PRIV1/PRIV2/PRIV3 → INET1
           </label>
           <label>
             <input
               type="checkbox"
-              id="chk-pub-priv-bidirectional"
+              id="chk-pub-inet"
               className="flow-checkbox"
-              checked={flowCheckboxes['chk-pub-priv-bidirectional']}
+              checked={flowCheckboxes['chk-pub-inet']}
               onChange={handleFlowCheckboxChange}
-            /> Flow from PUB1/PRIV1/PRIV2/PRIV3 → FW1 → PRIV3
+            />INET1 → PUB1
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              id="chk-priv1-pub"
+              className="flow-checkbox"
+              checked={flowCheckboxes['chk-priv1-pub']}
+              onChange={handleFlowCheckboxChange}
+            />PRIV1 → PUB1
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              id="chk-pub-priv1"
+              className="flow-checkbox"
+              checked={flowCheckboxes['chk-pub-priv1']}
+              onChange={handleFlowCheckboxChange}
+            />PUB1 → PRIV1
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              id="chk-priv-pub"
+              className="flow-checkbox"
+              checked={flowCheckboxes['chk-priv-pub']}
+              onChange={handleFlowCheckboxChange}
+            /> PRIV2/PRIV3 → PUB1
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              id="chk-pub-priv2/3"
+              className="flow-checkbox"
+              checked={flowCheckboxes['chk-pub-priv2/3']}
+              onChange={handleFlowCheckboxChange}
+            />PUB1 → PRIV2/PRIV3
+          </label>
+           <label>
+            <input
+              type="checkbox"
+              id="chk-priv1-priv2/3"
+              className="flow-checkbox"
+              checked={flowCheckboxes['chk-priv1-priv2/3']}
+              onChange={handleFlowCheckboxChange}
+            />PRIV1 → PRIV2/PRIV3
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              id="chk-priv2/3-priv1"
+              className="flow-checkbox"
+              checked={flowCheckboxes['chk-priv2/3-priv1']}
+              onChange={handleFlowCheckboxChange}
+            /> PRIV2/PRIV3 → PRIV1
           </label>
           <label>
             <input
@@ -417,28 +473,10 @@ Create Routing Table Name: ${formData.publicRTName}
               className="flow-checkbox"
               checked={flowCheckboxes['chk-pub-priv-db']}
               onChange={handleFlowCheckboxChange}
-            /> Flow from PUB1/PRIV1/PRIV2/PRIV3 → DB1
+            />PUB1/PRIV1/2/3 → DB1
           </label>
 
-          <label>
-            <input
-              type="checkbox"
-              id="chk-pub-inet"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-pub-inet']}
-              onChange={handleFlowCheckboxChange}
-            /> Flow from PUB1 → FW1 → INET1
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              id="chk-priv-inet"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv-inet']}
-              onChange={handleFlowCheckboxChange}
-            /> Flow from PRIV1/PRIV2/PRIV3 → FW1 → INET1
-          </label>
+          
           {/* <label>
             <input
               type="checkbox"
