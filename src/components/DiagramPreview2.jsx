@@ -213,18 +213,18 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top2-db-1" className="flow-label tp2-label-6">
           {"DB1"}
         </div>
-        {flowCheckboxes['chk-show-endpoints'] && 
+        {/* {flowCheckboxes['chk-show-endpoints'] && 
           (flowCheckboxes['chk-priv-inet'] || 
             flowCheckboxes['chk-pub-inet'] || 
             flowCheckboxes['chk-priv-pub'] || 
             flowCheckboxes['chk-pub-priv2/3'] || 
             flowCheckboxes['chk-priv1-priv2/3'] || 
-            flowCheckboxes['chk-priv2/3-priv1']) &&
+            flowCheckboxes['chk-priv2/3-priv1']) && */}
           <div id="fw1-grp">
             <div id="top2-fw-1" className="flow-label tp2-label-7">{"FW1"}</div>
             <span className='flow-label-fw1 tp2-label-7-1'>{formData.firewallIp}</span>
           </div>
-        }
+        {/* } */}
         <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
         <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
         <div id="top2-gateway-3" className="gateway tp2-gtw-3"></div>
