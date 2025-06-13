@@ -8,7 +8,7 @@ import DiagramPreview2 from '../components/DiagramPreview2';
 const Topology2 = () => {
   // Form data state for Hub & Spoke topology
   const [formData, setFormData] = useState({
-    hubVcnName: '', hubVcnCidr: '', hubFwIp: '',
+    hubVcnName: '', hubVcnCidr: '',
     hubPrivSubnetName: '', hubPrivSubnetCidr: '', hubPrivSlName: '', hubPrivRtName: '', firewallIp: '',
     hubPubSubnetName: '', hubPubSubnetCidr: '', hubPubSlName: '', hubPubRtName: '',
     spokeAName: '', spokeACidr: '',
@@ -46,8 +46,8 @@ const Topology2 = () => {
 
   const handlePopulateFields = () => {
     setFormData({
-      hubVcnName: 'MyHubVCN', hubVcnCidr: '10.0.0.0/16', hubFwIp: '10.0.0.10',
-      hubPrivSubnetName: 'Hub-Priv', hubPrivSubnetCidr: '10.0.1.0/24', hubPrivSlName: 'Hub-Priv-SL', hubPrivRtName: 'Hub-Priv-RT', firewallIp: '10.1.100',
+      hubVcnName: 'MyHubVCN', hubVcnCidr: '10.0.0.0/16',
+      hubPrivSubnetName: 'Hub-Priv', hubPrivSubnetCidr: '10.0.1.0/24', hubPrivSlName: 'Hub-Priv-SL', hubPrivRtName: 'Hub-Priv-RT', firewallIp: '10.0.1.100',
       hubPubSubnetName: 'Hub-Pub', hubPubSubnetCidr: '10.0.2.0/24', hubPubSlName: 'Hub-Pub-SL', hubPubRtName: 'Hub-Pub-RT',
       spokeAName: 'SpokeA', spokeACidr: '10.0.3.0/24',
       spokeAPrivSubnetName: 'VCN-A-Priv', spokeAPrivSubnetCidr: '10.0.3.0/24', spokeAPrivSlName: 'SpokeA-Priv-SL', spokeAPrivRtName: 'SpokeA-Priv-RT',
@@ -68,7 +68,6 @@ const Topology2 = () => {
     'Hub VCN': [
       { key: 'hubVcnName', label: 'VCN Name', id: 'hubVcnName1', value: formData.hubVcnName, required: true },
       { key: 'hubVcnCidr', label: 'VCN CIDR', id: 'hubVcnCidr1', value: formData.hubVcnCidr, required: true },
-      { key: 'hubFwIp', label: 'Firewall IP', id: 'hubFwIp1', value: formData.hubFwIp }
     ],
     'Hub Private Subnet': [
       { key: 'hubPrivSubnetName', label: 'Subnet Name', id: 'hubPrivSubnetName1', value: formData.hubPrivSubnetName, required: true },
