@@ -46,15 +46,15 @@ const Topology2 = () => {
 
   const handlePopulateFields = () => {
     setFormData({
-      hubVcnName: 'MyHubVCN', hubVcnCidr: '10.0.0.0/16',
-      hubPrivSubnetName: 'Hub-Priv', hubPrivSubnetCidr: '10.0.1.0/24', hubPrivSlName: 'Hub-Priv-SL', hubPrivRtName: 'Hub-Priv-RT', firewallIp: '10.0.1.100',
-      hubPubSubnetName: 'Hub-Pub', hubPubSubnetCidr: '10.0.2.0/24', hubPubSlName: 'Hub-Pub-SL', hubPubRtName: 'Hub-Pub-RT',
-      spokeAName: 'SpokeA', spokeACidr: '10.0.3.0/24',
-      spokeAPrivSubnetName: 'VCN-A-Priv', spokeAPrivSubnetCidr: '10.0.3.0/24', spokeAPrivSlName: 'SpokeA-Priv-SL', spokeAPrivRtName: 'SpokeA-Priv-RT',
-      spokeBName: 'SpokeB', spokeBCidr: '10.0.4.0/24',
-      spokeBPrivSubnetName: 'VCN-B-Priv', spokeBPrivSubnetCidr: '10.0.4.0/24', spokeBPrivSlName: 'SpokeB-Priv-SL', spokeBPrivRtName: 'SpokeB-Priv-RT',
-      internetGwRtName: 'IGW-RT', natGwRtName: 'NAT-RT', serviceGwRtName: 'SGW-RT',
-      drgRt1HubAttachment: 'DRG-Hub-RI1', vcnRt1HubAttachment: "DRG-Hub-RT1", vcnRt2HubAttachment: 'VCN-Hub-RT1', drgRtSpokeAttachmentA: 'DRG-SpokeA-RT', drgRtSpokeAttachmentB: 'DRG-SpokeB-RT'
+      hubVcnName: 'VCN-Hub', hubVcnCidr: '192.168.0.0/24',
+      hubPrivSubnetName: 'Sub-Hub-Priv', hubPrivSubnetCidr: '192.168.0.0/25', hubPrivSlName: 'Sl-Hub-Priv', hubPrivRtName: 'RT-Hub-Priv', firewallIp: '192.168.0.100',
+      hubPubSubnetName: 'Sub-Hub-Pub', hubPubSubnetCidr: '192.168.0.123/25', hubPubSlName: 'SL-Hub-Pub', hubPubRtName: 'RT-Hub-Pub',
+      spokeAName: 'VCN-Spoke-A', spokeACidr: '172.16.1.0/24',
+      spokeAPrivSubnetName: 'Sub-Spoke-A-Priv', spokeAPrivSubnetCidr: '172.16.1.0/25', spokeAPrivSlName: 'SL-Spoke-A-Priv', spokeAPrivRtName: 'RT-Spoke-A-Priv',
+      spokeBName: 'VCN-Spoke-B', spokeBCidr: '172.16.2.0/24',
+      spokeBPrivSubnetName: 'Sub-Spoke-B-Priv', spokeBPrivSubnetCidr: '172.16.2.0/25', spokeBPrivSlName: 'SL-Spoke-B-Priv', spokeBPrivRtName: 'RT-Spoke-B-Priv',
+      internetGwRtName: 'RT-IGW', natGwRtName: 'RT-NGW', serviceGwRtName: 'RT-SGW',
+      drgRt1HubAttachment: 'RT-DRG-Hub-ATT', vcnRt1HubAttachment: "RT-DRG-Hub-Att", vcnRt2HubAttachment: 'RT-VCN-Hub-Att', drgRtSpokeAttachmentA: 'RT-DRG-Spoke-A-ATT', drgRtSpokeAttachmentB: 'RT-DRG-Spoke-B-ATT'
     });
   };
 
