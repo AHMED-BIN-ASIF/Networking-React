@@ -124,23 +124,26 @@
     right: 42%;
   }
   .popup-btn.top1-btn-12 {
-    top: 63.5%;
+    bottom: 29.5%;
     right: 35%;
   }
   .popup-btn.top1-btn-13 {
-    top: 63.5%;
-    right: 26%;
+    bottom: 29.5%;
+    right: 25.5%;
+    justify-content: left;
   }
   .popup-btn.top1-btn-14 {
-    top: 36%;
+    top: 35%;
     right: 26.5%;
+    align-items: start;
   }
   .popup-btn.top1-btn-15 {
-    top: 43.3%;
-    right: 24%;
+    top: 43.7%;
+    right: 23.5%;
+    justify-content: left;
   }
   .popup-btn.top1-btn-16 {
-    top: 49%;
+    top: 50%;
     right: 24%;
   }
   /* flow label  */
