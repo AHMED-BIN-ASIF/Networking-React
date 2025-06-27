@@ -9,7 +9,7 @@ const connectionMap = {
     ['top1-pub-1', 'top1-gateway-3'],
     ['top1-priv-1', 'top1-gateway-3'],
     ['top1-priv-2', 'top1-gateway-3'],
-    ['top1-gateway-3', 'top1-db-1',{ path: 'straight'}]
+    ['top1-gateway-3', 'top1-sb-1',{ path: 'straight'}]
   ],
   'chk-pub-inet': [
     ['top1-pub-1', 'top1-gateway-1'],
@@ -26,7 +26,7 @@ const connectionMap = {
   ]
 };
 
-const endpointIds = ['top1-pub-1', 'top1-priv-1', 'top1-priv-2', 'top1-db-1', 'top1-inet-1'];
+const endpointIds = ['top1-pub-1', 'top1-priv-1', 'top1-priv-2', 'top1-sb-1', 'top1-inet-1'];
 
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) => 
@@ -166,8 +166,8 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top1-inet-1" className="flow-label label-4">
           {"INET1"}
         </div>
-        <div id="top1-db-1" className="flow-label label-5">
-          {"DB1"}
+        <div id="top1-sb-1" className="flow-label label-5">
+          {"SB1"}
         </div>
         <div id="top1-gateway-1" className="gateway gtw-1"></div>
         <div id="top1-gateway-2" className="gateway gtw-2"></div>
