@@ -154,7 +154,91 @@ const Topology2 = () => {
       spanClass: "3"
     },
   ];
-
+  const flowConfigGrouped = [
+    [{ id: 'chk-show-endpoints', label: 'Show Endpoints' }],
+    // Group 1: PRIV1 <-> PUB1 (THROUGH FW1)
+    [
+      { id: 'chk-priv1-pub', label: 'PRIV1 → PUB1 (THROUGH FW1)' },
+      { id: 'chk-pub1-priv1', label: 'PUB1 → PRIV1 (THROUGH FW1)' },
+    ],
+    // Group 2: INET1 <-> PUB1
+    [
+      { id: 'chk-inet1-pub1', label: 'INET1 → PUB1' },
+      { id: 'chk-pub1-inet1', label: 'PUB1 → INET1' },
+    ],
+    // Group 3: FW1 INET1 + PRIV1 FW1 + FW1 PUB1
+    [
+      { id: 'chk-fw1-inet1', label: 'FW1 → INET1' },
+    ],
+    // Group 4: FW1 INET1 + PRIV1 FW1 + FW1 PUB1
+    [
+      { id: 'chk-pub1-fw1', label: 'PUB1 → FW1' },
+      { id: 'chk-fw1-pub1', label: 'FW1 → PUB1' },
+    ],
+    // Group 5: FW1 INET1 + PRIV1 FW1 + FW1 PUB1
+    [
+      { id: 'chk-priv1-inet1-bypass-fw', label: 'PRIV1 → INET1 (Bypass FW)' },
+    ],
+    // Group 6: PRIV1 → INET1 (normal and through FW)
+    [
+      { id: 'chk-priv1-inet1-fw', label: 'PRIV1 → INET1 (Through FW)' }
+    ],
+    // Group 7: PRIV1 → INET1 (normal and through FW)
+    [
+      { id: 'chk-pub1-priv1', label: 'PUB1 → PRIV1' },
+      { id: 'chk-priv1-pub1', label: 'PRIV1 → PUB1' },
+    ],
+    // Group 8: PUB1 <-> PRIV2
+    [
+      { id: 'chk-pub1-priv2', label: 'PUB1 → PRIV2' },
+      { id: 'chk-priv2-pub1', label: 'PRIV2 → PUB1' },
+    ],
+    // Group 9: PRIV2 <-> INET1
+    [
+      { id: 'chk-priv2-inet1', label: 'PRIV2 → INET1' },
+    ],
+    // Group 10: PRIV1 <-> PRIV2
+    [
+      { id: 'chk-priv1-priv2', label: 'PRIV1 → PRIV2' },
+      { id: 'chk-priv2-priv1', label: 'PRIV2 → PRIV1' },
+    ],
+    // Group 11: PRIV3 <-> PUB1 & INET1
+    [
+      { id: 'chk-pub1-priv3', label: 'PUB1 → PRIV3' },
+      { id: 'chk-priv3-pub1', label: 'PRIV3 → PUB1' },
+    ],
+    // Group 12: PRIV3 <-> INET1
+    [
+      { id: 'chk-priv3-inet1', label: 'PRIV3 → INET1' },
+    ],
+    // Group 13: PRIV1 <-> PRIV3
+    [
+      { id: 'chk-priv1-priv3', label: 'PRIV1 → PRIV3' },
+      { id: 'chk-priv3-priv1', label: 'PRIV3 → PRIV1' },
+    ],
+    // Group 14: PRIV2 <-> PRIV3
+    [
+      { id: 'chk-priv2-priv3', label: 'PRIV2 → PRIV3' },
+      { id: 'chk-priv3-priv2', label: 'PRIV3 → PRIV2' },
+    ],
+    // Group 15: SBI Access
+    [
+      { id: 'chk-priv1-sbi', label: 'PRIV1 → SBI' },
+    ],
+    // Group 16: SBI Access
+    [
+      { id: 'chk-priv2-sbi', label: 'PRIV2 → SBI' },
+    ],
+    // Group 16: SBI Access
+    [
+      { id: 'chk-priv3-sbi', label: 'PRIV3 → SBI' },
+    ],
+    // Group 16: SBI Access
+    [
+      { id: 'chk-pub1-sbi', label: 'PUB1 → SBI' },
+    ]
+  ];
+  
   return (
     <main>
       <Header title="Topology 2 - Hub & Spokes" />
@@ -177,6 +261,7 @@ const Topology2 = () => {
                 flowCheckboxes={flowCheckboxes}
                 setFlowCheckboxes={setFlowCheckboxes}
                 popupwrap={popupwrap}
+                flowConfigGrouped={flowConfigGrouped}
               />
             </div>
           )}

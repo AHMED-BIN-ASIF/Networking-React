@@ -2,68 +2,156 @@ import React, { useEffect, useRef } from "react";
 import Topo2 from "../assets/images/topo-2.jpg";
 import "../css/DiagramPreview2.css";
 import Popup from "./Popup ";
+import FlowCheckbox from "./FlowCheckbox";
 
 // Flow lines configuration as provided
 const connectionMap = {
-  'chk-priv-inet': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight'}],
-    ['top2-priv-2', 'top2-fw-1', ],
-    ['top2-priv-3', 'top2-fw-1', ],
-    ['top2-fw-1', 'top2-gateway-2', { path: 'arc'}],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight'}],
-  ],
-  'chk-pub-inet': [
-    ['top2-inet-1', 'top2-gateway-1'],
-    ['top2-gateway-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
-  ],
+  // Group 1
   'chk-priv1-pub': [
-    ['top2-priv-1', 'top2-pub-1',  { path: 'straight'}],
-  ],
-  'chk-pub-priv1': [
-    ['top2-pub-1', 'top2-priv-1',  { path: 'straight'}]
-  ],
-  'chk-priv-pub': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight'}],
-    ['top2-priv-3', 'top2-fw-1',  { path: 'straight'}],
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
     ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
   ],
-  'chk-pub-priv2/3': [
+  'chk-pub1-priv1': [
     ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-3', { path: 'straight'}],
-  ],
-  'chk-priv1-priv2/3': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-3', { path: 'straight'}],
-  ],
-  'chk-priv2/3-priv1': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight'}],
-    ['top2-priv-3', 'top2-fw-1',  { path: 'straight'}],
     ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
   ],
-  'chk-pub-priv-db': [
-    ['top2-pub-1', 'top2-gateway-3'],
-    ['top2-priv-1', 'top2-gateway-3'],
-    ['top2-priv-2', 'top2-gateway-3'],
-    ['top2-priv-3', 'top2-gateway-3'],
-    ['top2-gateway-3', 'top2-db-1', { path: 'straight' }]
+
+  // Group 2
+  'chk-inet1-pub1': [
+    ['top2-inet-1', 'top2-gateway-1', { path: 'straight' }],
+    ['top2-gateway-1', 'top2-pub-1', { path: 'straight' }],
   ],
-  'chk-priv-db': [
-    ['top2-priv-1', 'top2-gateway-3'],
-    ['top2-priv-2', 'top2-gateway-3'],
-    ['top2-priv-3', 'top2-gateway-3'],
-    ['top2-gateway-3', 'top2-db-1', { path: 'straight' }]
+  'chk-pub1-inet1': [
+    ['top2-pub-1', 'top2-gateway-1', { path: 'straight' }],
+    ['top2-gateway-1', 'top2-inet-1', { path: 'straight' }],
+  ],
+
+  // Group 3
+  'chk-fw1-inet1': [
+    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
+    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  ],
+
+  // Group 4
+  'chk-pub1-fw1': [['top2-pub-1', 'top2-fw-1', { path: 'straight' }]],
+  'chk-fw1-pub1': [['top2-fw-1', 'top2-pub-1', { path: 'straight' }]],
+
+  // Group 5
+  'chk-priv1-inet1-bypass-fw': [
+    ['top2-priv-1', 'top2-gateway-2', { path: 'straight' }],
+    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  ],
+
+  // Group 6
+  'chk-priv1-inet1-fw': [
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
+    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  ],
+
+  // Group 7
+  'chk-pub1-priv1': [['top2-pub-1', 'top2-priv-1', { path: 'straight' }]],
+  'chk-priv1-pub1': [['top2-priv-1', 'top2-pub-1', { path: 'straight' }]],
+
+  // Group 8
+  'chk-pub1-priv2': [
+    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+  ],
+  'chk-priv2-pub1': [
+    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }]
+  ],
+
+  // Group 9
+  'chk-priv2-inet1': [
+    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
+    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  ],
+
+  // Group 10
+  'chk-priv1-priv2': [
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+  ],
+  'chk-priv2-priv1': [
+    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
+  ],
+
+  // Group 11
+  'chk-pub1-priv3': [
+    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-3', { path: 'straight' }],
+  ],
+  'chk-priv3-pub1': [
+    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
+  ],
+
+  // Group 12
+  'chk-priv3-inet1': [
+    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
+    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  ],
+
+  // Group 13
+  'chk-priv1-priv3': [
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-3', { path: 'straight' }],
+  ],
+  'chk-priv3-priv1': [
+    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
+  ],
+
+  // Group 14
+  'chk-priv2-priv3': [
+    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-3', { path: 'straight' }],
+  ],
+  'chk-priv3-priv2': [
+    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+  ],
+
+  // Group 15 (SBI)
+  'chk-priv1-sbi': [
+    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
+    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
   ],
   
+  // Group 16 (SBI)
+  'chk-priv2-sbi': [
+    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
+    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  ],
+  // Group 17 (SBI)
+
+  'chk-priv3-sbi': [
+    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
+    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  ],
+  // Group 18 (SBI)
+
+  'chk-pub1-sbi': [
+    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
+    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
+    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  ],
 };
+
 const endpointIds = [
   "top2-pub-1",
   "top2-priv-1",
   "top2-priv-2",
   "top2-priv-3",
-  "top2-db-1",
+  "top2-sbi",
   "top2-inet-1",
   // "top2-fw-1",
   "fw1-grp"
@@ -90,6 +178,7 @@ const DiagramPreview2 = ({
   flowCheckboxes,
   setFlowCheckboxes,
   popupwrap,
+  flowConfigGrouped,
 }) => {
   const linesRef = useRef({});
   // Function to update LeaderLine instances based on the checked flow checkboxes.
@@ -188,7 +277,6 @@ Create Routing Table Name: ${formData.publicRTName}
     a.click();
     URL.revokeObjectURL(url);
   };
-
   return (
     <div className="diagram-topology-two">
       <h3>Topology 2</h3>
@@ -210,8 +298,8 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top2-inet-1" className="flow-label tp2-label-5">
           {"INET1"}
         </div>
-        <div id="top2-db-1" className="flow-label tp2-label-6">
-          {"DB1"}
+        <div id="top2-sbi" className="flow-label tp2-label-6">
+          {"SB1"}
         </div>
         {/* {flowCheckboxes['chk-show-endpoints'] && 
           (flowCheckboxes['chk-priv-inet'] || 
@@ -389,108 +477,20 @@ Create Routing Table Name: ${formData.publicRTName}
 
       <div className="diagram-btm">
         {/* Flow Checkboxes */}
-        <div className="form-checkouts">
-          <label>
-            <input
-              type="checkbox"
-              id="chk-show-endpoints"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-show-endpoints']}
-              onChange={handleFlowCheckboxChange}
-            /> Show Endpoints
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-priv-inet"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv-inet']}
-              onChange={handleFlowCheckboxChange}
-            /> PRIV1/PRIV2/PRIV3 → INET1
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-pub-inet"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-pub-inet']}
-              onChange={handleFlowCheckboxChange}
-            />INET1 → PUB1
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-priv1-pub"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv1-pub']}
-              onChange={handleFlowCheckboxChange}
-            />PRIV1 → PUB1
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-pub-priv1"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-pub-priv1']}
-              onChange={handleFlowCheckboxChange}
-            />PUB1 → PRIV1
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-priv-pub"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv-pub']}
-              onChange={handleFlowCheckboxChange}
-            /> PRIV2/PRIV3 → PUB1
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-pub-priv2/3"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-pub-priv2/3']}
-              onChange={handleFlowCheckboxChange}
-            />PUB1 → PRIV2/PRIV3
-          </label>
-           <label>
-            <input
-              type="checkbox"
-              id="chk-priv1-priv2/3"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv1-priv2/3']}
-              onChange={handleFlowCheckboxChange}
-            />PRIV1 → PRIV2/PRIV3
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-priv2/3-priv1"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv2/3-priv1']}
-              onChange={handleFlowCheckboxChange}
-            /> PRIV2/PRIV3 → PRIV1
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              id="chk-pub-priv-db"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-pub-priv-db']}
-              onChange={handleFlowCheckboxChange}
-            />PUB1/PRIV1/2/3 → DB1
-          </label>
-
-          
-          {/* <label>
-            <input
-              type="checkbox"
-              id="chk-priv-db"
-              className="flow-checkbox"
-              checked={flowCheckboxes['chk-priv-db']}
-              onChange={handleFlowCheckboxChange}
-            /> Flow from PRIV1/PRIV2/PRIV3 → DB1
-          </label> */}
+        <div className="form-checkouts column">
+          {flowConfigGrouped.map((group, groupIndex) => (
+            <div className="flow-checkbox-group" key={`group-${groupIndex}`}>
+              {group.map(({ id, label }) => (
+                <FlowCheckbox
+                  key={id}
+                  id={id}
+                  label={label}
+                  checked={flowCheckboxes[id] ?? false}
+                  onChange={handleFlowCheckboxChange}
+                />
+              ))}
+            </div>
+          ))}
         </div>
         <div className="generate-btn">
           <div>
@@ -764,19 +764,26 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes['chk-inet1-pub1'] || flowCheckboxes['chk-pub1-inet1']) && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>Internet Gateway</td>
+                    <td>IGW</td>
+                    <td>Static</td>
+                  </tr>
+                )}
+
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>

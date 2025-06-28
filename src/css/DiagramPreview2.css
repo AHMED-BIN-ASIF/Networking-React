@@ -219,12 +219,14 @@
     gap: 8px;
     justify-content: flex-end;
 }
-.form-checkouts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    max-width: 60%;
+.form-checkouts.column {
+    flex-direction: column;
+    align-items: start;
+}
+.flow-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .form-checkouts label {
     display: flex;

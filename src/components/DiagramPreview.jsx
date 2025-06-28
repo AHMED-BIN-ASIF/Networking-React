@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Topo1 from "../assets/images/topo-1.jpg";
 import "../css/DiagramPreview.css";
 import Popup from './Popup ';
+import FlowCheckbox from './FlowCheckbox';
 
 // Flow lines configuration as provided
 const connectionMap = {
@@ -9,7 +10,7 @@ const connectionMap = {
     ['top1-pub-1', 'top1-gateway-3'],
     ['top1-priv-1', 'top1-gateway-3'],
     ['top1-priv-2', 'top1-gateway-3'],
-    ['top1-gateway-3', 'top1-sb-1',{ path: 'straight'}]
+    ['top1-gateway-3', 'top1-db-1',{ path: 'straight'}]
   ],
   'chk-pub-inet': [
     ['top1-pub-1', 'top1-gateway-1'],
@@ -26,7 +27,7 @@ const connectionMap = {
   ]
 };
 
-const endpointIds = ['top1-pub-1', 'top1-priv-1', 'top1-priv-2', 'top1-sb-1', 'top1-inet-1'];
+const endpointIds = ['top1-pub-1', 'top1-priv-1', 'top1-priv-2', 'top1-db-1', 'top1-inet-1'];
 
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) => 
@@ -166,8 +167,8 @@ Create Routing Table Name: ${formData.publicRTName}
         <div id="top1-inet-1" className="flow-label label-4">
           {"INET1"}
         </div>
-        <div id="top1-sb-1" className="flow-label label-5">
-          {"SB1"}
+        <div id="top1-db-1" className="flow-label label-5">
+          {"DB1"}
         </div>
         <div id="top1-gateway-1" className="gateway gtw-1"></div>
         <div id="top1-gateway-2" className="gateway gtw-2"></div>
@@ -215,52 +216,37 @@ Create Routing Table Name: ${formData.publicRTName}
       <div className="diagram-btm">
         {/* Flow Checkboxes */}
       <div className="form-checkouts">
-        <label>
-          <input
-            type="checkbox"
-            id="chk-show-endpoints"
-            className="flow-checkbox"
-            checked={flowCheckboxes['chk-show-endpoints']}
-            onChange={handleFlowCheckboxChange}
-          /> Show Endpoints
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            id="chk-pub-priv-db"
-            className="flow-checkbox"
-            checked={flowCheckboxes['chk-pub-priv-db']}
-            onChange={handleFlowCheckboxChange}
-          /> Flow from PUB1/PRIV1/PRIV2 → DB1
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            id="chk-pub-inet"
-            className="flow-checkbox"
-            checked={flowCheckboxes['chk-pub-inet']}
-            onChange={handleFlowCheckboxChange}
-          /> Flow from PUB1 → INET1
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            id="chk-priv-inet"
-            className="flow-checkbox"
-            checked={flowCheckboxes['chk-priv-inet']}
-            onChange={handleFlowCheckboxChange}
-          /> Flow from PRIV1/PRIV2 → INET1
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            id="chk-pub-priv-bidirectional"
-            className="flow-checkbox"
-            checked={flowCheckboxes['chk-pub-priv-bidirectional']}
-            onChange={handleFlowCheckboxChange}
-          /> Flow from PUB1 ↔ PRIV1/PRIV2
-        </label>
-      </div>
+        <FlowCheckbox
+          id="chk-show-endpoints"
+          label="Show Endpoints"
+          checked={flowCheckboxes['chk-show-endpoints']}
+          onChange={handleFlowCheckboxChange}
+        />
+        <FlowCheckbox
+          id="chk-pub-priv-db"
+          label="Flow from PUB1/PRIV1/PRIV2 → DB1"
+          checked={flowCheckboxes['chk-pub-priv-db']}
+          onChange={handleFlowCheckboxChange}
+        />
+        <FlowCheckbox
+          id="chk-pub-inet"
+          label="Flow from PUB1 → INET1"
+          checked={flowCheckboxes['chk-pub-inet']}
+          onChange={handleFlowCheckboxChange}
+        />
+        <FlowCheckbox
+          id="chk-priv-inet"
+          label="Flow from PRIV1/PRIV2 → INET1"
+          checked={flowCheckboxes['chk-priv-inet']}
+          onChange={handleFlowCheckboxChange}
+        />
+        <FlowCheckbox
+          id="chk-pub-priv-bidirectional"
+          label="Flow from PUB1 ↔ PRIV1/PRIV2"
+          checked={flowCheckboxes['chk-pub-priv-bidirectional']}
+          onChange={handleFlowCheckboxChange}
+        />
+    </div>
 
       <div className="generate-btn">
         <div>
