@@ -7,142 +7,142 @@ import FlowCheckbox from "./FlowCheckbox";
 // Flow lines configuration as provided
 const connectionMap = {
   // Group 1
-  'chk-priv1-pub': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
+  "chk-priv1-pub": [
+    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-pub-1", { path: "straight" }],
   ],
-  'chk-pub1-priv1': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
+  "chk-pub1-priv1": [
+    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-1", { path: "straight" }],
   ],
 
   // Group 2
-  'chk-inet1-pub1': [
-    ['top2-inet-1', 'top2-gateway-1', { path: 'straight' }],
-    ['top2-gateway-1', 'top2-pub-1', { path: 'straight' }],
+  "chk-inet1-pub1": [
+    ["top2-inet-1", "top2-gateway-1", { path: "straight" }],
+    ["top2-gateway-1", "top2-pub-1", { path: "straight" }],
   ],
-  'chk-pub1-inet1': [
-    ['top2-pub-1', 'top2-gateway-1', { path: 'straight' }],
-    ['top2-gateway-1', 'top2-inet-1', { path: 'straight' }],
+  "chk-pub1-inet1": [
+    ["top2-pub-1", "top2-gateway-1", { path: "straight" }],
+    ["top2-gateway-1", "top2-inet-1", { path: "straight" }],
   ],
 
   // Group 3
-  'chk-fw1-inet1': [
-    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  "chk-fw1-inet1": [
+    ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
   ],
 
   // Group 4
-  'chk-pub1-fw1': [['top2-pub-1', 'top2-fw-1', { path: 'straight' }]],
-  'chk-fw1-pub1': [['top2-fw-1', 'top2-pub-1', { path: 'straight' }]],
+  "chk-pub1-fw1": [["top2-pub-1", "top2-fw-1", { path: "straight" }]],
+  "chk-fw1-pub1": [["top2-fw-1", "top2-pub-1", { path: "straight" }]],
 
   // Group 5
-  'chk-priv1-inet1-bypass-fw': [
-    ['top2-priv-1', 'top2-gateway-2', { path: 'straight' }],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  "chk-priv1-inet1-bypass-fw": [
+    ["top2-priv-1", "top2-gateway-2", { path: "straight" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
   ],
 
   // Group 6
-  'chk-priv1-inet1-fw': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  "chk-priv1-inet1-fw": [
+    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
   ],
 
   // Group 7
-  'chk-pub1-priv1': [['top2-pub-1', 'top2-priv-1', { path: 'straight' }]],
-  'chk-priv1-pub1': [['top2-priv-1', 'top2-pub-1', { path: 'straight' }]],
+  "chk-pub1-priv1": [["top2-pub-1", "top2-priv-1", { path: "straight" }]],
+  "chk-priv1-pub1": [["top2-priv-1", "top2-pub-1", { path: "straight" }]],
 
   // Group 8
-  'chk-pub1-priv2': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+  "chk-pub1-priv2": [
+    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-2", { path: "straight" }],
   ],
-  'chk-priv2-pub1': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }]
+  "chk-priv2-pub1": [
+    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-pub-1", { path: "straight" }],
   ],
 
   // Group 9
-  'chk-priv2-inet1': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  "chk-priv2-inet1": [
+    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
   ],
 
   // Group 10
-  'chk-priv1-priv2': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+  "chk-priv1-priv2": [
+    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-2", { path: "straight" }],
   ],
-  'chk-priv2-priv1': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
+  "chk-priv2-priv1": [
+    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-1", { path: "straight" }],
   ],
 
   // Group 11
-  'chk-pub1-priv3': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-3', { path: 'straight' }],
+  "chk-pub1-priv3": [
+    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-3", { path: "straight" }],
   ],
-  'chk-priv3-pub1': [
-    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-pub-1', { path: 'straight' }],
+  "chk-priv3-pub1": [
+    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-pub-1", { path: "straight" }],
   ],
 
   // Group 12
-  'chk-priv3-inet1': [
-    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-2', { path: 'arc' }],
-    ['top2-gateway-2', 'top2-inet-1', { path: 'straight' }],
+  "chk-priv3-inet1": [
+    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
   ],
 
   // Group 13
-  'chk-priv1-priv3': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-3', { path: 'straight' }],
+  "chk-priv1-priv3": [
+    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-3", { path: "straight" }],
   ],
-  'chk-priv3-priv1': [
-    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-1', { path: 'straight' }],
+  "chk-priv3-priv1": [
+    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-1", { path: "straight" }],
   ],
 
   // Group 14
-  'chk-priv2-priv3': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-3', { path: 'straight' }],
+  "chk-priv2-priv3": [
+    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-3", { path: "straight" }],
   ],
-  'chk-priv3-priv2': [
-    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-priv-2', { path: 'straight' }],
+  "chk-priv3-priv2": [
+    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-2", { path: "straight" }],
   ],
 
   // Group 15 (SBI)
-  'chk-priv1-sbi': [
-    ['top2-priv-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
-    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  "chk-priv1-sbi": [
+    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
+    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
   ],
-  
+
   // Group 16 (SBI)
-  'chk-priv2-sbi': [
-    ['top2-priv-2', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
-    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  "chk-priv2-sbi": [
+    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
+    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
   ],
   // Group 17 (SBI)
 
-  'chk-priv3-sbi': [
-    ['top2-priv-3', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
-    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  "chk-priv3-sbi": [
+    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
+    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
   ],
   // Group 18 (SBI)
 
-  'chk-pub1-sbi': [
-    ['top2-pub-1', 'top2-fw-1', { path: 'straight' }],
-    ['top2-fw-1', 'top2-gateway-3', { path: 'arc' }],
-    ['top2-gateway-3', 'top2-sbi', { path: 'straight' }],
+  "chk-pub1-sbi": [
+    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
+    ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
+    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
   ],
 };
 
@@ -154,7 +154,7 @@ const endpointIds = [
   "top2-sbi",
   "top2-inet-1",
   // "top2-fw-1",
-  "fw1-grp"
+  "fw1-grp",
 ];
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) =>
@@ -308,10 +308,14 @@ Create Routing Table Name: ${formData.publicRTName}
             flowCheckboxes['chk-pub-priv2/3'] || 
             flowCheckboxes['chk-priv1-priv2/3'] || 
             flowCheckboxes['chk-priv2/3-priv1']) && */}
-          <div id="fw1-grp">
-            <div id="top2-fw-1" className="flow-label tp2-label-7">{"FW1"}</div>
-            <span className='flow-label-fw1 tp2-label-7-1'>{formData.firewallIp}</span>
+        <div id="fw1-grp">
+          <div id="top2-fw-1" className="flow-label tp2-label-7">
+            {"FW1"}
           </div>
+          <span className="flow-label-fw1 tp2-label-7-1">
+            {formData.firewallIp}
+          </span>
+        </div>
         {/* } */}
         <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
         <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
@@ -731,19 +735,44 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes["chk-fw1-inet1"] ||
+                  flowCheckboxes["chk-fw1-inet1"] ||
+                  flowCheckboxes["chk-priv1-inet1-fw"]) && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>NAT Gateway</td>
+                    <td>NGW</td>
+                    <td>Static</td>
+                  </tr>
+                )}
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  <tr>
+                    <td>172.16.1.0/24</td>
+                    <td>Dynamic Routing Gateway</td>
+                    <td>DRG</td>
+                    <td>Static</td>
+                  </tr>
+                )}
+                {flowCheckboxes["chk-priv2-inet1"] && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>NAT Gateway</td>
+                    <td>DRG</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -764,7 +793,8 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
-                {(flowCheckboxes['chk-inet1-pub1'] || flowCheckboxes['chk-pub1-inet1']) && (
+                {(flowCheckboxes["chk-inet1-pub1"] ||
+                  flowCheckboxes["chk-pub1-inet1"]) && (
                   <tr>
                     <td>0.0.0.0/0</td>
                     <td>Internet Gateway</td>
@@ -772,7 +802,15 @@ Create Routing Table Name: ${formData.publicRTName}
                     <td>Static</td>
                   </tr>
                 )}
-
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  <tr>
+                    <td>172.16.1.0/24</td>
+                    <td>Private IP</td>
+                    <td>192.168.0.100</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
                   <td></td>
                   <td></td>
@@ -804,19 +842,19 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
+                {flowCheckboxes["chk-priv2-inet1"] && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>Dynamic Routing Gateway</td>
+                    <td>DRG</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
-                </tr>
-                <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
                 </tr>
               </tbody>
             </table>
@@ -903,19 +941,19 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
+                {flowCheckboxes["chk-priv2-inet1"] && (
+                  <tr>
+                    <td>172.16.1.0/24</td>
+                    <td>Private IP</td>
+                    <td>192.168.0.100</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
-                </tr>
-                <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
                 </tr>
               </tbody>
             </table>
@@ -962,26 +1000,31 @@ Create Routing Table Name: ${formData.publicRTName}
             <table>
               <thead>
                 <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
+                  <th>Destination CIDR block</th>
+                  <th>Next hop attachment type</th>
+                  <th>Next hop attachment name</th>
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  <tr>
+                    <td>192.168.0.0/24</td>
+                    <td>Virtual Cloud Network</td>
+                    <td>HUB-VCN-ATTACHMENT</td>
+                  </tr>
+                )}
+                {flowCheckboxes["chk-priv2-inet1"] && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>Virtual Cloud Network</td>
+                    <td>HUB-VCN-ATTACHMENT</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
-                </tr>
-                <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -1002,19 +1045,20 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  <tr>
+                    <td>192.168.0.0/24</td>
+                    <td>Dynamic Routing Gateway</td>
+                    <td>DRG</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
-                </tr>
-                <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -1028,26 +1072,35 @@ Create Routing Table Name: ${formData.publicRTName}
             <table>
               <thead>
                 <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
+                  <th>Priority</th>
+                  <th>Match type</th>
+                  <th>Match criteria</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"] ||
+                  flowCheckboxes['chk-priv2-inet1']) && (
+                  <tr>
+                    <td>10</td>
+                    <td>Attachment</td>
+                    <td>SPOKE-VCN-A-ATTACHMENT</td>
+                    <td>Accept</td>
+                  </tr>
+                )}
+
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -1061,26 +1114,30 @@ Create Routing Table Name: ${formData.publicRTName}
             <table>
               <thead>
                 <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
+                  <th>Destination CIDR block</th>
+                  <th>Next hop attachment type</th>
+                  <th>Next hop attachment name</th>
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"] ||
+                  flowCheckboxes['chk-priv2-inet1']) && (
+                  <tr>
+                    <td>172.16.1.0/24</td>
+                    <td>Virtual Cloud Network</td>
+                    <td>SPOKE-VCN-A-ATTACHMENT</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -1101,19 +1158,48 @@ Create Routing Table Name: ${formData.publicRTName}
                 </tr>
               </thead>
               <tbody>
+                {(flowCheckboxes["chk-pub1-priv2"] ||
+                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  <>
+                    <tr>
+                      <td>172.16.1.0/24</td>
+                      <td>Private IP</td>
+                      <td>192.168.0.100</td>
+                      <td>Static</td>
+                    </tr>
+                    <tr>
+                      <td>192.168.0.128/25</td>
+                      <td>Private IP</td>
+                      <td>192.168.0.100</td>
+                      <td>Static</td>
+                    </tr>
+                  </>
+                )}
+                {flowCheckboxes["chk-priv2-inet1"] && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>Private IP</td>
+                    <td>192.168.0.100</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
