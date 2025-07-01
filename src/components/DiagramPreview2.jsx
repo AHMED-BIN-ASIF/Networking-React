@@ -3,7 +3,7 @@ import Topo2 from "../assets/images/topo-2.jpg";
 import "../css/DiagramPreview2.css";
 import Popup from "./Popup ";
 import FlowCheckbox from "./FlowCheckbox";
-import RtIcon from "../assets/icons/rt-icon.webp"
+import RtIcon from "../assets/icons/rt-icon.webp";
 
 // Flow lines configuration as provided
 const connectionMap = {
@@ -317,11 +317,13 @@ Create Routing Table Name: ${formData.publicRTName}
           </span>
         </div>
         {/* } */}
-        <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
-        <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
-        <div id="top2-gateway-3" className="gateway tp2-gtw-3"></div>
-        <div id="top2-gateway-4" className="gateway tp2-gtw-4"></div>
-
+        {/* gateways points */}
+        <>
+          <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
+          <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
+          <div id="top2-gateway-3" className="gateway tp2-gtw-3"></div>
+          <div id="top2-gateway-4" className="gateway tp2-gtw-4"></div>
+        </>
         {/* Popup buttons */}
         <div
           className="popup-btn top1-btn-1"
@@ -419,71 +421,75 @@ Create Routing Table Name: ${formData.publicRTName}
         >
           <span>{formData.vcnRt2HubAttachment}</span>
         </div>
-        <div
-          className="popup-btn top1-priv-rt-btn"
-          onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
-        >
-          <img src={RtIcon} alt="rticon" />
-          <span>RT-Priv</span>
-        </div>
+        {flowCheckboxes["chk-priv1-inet1-fw"] && (
+          <div
+            className="popup-btn top1-priv-rt-btn"
+            onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
+          >
+            <img src={RtIcon} alt="rticon" />
+            <span>RT-Priv</span>
+          </div>
+        )}
 
         {/* Network label groupsriv */}
-        <div className="network-label-grp nlg-1">
-          <span className="network-label-name" id="vpc-name-2">
-            {formData.hubVcnName}
-          </span>
-          <span className="network-label-domain" id="vcn-cidr-2">
-            {formData.hubVcnCidr}
-          </span>
-        </div>
-        <div className="network-label-grp nlg-2">
-          <span className="network-label-name" id="public-name-">
-            {formData.hubPrivSubnetName}
-          </span>
-          <span className="network-label-domain" id="public-cidr-1">
-            {formData.hubPrivSubnetCidr}
-          </span>
-        </div>
-        <div className="network-label-grp nlg-3">
-          <span className="network-label-name" id="private-name-1">
-            {formData.hubPubSubnetName}
-          </span>
-          <span className="network-label-domain" id="private-cidr-1">
-            {formData.hubPubSubnetCidr}
-          </span>
-        </div>
-        <div className="network-label-grp nlg-4">
-          <span className="network-label-name" id="subnet-label-1">
-            {formData.spokeAName}
-          </span>
-          <span className="network-label-domain" id="subnet-no-1">
-            {formData.spokeACidr}
-          </span>
-        </div>
-        <div className="network-label-grp nlg-5">
-          <span className="network-label-name" id="subnet-label1">
-            {formData.spokeAPrivSubnetName}
-          </span>
-          <span className="network-label-domain" id="subnet-no1">
-            {formData.spokeAPrivSubnetCidr}
-          </span>
-        </div>
-        <div className="network-label-grp nlg-6">
-          <span className="network-label-name" id="subnet-label1">
-            {formData.spokeBName}
-          </span>
-          <span className="network-label-domain" id="subnet-no1">
-            {formData.spokeBCidr}
-          </span>
-        </div>
-        <div className="network-label-grp nlg-7">
-          <span className="network-label-name" id="subnet-label1">
-            {formData.spokeBPrivSubnetName}
-          </span>
-          <span className="network-label-domain" id="subnet-no1">
-            {formData.spokeBPrivSubnetCidr}
-          </span>
-        </div>
+        <>
+          <div className="network-label-grp nlg-1">
+            <span className="network-label-name" id="vpc-name-2">
+              {formData.hubVcnName}
+            </span>
+            <span className="network-label-domain" id="vcn-cidr-2">
+              {formData.hubVcnCidr}
+            </span>
+          </div>
+          <div className="network-label-grp nlg-2">
+            <span className="network-label-name" id="public-name-">
+              {formData.hubPrivSubnetName}
+            </span>
+            <span className="network-label-domain" id="public-cidr-1">
+              {formData.hubPrivSubnetCidr}
+            </span>
+          </div>
+          <div className="network-label-grp nlg-3">
+            <span className="network-label-name" id="private-name-1">
+              {formData.hubPubSubnetName}
+            </span>
+            <span className="network-label-domain" id="private-cidr-1">
+              {formData.hubPubSubnetCidr}
+            </span>
+          </div>
+          <div className="network-label-grp nlg-4">
+            <span className="network-label-name" id="subnet-label-1">
+              {formData.spokeAName}
+            </span>
+            <span className="network-label-domain" id="subnet-no-1">
+              {formData.spokeACidr}
+            </span>
+          </div>
+          <div className="network-label-grp nlg-5">
+            <span className="network-label-name" id="subnet-label1">
+              {formData.spokeAPrivSubnetName}
+            </span>
+            <span className="network-label-domain" id="subnet-no1">
+              {formData.spokeAPrivSubnetCidr}
+            </span>
+          </div>
+          <div className="network-label-grp nlg-6">
+            <span className="network-label-name" id="subnet-label1">
+              {formData.spokeBName}
+            </span>
+            <span className="network-label-domain" id="subnet-no1">
+              {formData.spokeBCidr}
+            </span>
+          </div>
+          <div className="network-label-grp nlg-7">
+            <span className="network-label-name" id="subnet-label1">
+              {formData.spokeBPrivSubnetName}
+            </span>
+            <span className="network-label-domain" id="subnet-no1">
+              {formData.spokeBPrivSubnetCidr}
+            </span>
+          </div>
+        </>
       </div>
 
       <div className="diagram-btm">
@@ -1091,7 +1097,7 @@ Create Routing Table Name: ${formData.publicRTName}
               <tbody>
                 {(flowCheckboxes["chk-pub1-priv2"] ||
                   flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes['chk-priv2-inet1']) && (
+                  flowCheckboxes["chk-priv2-inet1"]) && (
                   <tr>
                     <td>10</td>
                     <td>Attachment</td>
@@ -1132,7 +1138,7 @@ Create Routing Table Name: ${formData.publicRTName}
               <tbody>
                 {(flowCheckboxes["chk-pub1-priv2"] ||
                   flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes['chk-priv2-inet1']) && (
+                  flowCheckboxes["chk-priv2-inet1"]) && (
                   <tr>
                     <td>172.16.1.0/24</td>
                     <td>Virtual Cloud Network</td>
