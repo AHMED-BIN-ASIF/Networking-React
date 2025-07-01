@@ -3,6 +3,7 @@ import Topo2 from "../assets/images/topo-2.jpg";
 import "../css/DiagramPreview2.css";
 import Popup from "./Popup ";
 import FlowCheckbox from "./FlowCheckbox";
+import RtIcon from "../assets/icons/rt-icon.webp"
 
 // Flow lines configuration as provided
 const connectionMap = {
@@ -11,7 +12,7 @@ const connectionMap = {
     ["top2-priv-1", "top2-fw-1", { path: "straight" }],
     ["top2-fw-1", "top2-pub-1", { path: "straight" }],
   ],
-  "chk-pub1-priv1": [
+  "chk-pub1-priv1-fw1": [
     ["top2-pub-1", "top2-fw-1", { path: "straight" }],
     ["top2-fw-1", "top2-priv-1", { path: "straight" }],
   ],
@@ -52,7 +53,6 @@ const connectionMap = {
   // Group 7
   "chk-pub1-priv1": [["top2-pub-1", "top2-priv-1", { path: "straight" }]],
   "chk-priv1-pub1": [["top2-priv-1", "top2-pub-1", { path: "straight" }]],
-
   // Group 8
   "chk-pub1-priv2": [
     ["top2-pub-1", "top2-fw-1", { path: "straight" }],
@@ -419,8 +419,15 @@ Create Routing Table Name: ${formData.publicRTName}
         >
           <span>{formData.vcnRt2HubAttachment}</span>
         </div>
+        <div
+          className="popup-btn top1-priv-rt-btn"
+          onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
+        >
+          <img src={RtIcon} alt="rticon" />
+          <span>RT-Priv</span>
+        </div>
 
-        {/* Network label groups */}
+        {/* Network label groupsriv */}
         <div className="network-label-grp nlg-1">
           <span className="network-label-name" id="vpc-name-2">
             {formData.hubVcnName}
@@ -518,6 +525,7 @@ Create Routing Table Name: ${formData.publicRTName}
                   popup14: true,
                   popup15: true,
                   popup16: true,
+                  popup17: true,
                   generateTF: true,
                 })
               }
@@ -545,6 +553,8 @@ Create Routing Table Name: ${formData.publicRTName}
                   popup13: false,
                   popup14: false,
                   popup15: false,
+                  popup16: false,
+                  popup17: false,
                   generateTF: false,
                 })
               }
@@ -1189,6 +1199,45 @@ Create Routing Table Name: ${formData.publicRTName}
                   <td></td>
                   <td></td>
                 </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </Popup>
+          <Popup
+            id="popup17"
+            title={"RT-Priv1"}
+            isVisible={popups.popup17}
+            onClose={() => setPopups((prev) => ({ ...prev, popup17: false }))}
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>Destination</th>
+                  <th>Target Type</th>
+                  <th>Target</th>
+                  <th>Route Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {flowCheckboxes["chk-priv1-inet1-fw"] && (
+                  <tr>
+                    <td>0.0.0.0/0</td>
+                    <td>Private IP</td>
+                    <td>192.168.0.100</td>
+                    <td>Static</td>
+                  </tr>
+                )}
                 <tr>
                   <td></td>
                   <td></td>

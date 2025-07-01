@@ -146,6 +146,16 @@
     top: 50%;
     right: 24%;
   }
+  .popup-btn.top1-priv-rt-btn {
+    top: 16%;
+    left: 34%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-btn.top1-priv-rt-btn img {
+    width: 30px;
+    margin: 0 auto;
+  }
   /* flow label  */
   /* flow labels */
 .flow-label {
