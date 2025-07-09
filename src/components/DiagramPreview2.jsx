@@ -421,7 +421,9 @@ Create Routing Table Name: ${formData.publicRTName}
         >
           <span>{formData.vcnRt2HubAttachment}</span>
         </div>
-        {flowCheckboxes["chk-priv1-inet1-fw"] && (
+        {(flowCheckboxes["chk-priv1-inet1-fw"] ||
+          flowCheckboxes["chk-priv1-priv2"]||
+          flowCheckboxes["chk-priv2-priv1"]) && (
           <div
             className="popup-btn top1-priv-rt-btn"
             onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
@@ -762,7 +764,9 @@ Create Routing Table Name: ${formData.publicRTName}
                   </tr>
                 )}
                 {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  flowCheckboxes["chk-priv2-pub1"] ||
+                flowCheckboxes["chk-priv1-priv2"]||
+                flowCheckboxes["chk-priv2-priv1"]) && (
                   <tr>
                     <td>172.16.1.0/24</td>
                     <td>Dynamic Routing Gateway</td>
@@ -861,6 +865,15 @@ Create Routing Table Name: ${formData.publicRTName}
                 {flowCheckboxes["chk-priv2-inet1"] && (
                   <tr>
                     <td>0.0.0.0/0</td>
+                    <td>Dynamic Routing Gateway</td>
+                    <td>DRG</td>
+                    <td>Static</td>
+                  </tr>
+                )}
+                {(flowCheckboxes["chk-priv1-priv2"]||
+                flowCheckboxes["chk-priv2-priv1"]) && (
+                  <tr>
+                    <td>192.168.0.0/24</td>
                     <td>Dynamic Routing Gateway</td>
                     <td>DRG</td>
                     <td>Static</td>
@@ -1023,7 +1036,9 @@ Create Routing Table Name: ${formData.publicRTName}
               </thead>
               <tbody>
                 {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  flowCheckboxes["chk-priv2-pub1"] ||
+                  flowCheckboxes["chk-priv1-priv2"]||
+                flowCheckboxes["chk-priv2-priv1"]) && (
                   <tr>
                     <td>192.168.0.0/24</td>
                     <td>Virtual Cloud Network</td>
@@ -1097,7 +1112,9 @@ Create Routing Table Name: ${formData.publicRTName}
               <tbody>
                 {(flowCheckboxes["chk-pub1-priv2"] ||
                   flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv2-inet1"]) && (
+                  flowCheckboxes["chk-priv2-inet1"] ||
+                  flowCheckboxes["chk-priv1-priv2"]||
+                  flowCheckboxes["chk-priv2-priv1"]) && (
                   <tr>
                     <td>10</td>
                     <td>Attachment</td>
@@ -1123,7 +1140,7 @@ Create Routing Table Name: ${formData.publicRTName}
           </Popup>
           <Popup
             id="popup15"
-            title={formData.vcnRt2HubAttachment}
+            title={formData.vcnRt1HubAttachment}
             isVisible={popups.popup15}
             onClose={() => setPopups((prev) => ({ ...prev, popup15: false }))}
           >
@@ -1138,7 +1155,9 @@ Create Routing Table Name: ${formData.publicRTName}
               <tbody>
                 {(flowCheckboxes["chk-pub1-priv2"] ||
                   flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv2-inet1"]) && (
+                  flowCheckboxes["chk-priv2-inet1"] ||
+                  flowCheckboxes["chk-priv1-priv2"]||
+                  flowCheckboxes["chk-priv2-priv1"]) && (
                   <tr>
                     <td>172.16.1.0/24</td>
                     <td>Virtual Cloud Network</td>
@@ -1175,7 +1194,9 @@ Create Routing Table Name: ${formData.publicRTName}
               </thead>
               <tbody>
                 {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"]) && (
+                  flowCheckboxes["chk-priv2-pub1"] ||
+                  flowCheckboxes["chk-priv1-priv2"]||
+                  flowCheckboxes["chk-priv2-priv1"]) && (
                   <>
                     <tr>
                       <td>172.16.1.0/24</td>
@@ -1239,6 +1260,15 @@ Create Routing Table Name: ${formData.publicRTName}
                 {flowCheckboxes["chk-priv1-inet1-fw"] && (
                   <tr>
                     <td>0.0.0.0/0</td>
+                    <td>Private IP</td>
+                    <td>192.168.0.100</td>
+                    <td>Static</td>
+                  </tr>
+                )}
+                {(flowCheckboxes["chk-priv1-priv2"]||
+                flowCheckboxes["chk-priv2-priv1"]) && (
+                  <tr>
+                    <td>172.16.1.0/24</td>
                     <td>Private IP</td>
                     <td>192.168.0.100</td>
                     <td>Static</td>
