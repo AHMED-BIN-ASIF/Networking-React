@@ -251,7 +251,6 @@ const Topology2 = () => {
               onPopulate={handlePopulateFields}
             />
           </form>
-
           {previewData && (
             <div className="preview-container">
               <DiagramPreview2

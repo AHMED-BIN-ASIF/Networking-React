@@ -4,7 +4,7 @@
     max-width: 100%;
     width: 100%;
 }
-.topo-img-wrapper {
+.diagram-topology-two .topo-img-wrapper {
     position: relative;
 }
 .diagram-topology-two img {
@@ -321,9 +321,6 @@
     .popup-btn.top1-btn-6 {
         top: 65%;
         right: 36%;
-    }
-    .flow-label.tp2-label-4 {
-        right: 3%;
     }
     .flow-label.tp2-label-5 {
         right: 16.5%;

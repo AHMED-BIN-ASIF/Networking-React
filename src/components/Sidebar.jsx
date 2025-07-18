@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"; // Changed from Link to NavLink
 import "../css/Sidebar.css";
 
 const SIDEBAR_ITEMS = [
-    { name: "Networking Home", icon: Home, href: "/" },
+    { name: " Home", icon: Home, href: "/" },
     { name: " Topology 1", icon: Network, href: "/topology-1" },
     { name: " Topology 2", icon: Network, href: "/topology-2" },
     { name: " Topology 3", icon: Network, href: "/topology-3" },
