@@ -242,8 +242,8 @@ const Topology2 = () => {
   return (
     <main>
       <Header title="Topology 2 - Hub & Spokes" />
-      <section className="topology-section">
-        <div className="container">
+      <section id='topo2-sec' className="topology-section">
+        <div className={`container ${(flowCheckboxes["chk-show-endpoints"]) ? "left" : '' } `}>
           <form className="network-form" onSubmit={handleGenerateNetwork}>
             <DiagramForm2
               subGroups={subGroups}

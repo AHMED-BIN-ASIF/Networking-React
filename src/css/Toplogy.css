@@ -1,3 +1,9 @@
 .topology-section {
     padding: 40px 0;
 }
+.topology-section#topo2-sec .container {
+    transition: margin .5s ease ease-in-out;
+}
+.topology-section#topo2-sec .container.left {
+    margin: 0 0 0 20px;
+}

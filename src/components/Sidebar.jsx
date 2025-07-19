@@ -16,10 +16,10 @@ const SIDEBAR_ITEMS = [
   ];
 
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <motion.div className="sidebar" animate={{ width: isSidebarOpen ? 226 : 80 }}>
+    <motion.div className="sidebar" animate={{ width: isSidebarOpen ? 180 : 60 }}>
       <div className="sidebar-container">
         <motion.button
           whileHover={{ scale: 1.1 }}

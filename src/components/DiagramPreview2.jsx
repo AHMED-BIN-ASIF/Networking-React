@@ -499,10 +499,9 @@ Create Routing Table Name: ${formData.publicRTName}
         </>
       </div>
 </div>
-      <div className="diagram-btm">
-        {/* Flow Checkboxes */}
+{(flowCheckboxes["chk-show-endpoints"]) && (
         <div className="form-checkouts column">
-          {flowConfigGrouped.map((group, groupIndex) => (
+          {flowConfigGrouped.slice(1, 99).map((group, groupIndex) => (
             <div className="flow-checkbox-group" key={`group-${groupIndex}`}>
               {group.map(({ id, label }) => (
                 <FlowCheckbox
@@ -516,6 +515,22 @@ Create Routing Table Name: ${formData.publicRTName}
             </div>
           ))}
         </div>
+)}
+      <div className="diagram-btm">
+        {/* Flow Checkboxes */}
+        <div className="form-checkouts">
+        {flowConfigGrouped.flat().slice(0, 1).map(({ id, label }) => (
+  <div className="flow-checkbox-group" key={id}>
+    <FlowCheckbox
+      key={id}
+      id={id}
+      label={label}
+      checked={flowCheckboxes[id] ?? false}
+      onChange={handleFlowCheckboxChange}
+    />
+  </div>
+))}
+</div>
         <div className="generate-btn">
           <div>
             <button

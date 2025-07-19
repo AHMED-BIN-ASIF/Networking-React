@@ -11,7 +11,8 @@
 
 .sidebar-container {
 	height: 100%;
-	padding: 1rem 1.25rem;
+	/* width: 100%; */
+	padding: 1rem 1rem;
 	display: flex;
 	flex-direction: column;
 	border-right: 1px solid #646464; /* Gray-700 */
