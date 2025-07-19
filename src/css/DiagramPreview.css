@@ -13,6 +13,7 @@
 .network-label-grp {
     color: #b00013;
     font-family: "Lato", serif;
+    font-weight: bold;
     position: absolute;
     z-index: 5;
     line-height: 1;
@@ -58,15 +59,28 @@
     font-size: 10px;
     font-family: "Lato", serif;
     color: #b00013;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+  }
+  .popup-btn.green {
+    color: green;
+  }
+  .popup-btn.blue {
+    color: #3f71a6;
+  }
+  .popup-btn.orange {
+    color: orange;
   }
   .popup-btn span {
     white-space: nowrap;
   }
   .text-blue {
     color: #3f71a6;
+  }
+  .text-orange {
+    color: orange;
   }
   .popup-btn.btn-1 {
     top: 25.5%;

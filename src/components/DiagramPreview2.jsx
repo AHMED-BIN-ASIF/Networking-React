@@ -14,8 +14,8 @@ const connectionMap = {
     ["top2-fw-1", "top2-pub-1", { path: "straight" }],
   ],
   "chk-pub1-priv1-fw1": [
-    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-1", { path: "straight" }],
+    ["top2-pub-1", "top2-fw-1", { path: "straight", color: "orange" }],
+    ["top2-fw-1", "top2-priv-1", { path: "straight", color: "orange" }],
   ],
 
   // Group 2
@@ -24,8 +24,8 @@ const connectionMap = {
     ["top2-gateway-1", "top2-pub-1", { path: "straight" }],
   ],
   "chk-pub1-inet1": [
-    ["top2-pub-1", "top2-gateway-1", { path: "straight" }],
-    ["top2-gateway-1", "top2-inet-1", { path: "straight" }],
+    ["top2-pub-1", "top2-gateway-1", { path: "straight", color: "orange" }],
+    ["top2-gateway-1", "top2-inet-1", { path: "straight", color: "orange" }],
   ],
 
   // Group 3
@@ -35,8 +35,8 @@ const connectionMap = {
   ],
 
   // Group 4
-  "chk-pub1-fw1": [["top2-pub-1", "top2-fw-1", { path: "straight" }]],
-  "chk-fw1-pub1": [["top2-fw-1", "top2-pub-1", { path: "straight" }]],
+  "chk-pub1-fw1": [["top2-pub-1", "top2-fw-1", { path: "arc" }]],
+  "chk-fw1-pub1": [["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }]],
 
   // Group 5
   "chk-priv1-inet1-bypass-fw": [
@@ -52,16 +52,17 @@ const connectionMap = {
   ],
 
   // Group 7
-  "chk-pub1-priv1": [["top2-pub-1", "top2-priv-1", { path: "straight" }]],
-  "chk-priv1-pub1": [["top2-priv-1", "top2-pub-1", { path: "straight" }]],
+  "chk-pub1-priv1": [["top2-pub-1", "top2-priv-1", { path: "arc" }]],
+  "chk-priv1-pub1": [["top2-priv-1", "top2-pub-1", { path: "arc", color: "orange" }]],
+
   // Group 8
   "chk-pub1-priv2": [
     ["top2-pub-1", "top2-fw-1", { path: "straight" }],
     ["top2-fw-1", "top2-priv-2", { path: "straight" }],
   ],
   "chk-priv2-pub1": [
-    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-pub-1", { path: "straight" }],
+    ["top2-priv-2", "top2-fw-1", { path: "arc", color: "orange" }],
+    ["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }],
   ],
 
   // Group 9
@@ -73,22 +74,22 @@ const connectionMap = {
 
   // Group 10
   "chk-priv1-priv2": [
-    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-priv-2", { path: "straight" }],
   ],
   "chk-priv2-priv1": [
-    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-1", { path: "straight" }],
+    ["top2-priv-2", "top2-fw-1", { path: "arc", color: "orange" }],
+    ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
   ],
 
   // Group 11
   "chk-pub1-priv3": [
-    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-3", { path: "straight" }],
+    ["top2-pub-1", "top2-fw-1", { path: "arc" }],
+    ["top2-fw-1", "top2-priv-3"],
   ],
   "chk-priv3-pub1": [
-    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-pub-1", { path: "straight" }],
+    ["top2-priv-3", "top2-fw-1", { path: "arc", color: "orange" }],
+    ["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }],
   ],
 
   // Group 12
@@ -100,22 +101,22 @@ const connectionMap = {
 
   // Group 13
   "chk-priv1-priv3": [
-    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-3", { path: "straight" }],
+    ["top2-priv-1", "top2-fw-1", { path: "arc" }],
+    ["top2-fw-1", "top2-priv-3"],
   ],
   "chk-priv3-priv1": [
-    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-1", { path: "straight" }],
+    ["top2-priv-3", "top2-fw-1", { path: "arc", color: "orange" }],
+    ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
   ],
 
   // Group 14
   "chk-priv2-priv3": [
-    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-3", { path: "straight" }],
+    ["top2-priv-2", "top2-fw-1"],
+    ["top2-fw-1", "top2-priv-3", { path: "arc" }],
   ],
   "chk-priv3-priv2": [
-    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-2", { path: "straight" }],
+    ["top2-priv-3", "top2-fw-1", {path: "arc",  color: "orange" }],
+    ["top2-fw-1", "top2-priv-2", { path: "arc", color: "orange" }],
   ],
 
   // Group 15 (SBI)
@@ -132,14 +133,12 @@ const connectionMap = {
     ["top2-gateway-3", "top2-sbi", { path: "straight" }],
   ],
   // Group 17 (SBI)
-
   "chk-priv3-sbi": [
     ["top2-priv-3", "top2-fw-1", { path: "straight" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
     ["top2-gateway-3", "top2-sbi", { path: "straight" }],
   ],
   // Group 18 (SBI)
-
   "chk-pub1-sbi": [
     ["top2-pub-1", "top2-fw-1", { path: "straight" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
@@ -328,97 +327,97 @@ Create Routing Table Name: ${formData.publicRTName}
         </>
         {/* Popup buttons */}
         <div
-          className="popup-btn top1-btn-1"
+          className="popup-btn orange top1-btn-1"
           onClick={() => setPopups((prev) => ({ ...prev, popup1: true }))}
         >
           <span id="public-sl-name-1">{formData.hubPrivSlName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-2"
+          className="popup-btn orange top1-btn-2"
           onClick={() => setPopups((prev) => ({ ...prev, popup2: true }))}
         >
           <span id="private-sl-name-1">{formData.hubPubSlName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-3"
+          className="popup-btn blue top1-btn-3"
           onClick={() => setPopups((prev) => ({ ...prev, popup3: true }))}
         >
           <span id="sl-label-1">{formData.spokeAPrivSlName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-4"
+          className="popup-btn blue top1-btn-4"
           onClick={() => setPopups((prev) => ({ ...prev, popup4: true }))}
         >
           <span id="spokeb-sl-name-1">{formData.spokeBPrivSlName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-5"
+          className="popup-btn orange top1-btn-5"
           onClick={() => setPopups((prev) => ({ ...prev, popup5: true }))}
         >
           <span id="private-rt-name-1">{formData.hubPrivRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-6"
+          className="popup-btn orange top1-btn-6"
           onClick={() => setPopups((prev) => ({ ...prev, popup6: true }))}
         >
           <span>{formData.hubPubRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-7"
+          className="popup-btn blue top1-btn-7"
           onClick={() => setPopups((prev) => ({ ...prev, popup7: true }))}
         >
           <span>{formData.spokeAPrivRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-8"
+          className="popup-btn blue top1-btn-8"
           onClick={() => setPopups((prev) => ({ ...prev, popup8: true }))}
         >
           <span>{formData.spokeBPrivRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-9"
+          className="popup-btn green top1-btn-9"
           onClick={() => setPopups((prev) => ({ ...prev, popup9: true }))}
         >
           <span>{formData.internetGwRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-10"
+          className="popup-btn green top1-btn-10"
           onClick={() => setPopups((prev) => ({ ...prev, popup10: true }))}
         >
           <span>{formData.natGwRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-11"
+          className="popup-btn green top1-btn-11"
           onClick={() => setPopups((prev) => ({ ...prev, popup11: true }))}
         >
           <span>{formData.serviceGwRtName}</span>
         </div>
         <div
-          className="popup-btn top1-btn-12"
+          className="popup-btn green top1-btn-12"
           onClick={() => setPopups((prev) => ({ ...prev, popup12: true }))}
         >
           <span>{formData.drgRtSpokeAttachmentA}</span>
         </div>
         <div
-          className="popup-btn top1-btn-13"
+          className="popup-btn green top1-btn-13"
           onClick={() => setPopups((prev) => ({ ...prev, popup13: true }))}
         >
           <span>{formData.drgRtSpokeAttachmentB}</span>
         </div>
         <div
-          className="popup-btn top1-btn-14"
+          className="popup-btn green top1-btn-14"
           onClick={() => setPopups((prev) => ({ ...prev, popup14: true }))}
         >
           <span>{formData.drgRt1HubAttachment}</span>
         </div>
         <div
-          className="popup-btn top1-btn-15"
+          className="popup-btn green top1-btn-15"
           onClick={() => setPopups((prev) => ({ ...prev, popup15: true }))}
         >
           <span>{formData.vcnRt1HubAttachment}</span>
         </div>
         <div
-          className="popup-btn top1-btn-16"
+          className="popup-btn green top1-btn-16"
           onClick={() => setPopups((prev) => ({ ...prev, popup16: true }))}
         >
           <span>{formData.vcnRt2HubAttachment}</span>
@@ -441,58 +440,58 @@ Create Routing Table Name: ${formData.publicRTName}
         {/* Network label groupsriv */}
         <>
           <div className="network-label-grp nlg-1">
-            <span className="network-label-name" id="vpc-name-2">
+            <span className="network-label-name text-orange" id="vpc-name-2">
               {formData.hubVcnName}
             </span>
-            <span className="network-label-domain" id="vcn-cidr-2">
+            <span className="network-label-domain text-orange" id="vcn-cidr-2">
               {formData.hubVcnCidr}
             </span>
           </div>
           <div className="network-label-grp nlg-2">
-            <span className="network-label-name" id="public-name-">
+            <span className="network-label-name text-orange" id="public-name-">
               {formData.hubPrivSubnetName}
             </span>
-            <span className="network-label-domain" id="public-cidr-1">
+            <span className="network-label-domain text-orange" id="public-cidr-1">
               {formData.hubPrivSubnetCidr}
             </span>
           </div>
           <div className="network-label-grp nlg-3">
-            <span className="network-label-name" id="private-name-1">
+            <span className="network-label-name text-orange" id="private-name-1">
               {formData.hubPubSubnetName}
             </span>
-            <span className="network-label-domain" id="private-cidr-1">
+            <span className="network-label-domain text-orange" id="private-cidr-1">
               {formData.hubPubSubnetCidr}
             </span>
           </div>
           <div className="network-label-grp nlg-4">
-            <span className="network-label-name" id="subnet-label-1">
+            <span className="network-label-name text-blue" id="subnet-label-1">
               {formData.spokeAName}
             </span>
-            <span className="network-label-domain" id="subnet-no-1">
+            <span className="network-label-domain text-blue" id="subnet-no-1">
               {formData.spokeACidr}
             </span>
           </div>
           <div className="network-label-grp nlg-5">
-            <span className="network-label-name" id="subnet-label1">
+            <span className="network-label-name text-blue" id="subnet-label1">
               {formData.spokeAPrivSubnetName}
             </span>
-            <span className="network-label-domain" id="subnet-no1">
+            <span className="network-label-domain text-blue" id="subnet-no1">
               {formData.spokeAPrivSubnetCidr}
             </span>
           </div>
           <div className="network-label-grp nlg-6">
-            <span className="network-label-name" id="subnet-label1">
+            <span className="network-label-name text-blue" id="subnet-label1">
               {formData.spokeBName}
             </span>
-            <span className="network-label-domain" id="subnet-no1">
+            <span className="network-label-domain text-blue" id="subnet-no1">
               {formData.spokeBCidr}
             </span>
           </div>
           <div className="network-label-grp nlg-7">
-            <span className="network-label-name" id="subnet-label1">
+            <span className="network-label-name text-blue" id="subnet-label1">
               {formData.spokeBPrivSubnetName}
             </span>
-            <span className="network-label-domain" id="subnet-no1">
+            <span className="network-label-domain text-blue" id="subnet-no1">
               {formData.spokeBPrivSubnetCidr}
             </span>
           </div>

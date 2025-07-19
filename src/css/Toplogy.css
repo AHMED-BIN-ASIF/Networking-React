@@ -4,7 +4,7 @@
 .topology-section#topo2-sec .container {
     transition: margin .5s ease ease-in-out;
 }
-@media screen and (max-width:1580px) {
+@media screen and (max-width:1620px) {
     .topology-section#topo2-sec .container.left {
         margin: 0 0 0 20px;
     }   
