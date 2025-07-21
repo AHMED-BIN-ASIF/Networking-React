@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Topo2 from "../assets/images/topo-2.jpg";
 import "../css/DiagramPreview2.css";
 import Popup from "./Popup ";
@@ -11,21 +11,21 @@ const connectionMap = {
   // Group 1
   "chk-priv1-pub": [
     ["top2-priv-1", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-pub-1", { path: "straight" }],
+    ["top2-fw-1", "top2-pub-1", { path: "arc" }],
   ],
   "chk-pub1-priv1-fw1": [
-    ["top2-pub-1", "top2-fw-1", { path: "straight", color: "orange" }],
-    ["top2-fw-1", "top2-priv-1", { path: "straight", color: "orange" }],
+    ["top2-pub-1", "top2-fw-1", { path: "arc", color: "orange" }],
+    ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
   ],
 
   // Group 2
   "chk-inet1-pub1": [
-    ["top2-inet-1", "top2-gateway-1", { path: "straight" }],
-    ["top2-gateway-1", "top2-pub-1", { path: "straight" }],
+    ["top2-inet-1", "top2-gateway-1", { path: "arc" }],
+    ["top2-gateway-1", "top2-pub-1", { path: "arc" }],
   ],
   "chk-pub1-inet1": [
-    ["top2-pub-1", "top2-gateway-1", { path: "straight", color: "orange" }],
-    ["top2-gateway-1", "top2-inet-1", { path: "straight", color: "orange" }],
+    ["top2-pub-1", "top2-gateway-1", { path: "arc", color: "orange" }],
+    ["top2-gateway-1", "top2-inet-1", { path: "arc", color: "orange" }],
   ],
 
   // Group 3
@@ -262,6 +262,11 @@ const DiagramPreview2 = ({
     const { id, checked } = e.target;
     setFlowCheckboxes((prev) => ({ ...prev, [id]: checked }));
   };
+
+  // Mapping of checkboxes to affected popups
+  
+
+  
   const downloadFiles = () => {
     const content = `
 Create VCN Name: ${formData.vpcName}
@@ -421,6 +426,9 @@ Create Routing Table Name: ${formData.publicRTName}
           onClick={() => setPopups((prev) => ({ ...prev, popup16: true }))}
         >
           <span>{formData.vcnRt2HubAttachment}</span>
+          {setPopups["popup16"] && (
+           <span className="updated-badge">Updated</span>
+  )}
         </div>
         {(flowCheckboxes["chk-priv1-inet1-fw"] ||
           flowCheckboxes["chk-priv1-priv2"] ||

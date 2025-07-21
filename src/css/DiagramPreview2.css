@@ -59,20 +59,7 @@
     left: 15%;
   }
   /* Popup  */
-  .popup-btn {
-    position: absolute;
-    width: 50px;
-    height:55px;
-    /* background: #000; */
-    display: block;
-    cursor: pointer;
-    font-size: 10px;
-    font-family: "Lato", serif;
-    color: #b00013;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  }
+
   .popup-btn span {
     white-space: nowrap;
   }
@@ -130,17 +117,17 @@
   .popup-btn.top1-btn-13 {
     bottom: 29.5%;
     right: 25.5%;
-    justify-content: left;
+        align-items: flex-start;
   }
   .popup-btn.top1-btn-14 {
     top: 35%;
     right: 26.5%;
-    align-items: start;
+    justify-content: start;
   }
   .popup-btn.top1-btn-15 {
     top: 43.7%;
     right: 23.5%;
-    justify-content: left;
+    align-items: flex-start;
   }
   .popup-btn.top1-btn-16 {
     top: 50%;
