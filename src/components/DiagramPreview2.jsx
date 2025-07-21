@@ -10,7 +10,7 @@ import { tr } from "framer-motion/client";
 const connectionMap = {
   // Group 1
   "chk-priv1-pub": [
-    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-pub-1", { path: "arc" }],
   ],
   "chk-pub1-priv1-fw1": [
@@ -31,7 +31,7 @@ const connectionMap = {
   // Group 3
   "chk-fw1-inet1": [
     ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
-    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "arc" }],
   ],
 
   // Group 4
@@ -40,15 +40,15 @@ const connectionMap = {
 
   // Group 5
   "chk-priv1-inet1-bypass-fw": [
-    ["top2-priv-1", "top2-gateway-2", { path: "straight" }],
-    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
+    ["top2-priv-1", "top2-gateway-2", { path: "arc" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "arc" }],
   ],
 
   // Group 6
   "chk-priv1-inet1-fw": [
-    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
-    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "arc" }],
   ],
 
   // Group 7
@@ -57,8 +57,8 @@ const connectionMap = {
 
   // Group 8
   "chk-pub1-priv2": [
-    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
-    ["top2-fw-1", "top2-priv-2", { path: "straight" }],
+    ["top2-pub-1", "top2-fw-1", { path: "arc" }],
+    ["top2-fw-1", "top2-priv-2", { path: "arc" }],
   ],
   "chk-priv2-pub1": [
     ["top2-priv-2", "top2-fw-1", { path: "arc", color: "orange" }],
@@ -67,15 +67,15 @@ const connectionMap = {
 
   // Group 9
   "chk-priv2-inet1": [
-    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-2", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
-    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "arc" }],
   ],
 
   // Group 10
   "chk-priv1-priv2": [
     ["top2-priv-1", "top2-fw-1", { path: "arc" }],
-    ["top2-fw-1", "top2-priv-2", { path: "straight" }],
+    ["top2-fw-1", "top2-priv-2", { path: "arc" }],
   ],
   "chk-priv2-priv1": [
     ["top2-priv-2", "top2-fw-1", { path: "arc", color: "orange" }],
@@ -94,9 +94,9 @@ const connectionMap = {
 
   // Group 12
   "chk-priv3-inet1": [
-    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-3", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-2", { path: "arc" }],
-    ["top2-gateway-2", "top2-inet-1", { path: "straight" }],
+    ["top2-gateway-2", "top2-inet-1", { path: "arc" }],
   ],
 
   // Group 13
@@ -121,28 +121,28 @@ const connectionMap = {
 
   // Group 15 (SBI)
   "chk-priv1-sbi": [
-    ["top2-priv-1", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
-    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
+    ["top2-gateway-3", "top2-sbi", { path: "arc" }],
   ],
 
   // Group 16 (SBI)
   "chk-priv2-sbi": [
-    ["top2-priv-2", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-2", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
-    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
+    ["top2-gateway-3", "top2-sbi", { path: "arc" }],
   ],
   // Group 17 (SBI)
   "chk-priv3-sbi": [
-    ["top2-priv-3", "top2-fw-1", { path: "straight" }],
+    ["top2-priv-3", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
-    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
+    ["top2-gateway-3", "top2-sbi", { path: "arc" }],
   ],
   // Group 18 (SBI)
   "chk-pub1-sbi": [
-    ["top2-pub-1", "top2-fw-1", { path: "straight" }],
+    ["top2-pub-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
-    ["top2-gateway-3", "top2-sbi", { path: "straight" }],
+    ["top2-gateway-3", "top2-sbi", { path: "arc" }],
   ],
 };
 
