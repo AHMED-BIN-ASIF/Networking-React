@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Topo2 from "../assets/images/topo-2.jpg";
 import "../css/DiagramPreview2.css";
-import Popup from "./Popup ";
+// import Popup from "./Popup";
 import FlowCheckbox from "./FlowCheckbox";
 import RtIcon from "../assets/icons/rt-icon.webp";
-import { tr } from "framer-motion/client";
+import PopupTables from "./PopupTables";
 
-// Flow lines configuration as provided
 const connectionMap = {
   // Group 1
   "chk-priv1-pub": [
@@ -36,7 +35,9 @@ const connectionMap = {
 
   // Group 4
   "chk-pub1-fw1": [["top2-pub-1", "top2-fw-1", { path: "arc" }]],
-  "chk-fw1-pub1": [["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }]],
+  "chk-fw1-pub1": [
+    ["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }],
+  ],
 
   // Group 5
   "chk-priv1-inet1-bypass-fw": [
@@ -53,7 +54,9 @@ const connectionMap = {
 
   // Group 7
   "chk-pub1-priv1": [["top2-pub-1", "top2-priv-1", { path: "arc" }]],
-  "chk-priv1-pub1": [["top2-priv-1", "top2-pub-1", { path: "arc", color: "orange" }]],
+  "chk-priv1-pub1": [
+    ["top2-priv-1", "top2-pub-1", { path: "arc", color: "orange" }],
+  ],
 
   // Group 8
   "chk-pub1-priv2": [
@@ -115,7 +118,7 @@ const connectionMap = {
     ["top2-fw-1", "top2-priv-3", { path: "arc" }],
   ],
   "chk-priv3-priv2": [
-    ["top2-priv-3", "top2-fw-1", {path: "arc",  color: "orange" }],
+    ["top2-priv-3", "top2-fw-1", { path: "arc", color: "orange" }],
     ["top2-fw-1", "top2-priv-2", { path: "arc", color: "orange" }],
   ],
 
@@ -153,9 +156,9 @@ const endpointIds = [
   "top2-priv-3",
   "top2-sbi",
   "top2-inet-1",
-  // "top2-fw-1",
   "fw1-grp",
 ];
+
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) =>
   new window.LeaderLine(
@@ -181,6 +184,8 @@ const DiagramPreview2 = ({
   flowConfigGrouped,
 }) => {
   const linesRef = useRef({});
+  const [updatedPopups, setUpdatedPopups] = useState({});
+
   // Function to update LeaderLine instances based on the checked flow checkboxes.
   const updateFlowLines = () => {
     Object.keys(connectionMap).forEach((key) => {
@@ -199,7 +204,80 @@ const DiagramPreview2 = ({
         }
       }
     });
+
+    // Determine which popups need to show "updated" badge
+    const affectedPopups = {};
+
+    // Map checkbox changes to affected popups
+    if (
+      flowCheckboxes["chk-fw1-inet1"] ||
+      flowCheckboxes["chk-priv1-inet1-fw"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup17 = true;
+    }
+
+    if (
+      flowCheckboxes["chk-pub1-priv2"] ||
+      flowCheckboxes["chk-priv2-pub1"] ||
+      flowCheckboxes["chk-priv1-priv2"] ||
+      flowCheckboxes["chk-priv2-priv1"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup6 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+
+    if (
+      flowCheckboxes["chk-pub1-priv3"] ||
+      flowCheckboxes["chk-priv3-pub1"] ||
+      flowCheckboxes["chk-priv1-priv3"] ||
+      flowCheckboxes["chk-priv3-priv1"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup6 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+
+    if (
+      flowCheckboxes["chk-priv2-priv3"] ||
+      flowCheckboxes["chk-priv3-priv2"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+
+    if (
+      flowCheckboxes["chk-priv1-sbi"] ||
+      flowCheckboxes["chk-priv2-sbi"] ||
+      flowCheckboxes["chk-priv3-sbi"] ||
+      flowCheckboxes["chk-pub1-sbi"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup6 = true;
+      affectedPopups.popup11 = true;
+      affectedPopups.popup16 = true;
+      if (flowCheckboxes["chk-priv1-sbi"]) affectedPopups.popup17 = true;
+      if (flowCheckboxes["chk-priv2-sbi"]) affectedPopups.popup7 = true;
+    }
+
+    setUpdatedPopups(affectedPopups);
   };
+
   // This function is a direct translation of your snippet:
   const handleShowEndpoints = () => {
     let show = document.getElementById("chk-show-endpoints").checked;
@@ -223,6 +301,7 @@ const DiagramPreview2 = ({
     });
     updateFlowLines();
   };
+
   // Attach event listeners when component mounts:
   useEffect(() => {
     // Ensure the endpoints are updated on mount:
@@ -253,260 +332,256 @@ const DiagramPreview2 = ({
       });
       linesRef.current = {};
     };
-  }, [flowCheckboxes]);
+  }, []);
+
   // Also, if flowCheckboxes state changes via React, call updateFlowLines.
   useEffect(() => {
     updateFlowLines();
   }, [flowCheckboxes]);
+
   const handleFlowCheckboxChange = (e) => {
     const { id, checked } = e.target;
     setFlowCheckboxes((prev) => ({ ...prev, [id]: checked }));
   };
 
-  // Mapping of checkboxes to affected popups
-  
-
-  
-  const downloadFiles = () => {
-    const content = `
-Create VCN Name: ${formData.vpcName}
-Create VCN CIDR: ${formData.vpcCIDR}
-Create Security List Name: ${formData.publicSLName}
-Create Routing Table Name: ${formData.publicRTName}
-    `.trim();
-    const blob = new Blob([content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "terraform_code.txt";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
   return (
     <div className="diagram-topology-two">
       <div>
-      <h3>Topology 2</h3>
-      <div className="topo-img-wrapper">
-        <img src={Topo2} alt="topo2" />
-        {/* Fixed endpoint elements with specific IDs */}
-        <div id="top2-priv-1" className="flow-label tp2-label-1">
-          {"PRIV1"}
-        </div>
-        <div id="top2-pub-1" className="flow-label tp2-label-2">
-          {"PUB1"}
-        </div>
-        <div id="top2-priv-2" className="flow-label tp2-label-3">
-          {"PRIV2"}
-        </div>
-        <div id="top2-priv-3" className="flow-label tp2-label-4">
-          {"PRIV3"}
-        </div>
-        <div id="top2-inet-1" className="flow-label tp2-label-5">
-          {"INET1"}
-        </div>
-        <div id="top2-sbi" className="flow-label tp2-label-6">
-          {"SB1"}
-        </div>
-        {/* {flowCheckboxes['chk-show-endpoints'] && 
-          (flowCheckboxes['chk-priv-inet'] || 
-            flowCheckboxes['chk-pub-inet'] || 
-            flowCheckboxes['chk-priv-pub'] || 
-            flowCheckboxes['chk-pub-priv2/3'] || 
-            flowCheckboxes['chk-priv1-priv2/3'] || 
-            flowCheckboxes['chk-priv2/3-priv1']) && */}
-        <div id="fw1-grp">
-          <div id="top2-fw-1" className="flow-label tp2-label-7">
-            {"FW1"}
+        <h3>Topology 2</h3>
+        
+        <div className="topo-img-wrapper">
+          <img src={Topo2} alt="topo2" />
+          {/* Fixed endpoint elements with specific IDs */}
+          <div id="top2-priv-1" className="flow-label tp2-label-1">
+            {"PRIV1"}
           </div>
-          <span className="flow-label-fw1 tp2-label-7-1">
-            {formData.firewallIp}
-          </span>
-        </div>
-        {/* } */}
-        {/* gateways points */}
-        <>
-          <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
-          <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
-          <div id="top2-gateway-3" className="gateway tp2-gtw-3"></div>
-          <div id="top2-gateway-4" className="gateway tp2-gtw-4"></div>
-        </>
-        {/* Popup buttons */}
-        <div
-          className="popup-btn orange top1-btn-1"
-          onClick={() => setPopups((prev) => ({ ...prev, popup1: true }))}
-        >
-          <span id="public-sl-name-1">{formData.hubPrivSlName}</span>
-        </div>
-        <div
-          className="popup-btn orange top1-btn-2"
-          onClick={() => setPopups((prev) => ({ ...prev, popup2: true }))}
-        >
-          <span id="private-sl-name-1">{formData.hubPubSlName}</span>
-        </div>
-        <div
-          className="popup-btn blue top1-btn-3"
-          onClick={() => setPopups((prev) => ({ ...prev, popup3: true }))}
-        >
-          <span id="sl-label-1">{formData.spokeAPrivSlName}</span>
-        </div>
-        <div
-          className="popup-btn blue top1-btn-4"
-          onClick={() => setPopups((prev) => ({ ...prev, popup4: true }))}
-        >
-          <span id="spokeb-sl-name-1">{formData.spokeBPrivSlName}</span>
-        </div>
-        <div
-          className="popup-btn orange top1-btn-5"
-          onClick={() => setPopups((prev) => ({ ...prev, popup5: true }))}
-        >
-          <span id="private-rt-name-1">{formData.hubPrivRtName}</span>
-        </div>
-        <div
-          className="popup-btn orange top1-btn-6"
-          onClick={() => setPopups((prev) => ({ ...prev, popup6: true }))}
-        >
-          <span>{formData.hubPubRtName}</span>
-        </div>
-        <div
-          className="popup-btn blue top1-btn-7"
-          onClick={() => setPopups((prev) => ({ ...prev, popup7: true }))}
-        >
-          <span>{formData.spokeAPrivRtName}</span>
-        </div>
-        <div
-          className="popup-btn blue top1-btn-8"
-          onClick={() => setPopups((prev) => ({ ...prev, popup8: true }))}
-        >
-          <span>{formData.spokeBPrivRtName}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-9"
-          onClick={() => setPopups((prev) => ({ ...prev, popup9: true }))}
-        >
-          <span>{formData.internetGwRtName}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-10"
-          onClick={() => setPopups((prev) => ({ ...prev, popup10: true }))}
-        >
-          <span>{formData.natGwRtName}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-11"
-          onClick={() => setPopups((prev) => ({ ...prev, popup11: true }))}
-        >
-          <span>{formData.serviceGwRtName}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-12"
-          onClick={() => setPopups((prev) => ({ ...prev, popup12: true }))}
-        >
-          <span>{formData.drgRtSpokeAttachmentA}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-13"
-          onClick={() => setPopups((prev) => ({ ...prev, popup13: true }))}
-        >
-          <span>{formData.drgRtSpokeAttachmentB}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-14"
-          onClick={() => setPopups((prev) => ({ ...prev, popup14: true }))}
-        >
-          <span>{formData.drgRt1HubAttachment}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-15"
-          onClick={() => setPopups((prev) => ({ ...prev, popup15: true }))}
-        >
-          <span>{formData.vcnRt1HubAttachment}</span>
-        </div>
-        <div
-          className="popup-btn green top1-btn-16"
-          onClick={() => setPopups((prev) => ({ ...prev, popup16: true }))}
-        >
-          <span>{formData.vcnRt2HubAttachment}</span>
-          {setPopups["popup16"] && (
-           <span className="updated-badge">Updated</span>
-  )}
-        </div>
-        {(flowCheckboxes["chk-priv1-inet1-fw"] ||
-          flowCheckboxes["chk-priv1-priv2"] ||
-          flowCheckboxes["chk-priv2-priv1"] ||
-          flowCheckboxes["chk-priv1-priv3"] ||
-          flowCheckboxes["chk-priv3-priv1"] ||
-          flowCheckboxes["chk-priv1-sbi"]) && (
-          <div
-            className="popup-btn top1-priv-rt-btn"
-            onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
-          >
-            <img src={RtIcon} alt="rticon" />
-            <span>RT-Priv1</span>
+          <div id="top2-pub-1" className="flow-label tp2-label-2">
+            {"PUB1"}
           </div>
-        )}
+          <div id="top2-priv-2" className="flow-label tp2-label-3">
+            {"PRIV2"}
+          </div>
+          <div id="top2-priv-3" className="flow-label tp2-label-4">
+            {"PRIV3"}
+          </div>
+          <div id="top2-inet-1" className="flow-label tp2-label-5">
+            {"INET1"}
+          </div>
+          <div id="top2-sbi" className="flow-label tp2-label-6">
+            {"SB1"}
+          </div>
+          <div id="fw1-grp">
+            <div id="top2-fw-1" className="flow-label tp2-label-7">
+              {"FW1"}
+            </div>
+            <span className="flow-label-fw1 tp2-label-7-1">
+              {formData.firewallIp}
+            </span>
+          </div>
+          {/* gateways points */}
+          <>
+            <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
+            <div id="top2-gateway-2" className="gateway tp2-gtw-2"></div>
+            <div id="top2-gateway-3" className="gateway tp2-gtw-3"></div>
+            <div id="top2-gateway-4" className="gateway tp2-gtw-4"></div>
+          </>
 
-        {/* Network label groupsriv */}
-        <>
-          <div className="network-label-grp nlg-1">
-            <span className="network-label-name text-orange" id="vpc-name-2">
-              {formData.hubVcnName}
-            </span>
-            <span className="network-label-domain text-orange" id="vcn-cidr-2">
-              {formData.hubVcnCidr}
-            </span>
-          </div>
-          <div className="network-label-grp nlg-2">
-            <span className="network-label-name text-orange" id="public-name-">
-              {formData.hubPrivSubnetName}
-            </span>
-            <span className="network-label-domain text-orange" id="public-cidr-1">
-              {formData.hubPrivSubnetCidr}
-            </span>
-          </div>
-          <div className="network-label-grp nlg-3">
-            <span className="network-label-name text-orange" id="private-name-1">
-              {formData.hubPubSubnetName}
-            </span>
-            <span className="network-label-domain text-orange" id="private-cidr-1">
-              {formData.hubPubSubnetCidr}
-            </span>
-          </div>
-          <div className="network-label-grp nlg-4">
-            <span className="network-label-name text-blue" id="subnet-label-1">
-              {formData.spokeAName}
-            </span>
-            <span className="network-label-domain text-blue" id="subnet-no-1">
-              {formData.spokeACidr}
-            </span>
-          </div>
-          <div className="network-label-grp nlg-5">
-            <span className="network-label-name text-blue" id="subnet-label1">
-              {formData.spokeAPrivSubnetName}
-            </span>
-            <span className="network-label-domain text-blue" id="subnet-no1">
-              {formData.spokeAPrivSubnetCidr}
-            </span>
-          </div>
-          <div className="network-label-grp nlg-6">
-            <span className="network-label-name text-blue" id="subnet-label1">
-              {formData.spokeBName}
-            </span>
-            <span className="network-label-domain text-blue" id="subnet-no1">
-              {formData.spokeBCidr}
-            </span>
-          </div>
-          <div className="network-label-grp nlg-7">
-            <span className="network-label-name text-blue" id="subnet-label1">
-              {formData.spokeBPrivSubnetName}
-            </span>
-            <span className="network-label-domain text-blue" id="subnet-no1">
-              {formData.spokeBPrivSubnetCidr}
-            </span>
-          </div>
-        </>
+          {/* Popup buttons */}
+          {[
+            {
+              id: "popup1",
+              className: "orange top1-btn-1",
+              label: formData.hubPrivSlName,
+            },
+            {
+              id: "popup2",
+              className: "orange top1-btn-2",
+              label: formData.hubPubSlName,
+            },
+            {
+              id: "popup3",
+              className: "blue top1-btn-3",
+              label: formData.spokeAPrivSlName,
+            },
+            {
+              id: "popup4",
+              className: "blue top1-btn-4",
+              label: formData.spokeBPrivSlName,
+            },
+            {
+              id: "popup5",
+              className: "orange top1-btn-5",
+              label: formData.hubPrivRtName,
+            },
+            {
+              id: "popup6",
+              className: "orange top1-btn-6",
+              label: formData.hubPubRtName,
+            },
+            {
+              id: "popup7",
+              className: "blue top1-btn-7",
+              label: formData.spokeAPrivRtName,
+            },
+            {
+              id: "popup8",
+              className: "blue top1-btn-8",
+              label: formData.spokeBPrivRtName,
+            },
+            {
+              id: "popup9",
+              className: "green top1-btn-9",
+              label: formData.internetGwRtName,
+            },
+            {
+              id: "popup10",
+              className: "green top1-btn-10",
+              label: formData.natGwRtName,
+            },
+            {
+              id: "popup11",
+              className: "green top1-btn-11",
+              label: formData.serviceGwRtName,
+            },
+            {
+              id: "popup12",
+              className: "green top1-btn-12",
+              label: formData.drgRtSpokeAttachmentA,
+            },
+            {
+              id: "popup13",
+              className: "green top1-btn-13",
+              label: formData.drgRtSpokeAttachmentB,
+            },
+            {
+              id: "popup14",
+              className: "green top1-btn-14",
+              label: formData.drgRt1HubAttachment,
+            },
+            {
+              id: "popup15",
+              className: "green top1-btn-15",
+              label: formData.vcnRt1HubAttachment,
+            },
+            {
+              id: "popup16",
+              className: "green top1-btn-16",
+              label: formData.vcnRt2HubAttachment,
+            },
+          ].map(({ id, className, label }) => (
+            <div
+              key={id}
+              className={`popup-btn ${className}`}
+              onClick={() => setPopups((prev) => ({ ...prev, [id]: true }))}
+            >
+              <span>{label}</span>
+              {updatedPopups[id] && (
+                <span className="updated-badge">Updated</span>
+              )}
+            </div>
+          ))}
+
+          {/* Conditional RT-Priv1 button */}
+          {(flowCheckboxes["chk-priv1-inet1-fw"] ||
+            flowCheckboxes["chk-priv1-priv2"] ||
+            flowCheckboxes["chk-priv2-priv1"] ||
+            flowCheckboxes["chk-priv1-priv3"] ||
+            flowCheckboxes["chk-priv3-priv1"] ||
+            flowCheckboxes["chk-priv1-sbi"]) && (
+            <div
+              className="popup-btn top1-priv-rt-btn"
+              onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
+            >
+              <img src={RtIcon} alt="rticon" />
+              <span>RT-Priv1</span>
+              {updatedPopups.popup17 && (
+                <span className="updated-badge">Updated</span>
+              )}
+            </div>
+          )}
+
+          {/* Network label groups */}
+          <>
+            <div className="network-label-grp nlg-1">
+              <span className="network-label-name text-orange" id="vpc-name-2">
+                {formData.hubVcnName}
+              </span>
+              <span
+                className="network-label-domain text-orange"
+                id="vcn-cidr-2"
+              >
+                {formData.hubVcnCidr}
+              </span>
+            </div>
+            <div className="network-label-grp nlg-2">
+              <span
+                className="network-label-name text-orange"
+                id="public-name-"
+              >
+                {formData.hubPrivSubnetName}
+              </span>
+              <span
+                className="network-label-domain text-orange"
+                id="public-cidr-1"
+              >
+                {formData.hubPrivSubnetCidr}
+              </span>
+            </div>
+            <div className="network-label-grp nlg-3">
+              <span
+                className="network-label-name text-orange"
+                id="private-name-1"
+              >
+                {formData.hubPubSubnetName}
+              </span>
+              <span
+                className="network-label-domain text-orange"
+                id="private-cidr-1"
+              >
+                {formData.hubPubSubnetCidr}
+              </span>
+            </div>
+            <div className="network-label-grp nlg-4">
+              <span
+                className="network-label-name text-blue"
+                id="subnet-label-1"
+              >
+                {formData.spokeAName}
+              </span>
+              <span className="network-label-domain text-blue" id="subnet-no-1">
+                {formData.spokeACidr}
+              </span>
+            </div>
+            <div className="network-label-grp nlg-5">
+              <span className="network-label-name text-blue" id="subnet-label1">
+                {formData.spokeAPrivSubnetName}
+              </span>
+              <span className="network-label-domain text-blue" id="subnet-no1">
+                {formData.spokeAPrivSubnetCidr}
+              </span>
+            </div>
+            <div className="network-label-grp nlg-6">
+              <span className="network-label-name text-blue" id="subnet-label1">
+                {formData.spokeBName}
+              </span>
+              <span className="network-label-domain text-blue" id="subnet-no1">
+                {formData.spokeBCidr}
+              </span>
+            </div>
+            <div className="network-label-grp nlg-7">
+              <span className="network-label-name text-blue" id="subnet-label1">
+                {formData.spokeBPrivSubnetName}
+              </span>
+              <span className="network-label-domain text-blue" id="subnet-no1">
+                {formData.spokeBPrivSubnetCidr}
+              </span>
+            </div>
+          </>
+        </div>
       </div>
-</div>
-{(flowCheckboxes["chk-show-endpoints"]) && (
+
+      {/* Flow checkboxes */}
+      {flowCheckboxes["chk-show-endpoints"] && (
         <div className="form-checkouts column">
           {flowConfigGrouped.slice(1, 99).map((group, groupIndex) => (
             <div className="flow-checkbox-group" key={`group-${groupIndex}`}>
@@ -522,22 +597,26 @@ Create Routing Table Name: ${formData.publicRTName}
             </div>
           ))}
         </div>
-)}
+      )}
+
       <div className="diagram-btm">
         {/* Flow Checkboxes */}
         <div className="form-checkouts">
-        {flowConfigGrouped.flat().slice(0, 1).map(({ id, label }) => (
-  <div className="flow-checkbox-group" key={id}>
-    <FlowCheckbox
-      key={id}
-      id={id}
-      label={label}
-      checked={flowCheckboxes[id] ?? false}
-      onChange={handleFlowCheckboxChange}
-    />
-  </div>
-))}
-</div>
+          {flowConfigGrouped
+            .flat()
+            .slice(0, 1)
+            .map(({ id, label }) => (
+              <div className="flow-checkbox-group" key={id}>
+                <FlowCheckbox
+                  key={id}
+                  id={id}
+                  label={label}
+                  checked={flowCheckboxes[id] ?? false}
+                  onChange={handleFlowCheckboxChange}
+                />
+              </div>
+            ))}
+        </div>
         <div className="generate-btn">
           <div>
             <button
@@ -601,1081 +680,72 @@ Create Routing Table Name: ${formData.publicRTName}
       </div>
 
       {/* Generate TF Popup */}
-      {popups.generateTF && (
+      {/* {popups.generateTF && (
         <div id="generate-TF-popup" className="generateTFPopup">
-          {/* <span className="generateCloseBtn" onClick={() =>
-            setPopups(prev => ({ ...prev, generateTF: false }))
-          }>&times;</span>
+          <span
+            className="generateCloseBtn"
+            onClick={() =>
+              setPopups((prev) => ({ ...prev, generateTF: false }))
+            }
+          >
+            &times;
+          </span>
           <h3>CODE FIELD</h3>
           <div className="code-block">
             <p>
-              <span id="code-vpc-name-1">{formData.vpcName}</span> : <span id="code-vcn-cidr-1">{formData.vpcCIDR}</span>
+              <span id="code-vpc-name-1">{formData.vpcName}</span> :{" "}
+              <span id="code-vcn-cidr-1">{formData.vpcCIDR}</span>
             </p>
             <p>
-              <span id="code-public-name-1">{formData.publicSubnetName}</span> : <span id="code-public-cidr-1">{formData.publicSubnetCIDR}</span>
+              <span id="code-public-name-1">{formData.publicSubnetName}</span> :{" "}
+              <span id="code-public-cidr-1">{formData.publicSubnetCIDR}</span>
             </p>
             <p>
-              <span id="code-private-name-1">{formData.privateSubnetRange}</span> : <span id="code-private-cidr-1">{formData.privateSubnetCIDR}</span>
+              <span id="code-private-name-1">
+                {formData.privateSubnetRange}
+              </span>{" "}
+              :{" "}
+              <span id="code-private-cidr-1">{formData.privateSubnetCIDR}</span>
             </p>
             <p>
-              <span id="code-subnet-label-1">{formData.SubnetName}</span> : <span id="code-subnet-no-1">{formData.SubnetRange}</span>
+              <span id="code-subnet-label-1">{formData.SubnetName}</span> :{" "}
+              <span id="code-subnet-no-1">{formData.SubnetRange}</span>
             </p>
           </div>
-          <a href="#" className="download-button" onClick={downloadFiles}>Download Files</a> */}
+          <a
+            href="#"
+            className="download-button"
+            onClick={() => {
+              const content = `
+Create VCN Name: ${formData.vpcName}
+Create VCN CIDR: ${formData.vpcCIDR}
+Create Security List Name: ${formData.publicSLName}
+Create Routing Table Name: ${formData.publicRTName}
+            `.trim();
+              const blob = new Blob([content], { type: "text/plain" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "terraform_code.txt";
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            Download Files
+          </a>
         </div>
-      )}
+      )} */}
+
+      {/* Render PopupTables component */}
       {popupwrap && (
-        <div className="popup-wrapper">
-          <Popup
-            id="popup1"
-            title={formData.hubPrivSlName}
-            isVisible={popups.popup1}
-            onClose={() => setPopups((prev) => ({ ...prev, popup1: false }))}
-          >
-            <h5>Ingress</h5>
-            <table>
-              <thead>
-                <tr>
-                  <th>Stateless</th>
-                  <th>Source</th>
-                  <th>IP Protocol</th>
-                  <th>SRC Port Range</th>
-                  <th>DST Port Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>No</td>
-                  <td>CIDR + 0.0.0.0/0</td>
-                  <td>All Protocols</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>No</td>
-                  <td>Services + All regional services</td>
-                  <td>All Protocols</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup2"
-            title={formData.hubPubSlName}
-            isVisible={popups.popup2}
-            onClose={() => setPopups((prev) => ({ ...prev, popup2: false }))}
-          >
-            <h5>Ingress</h5>
-            <table>
-              <thead>
-                <tr>
-                  <th>Stateless</th>
-                  <th>Source</th>
-                  <th>IP Protocol</th>
-                  <th>SRC Port Range</th>
-                  <th>DST Port Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>No</td>
-                  <td>CIDR + 0.0.0.0/0</td>
-                  <td>All Protocols</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>No</td>
-                  <td>Services + All regional services</td>
-                  <td>All Protocols</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup3"
-            title={formData.spokeAPrivSlName}
-            isVisible={popups.popup3}
-            onClose={() => setPopups((prev) => ({ ...prev, popup3: false }))}
-          >
-            <h5>Ingress</h5>
-            <table>
-              <thead>
-                <tr>
-                  <th>Stateless</th>
-                  <th>Source</th>
-                  <th>IP Protocol</th>
-                  <th>SRC Port Range</th>
-                  <th>DST Port Range</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>No</td>
-                  <td>CIDR + 0.0.0.0/0</td>
-                  <td>All Protocols</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>No</td>
-                  <td>Services + All regional services</td>
-                  <td>All Protocols</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup4"
-            title={formData.spokeBPrivSlName}
-            isVisible={popups.popup4}
-            onClose={() => setPopups((prev) => ({ ...prev, popup4: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>Internet Gateway</td>
-                  <td>IGW</td>
-                  <td>Static</td>
-                </tr>
-                <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup5"
-            title={formData.hubPrivRtName}
-            isVisible={popups.popup5}
-            onClose={() => setPopups((prev) => ({ ...prev, popup5: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-fw1-inet1"] ||
-                  flowCheckboxes["chk-fw1-inet1"] ||
-                  flowCheckboxes["chk-priv1-inet1-fw"]) && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>NAT Gateway</td>
-                    <td>NGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv2-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>NAT Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-priv3-pub1"] ||
-                  flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>NAT Gateway</td>
-                    <td>NGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
+        <PopupTables
+          formData={formData}
+          popups={popups}
+          setPopups={setPopups}
+          flowCheckboxes={flowCheckboxes}
+        />
 
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <>
-                    <tr>
-                      <td>172.16.1.0/24</td>
-                      <td>Dynamic Routing Gateway</td>
-                      <td>DRG</td>
-                      <td>Static</td>
-                    </tr>
-                    <tr>
-                      <td>172.16.2.0/24</td>
-                      <td>Dynamic Routing Gateway</td>
-                      <td>DRG</td>
-                      <td>Static</td>
-                    </tr>
-                  </>
-                )}
-                {(flowCheckboxes["chk-pub1-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Service Gateway</td>
-                    <td>SGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Service Gateway</td>
-                    <td>SGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Service Gateway</td>
-                    <td>SGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup6"
-            title={formData.hubPubRtName}
-            isVisible={popups.popup6}
-            onClose={() => setPopups((prev) => ({ ...prev, popup6: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-inet1-pub1"] ||
-                  flowCheckboxes["chk-pub1-inet1"]) && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Internet Gateway</td>
-                    <td>IGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-priv3-pub1"]) && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Service Gateway</td>
-                    <td>SGW</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup7"
-            title={formData.spokeAPrivRtName}
-            isVisible={popups.popup7}
-            onClose={() => setPopups((prev) => ({ ...prev, popup7: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {flowCheckboxes["chk-priv2-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup8"
-            title={formData.spokeBPrivRtName}
-            isVisible={popups.popup8}
-            onClose={() => setPopups((prev) => ({ ...prev, popup8: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-pub1-priv3"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup9"
-            title={formData.internetGwRtName}
-            isVisible={popups.popup9}
-            onClose={() => setPopups((prev) => ({ ...prev, popup9: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>0.0.0.0/0</td>
-                  <td>NAT Gateway</td>
-                  <td>NGW</td>
-                  <td>Static</td>
-                </tr>
-                <tr>
-                  <td>
-                    All &lt;REGION&gt; Services In Oracle Services Network
-                  </td>
-                  <td>Service Gateway</td>
-                  <td>SGW</td>
-                  <td>Static</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup10"
-            title={formData.natGwRtName}
-            isVisible={popups.popup10}
-            onClose={() => setPopups((prev) => ({ ...prev, popup10: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {flowCheckboxes["chk-priv2-inet1"] && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup11"
-            title={formData.serviceGwRtName}
-            isVisible={popups.popup11}
-            onClose={() => setPopups((prev) => ({ ...prev, popup11: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup12"
-            title={formData.drgRtSpokeAttachmentA}
-            isVisible={popups.popup12}
-            onClose={() => setPopups((prev) => ({ ...prev, popup12: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination CIDR block</th>
-                  <th>Next hop attachment type</th>
-                  <th>Next hop attachment name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv2-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  <tr>
-                     <td>0.0.0.0/0</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup13"
-            title={formData.drgRtSpokeAttachmentB}
-            isVisible={popups.popup13}
-            onClose={() => setPopups((prev) => ({ ...prev, popup13: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  {flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-priv3-inet1"] ? (
-                    <>
-                      <th>Destination CIDR block</th>
-                      <th>Next hop attachment type</th>
-                      <th>Next hop attachment name</th>
-                    </>
-                  ) : (
-                    <>
-                      <th>Destination</th>
-                      <th>Target Type</th>
-                      <th>Target</th>
-                      <th>Route Type</th>
-                    </>
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Dynamic Routing Gateway</td>
-                    <td>DRG</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-pub1-priv3"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <tr>
-                    <td>192.168.0.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>HUB-VCN-ATTACHMENT</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup14"
-            title={formData.drgRt1HubAttachment}
-            isVisible={popups.popup14}
-            onClose={() => setPopups((prev) => ({ ...prev, popup14: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Priority</th>
-                  <th>Match type</th>
-                  <th>Match criteria</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv2-inet1"] ||
-                  flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <tr>
-                    <td>10</td>
-                    <td>Attachment</td>
-                    <td>SPOKE-VCN-A-ATTACHMENT</td>
-                    <td>Accept</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-priv3-pub1"] ||
-                  flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <tr>
-                    <td>20</td>
-                    <td>Attachment</td>
-                    <td>SPOKE-VCN-B-ATTACHMENT</td>
-                    <td>Accept</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>20</td>
-                    <td>Attachment</td>
-                    <td>SPOKE-VCN-B-ATTACHMENT</td>
-                    <td>Accept</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <>
-                    <tr>
-                      <td>10</td>
-                      <td>Attachment</td>
-                      <td>SPOKE-VCN-A-ATTACHMENT</td>
-                      <td>Accept</td>
-                    </tr>
-                    <tr>
-                      <td>20</td>
-                      <td>Attachment</td>
-                      <td>SPOKE-VCN-B-ATTACHMENT</td>
-                      <td>Accept</td>
-                    </tr>
-                  </>
-                )}
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  
-                    <tr>
-                      <td>10</td>
-                      <td>Attachment</td>
-                      <td>SPOKE-VCN-A-ATTACHMENT</td>
-                      <td>-</td>
-                    </tr>
-                )}
-
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup15"
-            title={formData.vcnRt1HubAttachment}
-            isVisible={popups.popup15}
-            onClose={() => setPopups((prev) => ({ ...prev, popup15: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination CIDR block</th>
-                  <th>Next hop attachment type</th>
-                  <th>Next hop attachment name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv2-inet1"] ||
-                  flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>SPOKE-VCN-A-ATTACHMENT</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-priv3-pub1"] ||
-                  flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>SPOKE-VCN-B-ATTACHMENT</td>
-                  </tr>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>SPOKE-VCN-B-ATTACHMENT</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <>
-                    <tr>
-                      <td>172.16.1.0/24</td>
-                      <td>Virtual Cloud Network</td>
-                      <td>SPOKE-VCN-A-ATTACHMENT</td>
-                    </tr>
-                    <tr>
-                      <td>172.16.2.0/24</td>
-                      <td>Virtual Cloud Network</td>
-                      <td>SPOKE-VCN-B-ATTACHMENT</td>
-                    </tr>
-                  </>
-                )}
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Virtual Cloud Network</td>
-                    <td>SPOKE-VCN-A-ATTACHMENT</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup16"
-            title={formData.vcnRt2HubAttachment}
-            isVisible={popups.popup16}
-            onClose={() => setPopups((prev) => ({ ...prev, popup16: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(flowCheckboxes["chk-pub1-priv2"] ||
-                  flowCheckboxes["chk-priv2-pub1"] ||
-                  flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <>
-                    <tr>
-                      <td>172.16.1.0/24</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                    <tr>
-                      <td>192.168.0.128/25</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                  </>
-                )}
-                {flowCheckboxes["chk-priv2-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-pub1-priv3"] ||
-                  flowCheckboxes["chk-priv3-pub1"]) && (
-                  <>
-                    <tr>
-                      <td>172.16.2.0/24</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                    <tr>
-                      <td>192.168.0.128/25</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                  </>
-                )}
-                {flowCheckboxes["chk-priv3-inet1"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <>
-                    <tr>
-                      <td>172.16.2.0/24</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                    <tr>
-                      <td>192.168.0.0/25</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                  </>
-                )}
-                {(flowCheckboxes["chk-priv2-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv2"]) && (
-                  <>
-                    <tr>
-                      <td>172.16.1.0/24</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                    <tr>
-                      <td>172.16.2.0/24</td>
-                      <td>Private IP</td>
-                      <td>192.168.0.100</td>
-                      <td>Static</td>
-                    </tr>
-                  </>
-                )}
-                {(flowCheckboxes["chk-priv2-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-          <Popup
-            id="popup17"
-            title={"RT-Priv1"}
-            isVisible={popups.popup17}
-            onClose={() => setPopups((prev) => ({ ...prev, popup17: false }))}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Target Type</th>
-                  <th>Target</th>
-                  <th>Route Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {flowCheckboxes["chk-priv1-inet1-fw"] && (
-                  <tr>
-                    <td>0.0.0.0/0</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-priv2"] ||
-                  flowCheckboxes["chk-priv2-priv1"]) && (
-                  <tr>
-                    <td>172.16.1.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-priv3"] ||
-                  flowCheckboxes["chk-priv3-priv1"]) && (
-                  <tr>
-                    <td>172.16.2.0/24</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                {(flowCheckboxes["chk-priv1-sbi"]) && (
-                  <tr>
-                    <td>All CDG Services In Oracle Services...</td>
-                    <td>Private IP</td>
-                    <td>192.168.0.100</td>
-                    <td>Static</td>
-                  </tr>
-                )}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </Popup>
-        </div>
       )}
-
-      {/* Popups */}
     </div>
   );
 };

@@ -198,6 +198,19 @@
   right: 27.8%;
   top: 76.6%;
 }
+/* table styles  */
+.green-row {
+  color: green;
+}
+.blue-row {
+  color: #3f71a6;
+}
+.red-row {
+  color: #b00013;
+}
+.orange-row {
+  color: orange;
+}
 @media screen and (max-width:1440px) {
     .popup-btn.btn-1 {
         top: 23%;
