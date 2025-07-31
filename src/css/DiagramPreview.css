@@ -131,6 +131,9 @@
     line-height: 1;
     font-weight: bold;
   }
+  .flow-label.endpoint {
+    position: relative;
+  }
   .flow-label.label-1 {
     top: 31%;
     left: 31%;

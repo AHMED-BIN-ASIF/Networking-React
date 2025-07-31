@@ -25,16 +25,9 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           </thead>
           <tbody>
             <tr className="green-row">
-              <td>No</td>
-              <td>CIDR + 0.0.0.0/0</td>
-              <td>All Protocols</td>
               <td>-</td>
               <td>-</td>
-            </tr>
-            <tr>
-              <td>No</td>
-              <td>Services + All regional services</td>
-              <td>All Protocols</td>
+              <td>-</td>
               <td>-</td>
               <td>-</td>
             </tr>
@@ -62,16 +55,9 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           </thead>
           <tbody>
             <tr className="green-row">
-              <td>No</td>
-              <td>CIDR + 0.0.0.0/0</td>
-              <td>All Protocols</td>
               <td>-</td>
               <td>-</td>
-            </tr>
-            <tr>
-              <td>No</td>
-              <td>Services + All regional services</td>
-              <td>All Protocols</td>
+              <td>-</td>
               <td>-</td>
               <td>-</td>
             </tr>
@@ -99,16 +85,9 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           </thead>
           <tbody>
             <tr className="green-row">
-              <td>No</td>
-              <td>CIDR + 0.0.0.0/0</td>
-              <td>All Protocols</td>
               <td>-</td>
               <td>-</td>
-            </tr>
-            <tr>
-              <td>No</td>
-              <td>Services + All regional services</td>
-              <td>All Protocols</td>
+              <td>-</td>
               <td>-</td>
               <td>-</td>
             </tr>
@@ -134,16 +113,10 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           </thead>
           <tbody>
             <tr className="green-row">
-              <td>0.0.0.0/0</td>
-              <td>Internet Gateway</td>
-              <td>IGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
-              <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
-              <td>Service Gateway</td>
-              <td>SGW</td>
-              <td>Static</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
           </tbody>
         </table>
@@ -445,16 +418,10 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           </thead>
           <tbody>
             <tr className="green-row">
-              <td>0.0.0.0/0</td>
-              <td>NAT Gateway</td>
-              <td>NGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
-              <td>All &lt;REGION&gt; Services In Oracle Services Network</td>
-              <td>Service Gateway</td>
-              <td>SGW</td>
-              <td>Static</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
           </tbody>
         </table>

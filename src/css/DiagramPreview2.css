@@ -144,6 +144,32 @@
     margin: 0 auto;
   }
   /* flow label  */
+  .check-preview {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    max-width: 700px;
+    margin: 20px auto;
+  }
+  .pr-gateway {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+  }
+  .pr-gateway .gt-icon {
+    max-width: 34px;
+  }
+  .pr-gateway span {
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+  }
   /* flow labels */
 .flow-label {
     position: absolute;
