@@ -124,6 +124,9 @@
     right: 26.5%;
     justify-content: start;
   }
+  .popup-btn.top1-btn-14 .updated-badge {
+    margin-top: 75%;
+  }
   .popup-btn.top1-btn-15 {
     top: 43.7%;
     right: 23.5%;

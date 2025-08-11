@@ -141,6 +141,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           <tbody>
             {(flowCheckboxes["chk-fw1-inet1"] ||
               flowCheckboxes["chk-fw1-inet1"] ||
+              flowCheckboxes["chk-priv1-inet1-bypass-fw"] ||
               flowCheckboxes["chk-priv1-inet1-fw"]) && (
               <tr className="green-row">
                 <td>0.0.0.0/0</td>
@@ -214,7 +215,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               </tr>
             )}
             {(flowCheckboxes["chk-priv1-sbi"]) && (
-              <tr>
+              <tr className='orange-row'>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Service Gateway</td>
                 <td>SGW</td>
@@ -223,6 +224,14 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             )}
             {(flowCheckboxes["chk-priv2-sbi"]) && (
               <tr>
+                <td>All CDG Services In Oracle Services...</td>
+                <td>Service Gateway</td>
+                <td>SGW</td>
+                <td>Static</td>
+              </tr>
+            )}
+            {(flowCheckboxes["chk-priv3-sbi"]) && (
+              <tr className='orange-row'>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Service Gateway</td>
                 <td>SGW</td>
@@ -262,7 +271,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             {(flowCheckboxes["chk-pub1-priv2"] ||
               flowCheckboxes["chk-priv2-pub1"]) && (
               <tr className="red-row">
-                <td>172.16.1.0/24</td>
+                <td className='blue-row'>172.16.1.0/24</td>
                 <td>Private IP</td>
                 <td>192.168.0.100</td>
                 <td>Static</td>
@@ -270,15 +279,15 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             )}
             {(flowCheckboxes["chk-pub1-priv3"] ||
               flowCheckboxes["chk-priv3-pub1"]) && (
-              <tr className="red-row">
+              <tr className="blue-row">
                 <td>172.16.2.0/24</td>
                 <td>Private IP</td>
-                <td>192.168.0.100</td>
+                <td className='red-row'>192.168.0.100</td>
                 <td>Static</td>
               </tr>
             )}
             {(flowCheckboxes["chk-pub1-sbi"]) && (
-              <tr>
+              <tr className='orange-row'>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Service Gateway</td>
                 <td>SGW</td>
@@ -315,6 +324,8 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               </tr>
             )}
             {(flowCheckboxes["chk-priv1-priv2"] ||
+              flowCheckboxes["chk-pub1-priv2"] ||
+              flowCheckboxes["chk-priv2-pub1"] ||
               flowCheckboxes["chk-priv2-priv1"]) && (
               <tr className="orange-row">
                 <td>192.168.0.0/24</td>
@@ -396,6 +407,14 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
+            {(flowCheckboxes["chk-priv3-sbi"]) && (
+              <tr>
+                <td className='blue-row'>All CDG Services In Oracle Services...</td>
+                <td>Dynamic Routing Gateway</td>
+                <td>DRG</td>
+                <td>Static</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </Popup>
@@ -446,17 +465,17 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           <tbody>
             {flowCheckboxes["chk-priv2-inet1"] && (
               <tr className="red-row">
-                <td>172.16.1.0/24</td>
+                <td className='blue-row'>172.16.1.0/24</td>
                 <td>Private IP</td>
                 <td>192.168.0.100</td>
                 <td>Static</td>
               </tr>
             )}
             {flowCheckboxes["chk-priv3-inet1"] && (
-              <tr className="red-row">
+              <tr className="blue-row">
                 <td>172.16.2.0/24</td>
                 <td>Private IP</td>
-                <td>192.168.0.100</td>
+                <td className="red-row">192.168.0.100</td>
                 <td>Static</td>
               </tr>
             )}
@@ -482,10 +501,18 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
           </thead>
           <tbody>
             {(flowCheckboxes["chk-priv2-sbi"]) && (
-              <tr className="red-row">
+              <tr className="blue-row">
                 <td>172.16.1.0/24</td>
                 <td>Private IP</td>
-                <td>192.168.0.100</td>
+                <td className="red-row">192.168.0.100</td>
+                <td>Static</td>
+              </tr>
+            )}
+            {(flowCheckboxes["chk-priv3-sbi"]) && (
+              <tr className="blue-row">
+                <td>172.16.2.0/24</td>
+                <td>Private IP</td>
+                <td className="red-row">192.168.0.100</td>
                 <td>Static</td>
               </tr>
             )}
@@ -614,6 +641,13 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>HUB-VCN-ATTACHMENT</td>
               </tr>
             )}
+            {flowCheckboxes["chk-priv3-sbi"] && (
+              <tr className="green-row">
+                <td>0.0.0.0/0</td>
+                <td>Virtual Cloud Network</td>
+                <td>HUB-VCN-ATTACHMENT</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </Popup>
@@ -691,6 +725,14 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>-</td>
               </tr>
             )}
+            {(flowCheckboxes["chk-priv3-sbi"]) && (
+              <tr className='red-row'>
+                <td>20</td>
+                <td>Attachment</td>
+                <td>SPOKE-VCN-B-ATTACHMENT</td>
+                <td></td>
+              </tr>
+            )}
           </tbody>
         </table>
       </Popup>
@@ -761,6 +803,13 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>SPOKE-VCN-A-ATTACHMENT</td>
               </tr>
             )}
+            {(flowCheckboxes["chk-priv3-sbi"]) && (
+              <tr className="blue-row">
+                <td>172.16.2.0/24</td>
+                <td>Virtual Cloud Network</td>
+                <td>SPOKE-VCN-B-ATTACHMENT</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </Popup>
@@ -787,16 +836,16 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               flowCheckboxes["chk-priv1-priv2"] ||
               flowCheckboxes["chk-priv2-priv1"]) && (
               <>
-                <tr className="red-row">
+                <tr className='blue-row'>
                   <td>172.16.1.0/24</td>
                   <td>Private IP</td>
-                  <td>192.168.0.100</td>
+                  <td className="red-row">192.168.0.100</td>
                   <td>Static</td>
                 </tr>
-                <tr className="red-row">
+                <tr className='orange-row'>
                   <td>192.168.0.128/25</td>
                   <td>Private IP</td>
-                  <td>192.168.0.100</td>
+                  <td className="red-row">192.168.0.100</td>
                   <td>Static</td>
                 </tr>
               </>
@@ -837,16 +886,16 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             {(flowCheckboxes["chk-priv1-priv3"] ||
               flowCheckboxes["chk-priv3-priv1"]) && (
               <>
-                <tr className="red-row">
+                <tr className="blue-row">
                   <td>172.16.2.0/24</td>
                   <td>Private IP</td>
-                  <td>192.168.0.100</td>
+                  <td className="red-row">192.168.0.100</td>
                   <td>Static</td>
                 </tr>
-                <tr className="red-row">
+                <tr className="orange-row">
                   <td>192.168.0.0/25</td>
                   <td>Private IP</td>
-                  <td>192.168.0.100</td>
+                  <td className="red-row">192.168.0.100</td>
                   <td>Static</td>
                 </tr>
               </>
@@ -854,21 +903,29 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             {(flowCheckboxes["chk-priv2-priv3"] ||
               flowCheckboxes["chk-priv3-priv2"]) && (
               <>
-                <tr className="red-row">
+                <tr className="blue-row">
                   <td>172.16.1.0/24</td>
                   <td>Private IP</td>
-                  <td>192.168.0.100</td>
+                  <td className="red-row">192.168.0.100</td>
                   <td>Static</td>
                 </tr>
-                <tr className="red-row">
+                <tr className="blue-row">
                   <td>172.16.2.0/24</td>
                   <td>Private IP</td>
-                  <td>192.168.0.100</td>
+                  <td className="red-row">192.168.0.100</td>
                   <td>Static</td>
                 </tr>
               </>
             )}
             {(flowCheckboxes["chk-priv2-sbi"]) && (
+              <tr className="red-row">
+                <td>All CDG Services In Oracle Services...</td>
+                <td>Private IP</td>
+                <td>192.168.0.100</td>
+                <td>Static</td>
+              </tr>
+            )}
+            {(flowCheckboxes["chk-priv3-sbi"]) && (
               <tr className="red-row">
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>
@@ -916,10 +973,10 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             )}
             {(flowCheckboxes["chk-priv1-priv3"] ||
               flowCheckboxes["chk-priv3-priv1"]) && (
-              <tr className="red-row">
+              <tr className='blue-row'>
                 <td>172.16.2.0/24</td>
                 <td>Private IP</td>
-                <td>192.168.0.100</td>
+                <td className="red-row">192.168.0.100</td>
                 <td>Static</td>
               </tr>
             )}

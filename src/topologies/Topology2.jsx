@@ -157,10 +157,10 @@ const Topology2 = () => {
   const flowConfigGrouped = [
     [{ id: 'chk-show-endpoints', label: 'Show Endpoints' }],
     // Group 1: PRIV1 <-> PUB1 (THROUGH FW1)
-    [
-      { id: 'chk-priv1-pub', label: 'PRIV1 → PUB1 (THROUGH FW1)' },
-      { id: 'chk-pub1-priv1-fw1', label: 'PUB1 → PRIV1 (THROUGH FW1)' },
-    ],
+    // [
+    //   { id: 'chk-priv1-pub', label: 'PRIV1 → PUB1 (THROUGH FW1)' },
+    //   { id: 'chk-pub1-priv1-fw1', label: 'PUB1 → PRIV1 (THROUGH FW1)' },
+    // ],
     // Group 2: INET1 <-> PUB1
     [
       { id: 'chk-inet1-pub1', label: 'INET1 → PUB1' },

@@ -9,28 +9,28 @@ import CheckPreviewDiagram from "./CheckPreviewDiagram";
 
 const connectionMap = {
   // Group 1
-  "chk-priv1-pub": [
-    ["top2-priv-1", "top2-fw-1", { path: "arc" }],
-    ["top2-fw-1", "top2-pub-1", { path: "arc" }],
-    //prev
-    ["pre-priv1-pub-1", "pre-priv1-pub-2", { path: "straight" }],
-    ["pre-priv1-pub-2", "pre-priv1-pub-3", { path: "straight" }],
-  ],
-  "chk-pub1-priv1-fw1": [
-    ["top2-pub-1", "top2-fw-1", { path: "arc", color: "orange" }],
-    ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
-    //prev
-    [
-      "pre-pub1-priv1-fw1-1",
-      "pre-pub1-priv1-fw1-2",
-      { path: "straight", color: "orange" },
-    ],
-    [
-      "pre-pub1-priv1-fw1-2",
-      "pre-pub1-priv1-fw1-3",
-      { path: "straight", color: "orange" },
-    ],
-  ],
+  // "chk-priv1-pub": [
+  //   ["top2-priv-1", "top2-fw-1", { path: "arc" }],
+  //   ["top2-fw-1", "top2-pub-1", { path: "arc" }],
+  //   //prev
+  //   ["pre-priv1-pub-1", "pre-priv1-pub-2", { path: "straight" }],
+  //   ["pre-priv1-pub-2", "pre-priv1-pub-3", { path: "straight" }],
+  // ],
+  // "chk-pub1-priv1-fw1": [
+  //   ["top2-pub-1", "top2-fw-1", { path: "arc", color: "orange" }],
+  //   ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
+  //   //prev
+  //   [
+  //     "pre-pub1-priv1-fw1-1",
+  //     "pre-pub1-priv1-fw1-2",
+  //     { path: "straight", color: "orange" },
+  //   ],
+  //   [
+  //     "pre-pub1-priv1-fw1-2",
+  //     "pre-pub1-priv1-fw1-3",
+  //     { path: "straight", color: "orange" },
+  //   ],
+  // ],
 
   // Group 2
   "chk-inet1-pub1": [
@@ -101,18 +101,22 @@ const connectionMap = {
   "chk-pub1-priv1": [
     ["top2-pub-1", "top2-priv-1", { path: "arc" }],
     //prev
-    ["pre-pub1-priv1-1", "pre-pub1-priv1-2", { path: "straight"}],
+    ["pre-pub1-priv1-1", "pre-pub1-priv1-2", { path: "straight" }],
   ],
   "chk-priv1-pub1": [
     ["top2-priv-1", "top2-pub-1", { path: "arc", color: "orange" }],
     //prev
-    ["pre-priv1-pub1-1", "pre-priv1-pub1-2", { path: "straight", color: "orange" }],
+    [
+      "pre-priv1-pub1-1",
+      "pre-priv1-pub1-2",
+      { path: "straight", color: "orange" },
+    ],
   ],
 
   // Group 8
   "chk-pub1-priv2": [
     ["top2-pub-1", "top2-fw-1", { path: "arc" }],
-    ["top2-fw-1", "top2-priv-2", { path: "arc" }],
+    ["top2-fw-1", "top2-priv-2"],
     //prev
     ["pre-pub1-priv2-1", "pre-pub1-priv2-2", { path: "straight" }],
     ["pre-pub1-priv2-2", "pre-pub1-priv2-3", { path: "straight" }],
@@ -121,8 +125,16 @@ const connectionMap = {
     ["top2-priv-2", "top2-fw-1", { path: "arc", color: "orange" }],
     ["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }],
     //prev
-    ["pre-priv2-pub1-1", "pre-priv2-pub1-2", { path: "straight", color: "orange"}],
-    ["pre-priv2-pub1-2", "pre-priv2-pub1-3", { path: "straight", color: "orange"}],
+    [
+      "pre-priv2-pub1-1",
+      "pre-priv2-pub1-2",
+      { path: "straight", color: "orange" },
+    ],
+    [
+      "pre-priv2-pub1-2",
+      "pre-priv2-pub1-3",
+      { path: "straight", color: "orange" },
+    ],
   ],
 
   // Group 9
@@ -139,7 +151,7 @@ const connectionMap = {
   // Group 10
   "chk-priv1-priv2": [
     ["top2-priv-1", "top2-fw-1", { path: "arc" }],
-    ["top2-fw-1", "top2-priv-2", { path: "arc" }],
+    ["top2-fw-1", "top2-priv-2"],
     //prev
     ["pre-priv1-priv2-1", "pre-priv1-priv2-2", { path: "straight" }],
     ["pre-priv1-priv2-2", "pre-priv1-priv2-3", { path: "straight" }],
@@ -147,16 +159,24 @@ const connectionMap = {
   "chk-priv2-priv1": [
     ["top2-priv-2", "top2-fw-1", { path: "arc", color: "orange" }],
     ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
-     //prev
-    ["pre-priv2-priv1-1", "pre-priv2-priv1-2", { path: "straight", color: "orange" }],
-    ["pre-priv2-priv1-2", "pre-priv2-priv1-3", { path: "straight", color: "orange" }],
+    //prev
+    [
+      "pre-priv2-priv1-1",
+      "pre-priv2-priv1-2",
+      { path: "straight", color: "orange" },
+    ],
+    [
+      "pre-priv2-priv1-2",
+      "pre-priv2-priv1-3",
+      { path: "straight", color: "orange" },
+    ],
   ],
 
   // Group 11
   "chk-pub1-priv3": [
     ["top2-pub-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-priv-3"],
-     //prev
+    //prev
     ["pre-pub1-priv3-1", "pre-pub1-priv3-2", { path: "straight" }],
     ["pre-pub1-priv3-2", "pre-pub1-priv3-3", { path: "straight" }],
   ],
@@ -164,8 +184,16 @@ const connectionMap = {
     ["top2-priv-3", "top2-fw-1", { path: "arc", color: "orange" }],
     ["top2-fw-1", "top2-pub-1", { path: "arc", color: "orange" }],
     //prev
-    ["pre-priv3-pub1-1", "pre-priv3-pub1-2", { path: "straight", color: "orange" }],
-    ["pre-priv3-pub1-2", "pre-priv3-pub1-3", { path: "straight", color: "orange" }],
+    [
+      "pre-priv3-pub1-1",
+      "pre-priv3-pub1-2",
+      { path: "straight", color: "orange" },
+    ],
+    [
+      "pre-priv3-pub1-2",
+      "pre-priv3-pub1-3",
+      { path: "straight", color: "orange" },
+    ],
   ],
 
   // Group 12
@@ -191,24 +219,40 @@ const connectionMap = {
     ["top2-priv-3", "top2-fw-1", { path: "arc", color: "orange" }],
     ["top2-fw-1", "top2-priv-1", { path: "arc", color: "orange" }],
     //prev
-    ["pre-priv3-priv1-1", "pre-priv3-priv1-2", { path: "straight", color: "orange" }],
-    ["pre-priv3-priv1-2", "pre-priv3-priv1-3", { path: "straight", color: "orange" }],
+    [
+      "pre-priv3-priv1-1",
+      "pre-priv3-priv1-2",
+      { path: "straight", color: "orange" },
+    ],
+    [
+      "pre-priv3-priv1-2",
+      "pre-priv3-priv1-3",
+      { path: "straight", color: "orange" },
+    ],
   ],
 
   // Group 14
   "chk-priv2-priv3": [
-    ["top2-priv-2", "top2-fw-1"],
-    ["top2-fw-1", "top2-priv-3", { path: "arc" }],
+    ["top2-priv-2", "top2-fw-1", { path: "arc" }],
+    ["top2-fw-1", "top2-priv-3"],
     //prev
     ["pre-priv2-priv3-1", "pre-priv2-priv3-2", { path: "straight" }],
     ["pre-priv2-priv3-2", "pre-priv2-priv3-3", { path: "straight" }],
   ],
   "chk-priv3-priv2": [
     ["top2-priv-3", "top2-fw-1", { path: "arc", color: "orange" }],
-    ["top2-fw-1", "top2-priv-2", { path: "arc", color: "orange" }],
+    ["top2-fw-1", "top2-priv-2", { path: "", color: "orange" }],
     //prev
-    ["pre-priv3-priv2-1", "pre-priv3-priv2-2", { path: "straight", color: "orange" }],
-    ["pre-priv3-priv2-2", "pre-priv3-priv2-3", { path: "straight", color: "orange" }],
+    [
+      "pre-priv3-priv2-1",
+      "pre-priv3-priv2-2",
+      { path: "straight", color: "orange" },
+    ],
+    [
+      "pre-priv3-priv2-2",
+      "pre-priv3-priv2-3",
+      { path: "straight", color: "orange" },
+    ],
   ],
 
   // Group 15 (SBI)
@@ -321,6 +365,30 @@ const DiagramPreview2 = ({
       affectedPopups.popup5 = true;
       affectedPopups.popup17 = true;
     }
+    if (flowCheckboxes["chk-inet1-pub1"] || flowCheckboxes["chk-pub1-inet1"]) {
+      affectedPopups.popup6 = true;
+    }
+    if (flowCheckboxes["chk-priv1-inet1-bypass-fw"]) {
+      affectedPopups.popup5 = true;
+    }
+    if (flowCheckboxes["chk-priv2-inet1"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup10 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-priv3-inet1"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup10 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
 
     if (
       flowCheckboxes["chk-pub1-priv2"] ||
@@ -329,12 +397,23 @@ const DiagramPreview2 = ({
       flowCheckboxes["chk-priv2-priv1"]
     ) {
       affectedPopups.popup5 = true;
-      affectedPopups.popup6 = true;
+      if (
+        flowCheckboxes["chk-pub1-priv2"] ||
+        flowCheckboxes["chk-priv2-pub1"]
+      ) {
+        affectedPopups.popup6 = true;
+      }
       affectedPopups.popup7 = true;
       affectedPopups.popup12 = true;
       affectedPopups.popup14 = true;
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
+      if (
+        flowCheckboxes["chk-priv1-priv2"] ||
+        flowCheckboxes["chk-priv2-priv1"]
+      ) {
+        affectedPopups.popup17 = true;
+      }
     }
 
     if (
@@ -344,12 +423,24 @@ const DiagramPreview2 = ({
       flowCheckboxes["chk-priv3-priv1"]
     ) {
       affectedPopups.popup5 = true;
-      affectedPopups.popup6 = true;
+      if (
+        flowCheckboxes["chk-pub1-priv3"] ||
+        flowCheckboxes["chk-priv3-pub1"]
+      ) {
+        affectedPopups.popup6 = true;
+      }
+
       affectedPopups.popup8 = true;
       affectedPopups.popup13 = true;
       affectedPopups.popup14 = true;
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
+      if (
+        flowCheckboxes["chk-priv1-priv3"] ||
+        flowCheckboxes["chk-priv3-priv1"]
+      ) {
+        affectedPopups.popup17 = true;
+      }
     }
 
     if (
@@ -366,23 +457,35 @@ const DiagramPreview2 = ({
       affectedPopups.popup16 = true;
     }
 
-    if (
-      flowCheckboxes["chk-priv1-sbi"] ||
-      flowCheckboxes["chk-priv2-sbi"] ||
-      flowCheckboxes["chk-priv3-sbi"] ||
-      flowCheckboxes["chk-pub1-sbi"]
-    ) {
+    if (flowCheckboxes["chk-pub1-sbi"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup6 = true;
+    }
+    if (flowCheckboxes["chk-priv3-sbi"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup8 = true;
       affectedPopups.popup11 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-priv2-sbi"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup11 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-priv1-sbi"]) {
+      affectedPopups.popup5 = true;
       if (flowCheckboxes["chk-priv1-sbi"]) affectedPopups.popup17 = true;
-      if (flowCheckboxes["chk-priv2-sbi"]) affectedPopups.popup7 = true;
     }
 
     setUpdatedPopups(affectedPopups);
   };
-
   // This function is a direct translation of your snippet:
   const handleShowEndpoints = () => {
     let show = document.getElementById("chk-show-endpoints").checked;
@@ -456,33 +559,35 @@ const DiagramPreview2 = ({
         <CheckPreviewDiagram flowCheckboxes={flowCheckboxes} />
         <div className="topo-img-wrapper">
           <img src={Topo2} alt="topo2" />
-          {/* Fixed endpoint elements with specific IDs */}
-          <div id="top2-priv-1" className="flow-label tp2-label-1">
-            {"PRIV1"}
-          </div>
-          <div id="top2-pub-1" className="flow-label tp2-label-2">
-            {"PUB1"}
-          </div>
-          <div id="top2-priv-2" className="flow-label tp2-label-3">
-            {"PRIV2"}
-          </div>
-          <div id="top2-priv-3" className="flow-label tp2-label-4">
-            {"PRIV3"}
-          </div>
-          <div id="top2-inet-1" className="flow-label tp2-label-5">
-            {"INET1"}
-          </div>
-          <div id="top2-sbi" className="flow-label tp2-label-6">
-            {"SB1"}
-          </div>
-          <div id="fw1-grp">
-            <div id="top2-fw-1" className="flow-label tp2-label-7">
-              {"FW1"}
+            {/* Fixed endpoint elements with specific IDs */}
+          <>
+            <div id="top2-priv-1" className="flow-label tp2-label-1">
+              {"PRIV1"}
             </div>
-            <span className="flow-label-fw1 tp2-label-7-1">
-              {formData.firewallIp}
-            </span>
-          </div>
+            <div id="top2-pub-1" className="flow-label tp2-label-2">
+              {"PUB1"}
+            </div>
+            <div id="top2-priv-2" className="flow-label tp2-label-3">
+              {"PRIV2"}
+            </div>
+            <div id="top2-priv-3" className="flow-label tp2-label-4">
+              {"PRIV3"}
+            </div>
+            <div id="top2-inet-1" className="flow-label tp2-label-5">
+              {"INET1"}
+            </div>
+            <div id="top2-sbi" className="flow-label tp2-label-6">
+              {"SB1"}
+            </div>
+            <div id="fw1-grp">
+              <div id="top2-fw-1" className="flow-label tp2-label-7">
+                {"FW1"}
+              </div>
+              <span className="flow-label-fw1 tp2-label-7-1">
+                {formData.firewallIp}
+              </span>
+            </div>
+          </>
           {/* gateways points */}
           <>
             <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
