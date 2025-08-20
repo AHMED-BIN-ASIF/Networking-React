@@ -1,8 +1,8 @@
 
 // components/DiagramForm2.js
 import React from 'react';
-import InputGroupLarge from './InputGroupLarge';
-import '../css/DiagramForm.css';
+import InputGroupLarge from '../common/InputGroupLarge';
+import '../../css/DiagramForm.css';
 
 const DiagramForm2 = ({ fieldGroups, subGroups, onFieldChange, onPopulate, spanClass }) => (
   <div className="diagram-container">

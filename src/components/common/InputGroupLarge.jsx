@@ -1,7 +1,7 @@
 // components/InputGroupLarge.js
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import "../css/InputGroup.css";
+import "../../css/InputGroup.css";
 import InputGroup from './InputGroup';
 
 /**

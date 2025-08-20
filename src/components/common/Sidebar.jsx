@@ -2,7 +2,7 @@ import { Home, Menu, Network } from "lucide-react"; // Changed 'network' to 'Glo
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavLink } from "react-router-dom"; // Changed from Link to NavLink
-import "../css/Sidebar.css";
+import "../../css/Sidebar.css";
 
 const SIDEBAR_ITEMS = [
     { name: " Home", icon: Home, href: "/" },

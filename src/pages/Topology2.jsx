@@ -1,9 +1,9 @@
 // src/pages/Topology2.js
 import React, { useState } from 'react';
-import Header from '../components/Header';
+import Header from '../components/common/Header';
 import '../css/Toplogy.css';
-import DiagramForm2 from '../components/DiagramForm2';
-import DiagramPreview2 from '../components/DiagramPreview2';
+import DiagramForm2 from '../components/topology2/DiagramForm2';
+import DiagramPreview2 from '../components/topology2/DiagramPreview2';
 
 const Topology2 = () => {
   // Form data state for Hub & Spoke topology

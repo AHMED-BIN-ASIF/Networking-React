@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import Topo1 from "../assets/images/topo-1.jpg";
-import "../css/DiagramPreview.css";
-import Popup from './Popup ';
-import FlowCheckbox from './FlowCheckbox';
+import Topo1 from "../../assets/images/topo-1.jpg";
+import "../../css/DiagramPreview.css";
+import FlowCheckbox from '../common/FlowCheckbox';
+import Popup from '../common/Popup ';
 
 // Flow lines configuration as provided
 const connectionMap = {

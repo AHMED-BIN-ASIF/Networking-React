@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../components/common/Header';
 import '../css/Home.css';
 import Topo1 from '../assets/images/topo-1.jpg';
 import Topo2 from '../assets/images/topo-2.jpeg';

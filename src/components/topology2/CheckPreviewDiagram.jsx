@@ -1,5 +1,5 @@
 import React from "react";
-import Gateway from "../assets/icons/gateway.webp";
+import Gateway from "../../assets/icons/gateway.webp";
 
 const CheckPreviewDiagram = ({flowCheckboxes}) => {
   return (

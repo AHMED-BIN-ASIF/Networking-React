@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import DiagramForm from '../components/DiagramForm';
-import DiagramPreview from '../components/DiagramPreview';
+import Header from '../components/common/Header';
+import DiagramForm from '../components/topology1/DiagramForm';
+import DiagramPreview from '../components/topology1/DiagramPreview';
 import "../css/Toplogy.css";
 
 const Topology1 = () => {

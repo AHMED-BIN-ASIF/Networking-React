@@ -1,6 +1,6 @@
 import React from 'react';
-import InputGroup from './InputGroup';
-import "../css/DiagramForm.css";
+import InputGroup from '../common/InputGroup';
+import "../../css/DiagramForm.css";
 
 const DiagramForm = ({ fieldGroups, onFieldChange, onPopulate, onSubmit }) => {
   return (

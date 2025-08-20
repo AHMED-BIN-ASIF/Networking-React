@@ -1,6 +1,6 @@
 // PopupTables.jsx
 import React from 'react';
-import Popup from './Popup ';
+import Popup from '../common/Popup ';
 
 const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
   return (

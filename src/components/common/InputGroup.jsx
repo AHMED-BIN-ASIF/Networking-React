@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import "../css/InputGroup.css";
+import "../../css/InputGroup.css";
 
 const InputGroup = ({ title, fields, onFieldChange }) => {
   const [isOpen, setIsOpen] = useState(false);

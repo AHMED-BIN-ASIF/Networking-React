@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Sidebar from "./components/Sidebar";
-import Home from "./topologies/Home";
-import Topology1 from "./topologies/Topology1";
-import Topology2 from "./topologies/Topology2";
-import Topology3 from "./topologies/Topology3";
-import Topology4 from "./topologies/Topology4";
-import Topology5 from "./topologies/Topology5";
-import Topology6 from "./topologies/Topology6";
-import Topology7 from "./topologies/Topology7";
+import Sidebar from "./components/common/Sidebar";
+import Home from "./pages/Home";
+import Topology1 from "./pages/Topology1";
+import Topology2 from "./pages/Topology2";
+import Topology3 from "./pages/Topology3";
+import Topology4 from "./pages/Topology4";
+import Topology5 from "./pages/Topology5";
+import Topology6 from "./pages/Topology6";
+import Topology7 from "./pages/Topology7";
 
 function App() {
   return (
