@@ -9,6 +9,7 @@ import CheckPreviewDiagram from "./CheckPreviewDiagram";
 import NetworkLabels from "./NetworkLabels";
 import FlowEndpoints from "./FlowEndpoints";
 import PopupButtons from "./PopupButtons";
+import FlowCheckboxGroups from "./FlowCheckboxGroups";
 
 // Helper to create a LeaderLine instance
 const createLeaderLine = (start, end, options = {}) =>
@@ -36,16 +37,20 @@ const DiagramPreview2 = ({
 }) => {
   const linesRef = useRef({});
   const [updatedPopups, setUpdatedPopups] = useState({});
+  // activeGroupIndex refers to the *rendered* groups (flowConfigGrouped.slice(1))
+  const [activeGroupIndex, setActiveGroupIndex] = useState(null);
 
-  // Function to update LeaderLine instances based on the checked flow checkboxes.
+  // Keep refs to latest callbacks so mount-only listeners call the most recent versions
+  const handleShowEndpointsRef = useRef();
+  const updateFlowLinesRef = useRef();
+
+  // Update LeaderLines based on checked boxes
   const updateFlowLines = useCallback(() => {
-    // First, remove all existing lines
-    Object.values(linesRef.current).forEach(linesArray => {
-      linesArray.forEach(line => line.remove());
-    });
+    // clear
+    Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
     linesRef.current = {};
 
-    // Then create lines for all checked checkboxes
+    // draw for checked
     Object.keys(connectionMap).forEach((key) => {
       if (flowCheckboxes[key]) {
         linesRef.current[key] = connectionMap[key].map(([s, e, opts = {}]) =>
@@ -54,14 +59,9 @@ const DiagramPreview2 = ({
       }
     });
 
-    // Determine which popups need to show "updated" badge
+    // popups “updated” flags
     const affectedPopups = {};
-
-    // Map checkbox changes to affected popups
-    if (
-      flowCheckboxes["chk-fw1-inet1"] ||
-      flowCheckboxes["chk-priv1-inet1-fw"]
-    ) {
+    if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup17 = true;
     }
@@ -89,7 +89,6 @@ const DiagramPreview2 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-
     if (
       flowCheckboxes["chk-pub1-priv2"] ||
       flowCheckboxes["chk-priv2-pub1"] ||
@@ -97,10 +96,7 @@ const DiagramPreview2 = ({
       flowCheckboxes["chk-priv2-priv1"]
     ) {
       affectedPopups.popup5 = true;
-      if (
-        flowCheckboxes["chk-pub1-priv2"] ||
-        flowCheckboxes["chk-priv2-pub1"]
-      ) {
+      if (flowCheckboxes["chk-pub1-priv2"] || flowCheckboxes["chk-priv2-pub1"]) {
         affectedPopups.popup6 = true;
       }
       affectedPopups.popup7 = true;
@@ -108,14 +104,10 @@ const DiagramPreview2 = ({
       affectedPopups.popup14 = true;
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
-      if (
-        flowCheckboxes["chk-priv1-priv2"] ||
-        flowCheckboxes["chk-priv2-priv1"]
-      ) {
+      if (flowCheckboxes["chk-priv1-priv2"] || flowCheckboxes["chk-priv2-priv1"]) {
         affectedPopups.popup17 = true;
       }
     }
-
     if (
       flowCheckboxes["chk-pub1-priv3"] ||
       flowCheckboxes["chk-priv3-pub1"] ||
@@ -123,30 +115,19 @@ const DiagramPreview2 = ({
       flowCheckboxes["chk-priv3-priv1"]
     ) {
       affectedPopups.popup5 = true;
-      if (
-        flowCheckboxes["chk-pub1-priv3"] ||
-        flowCheckboxes["chk-priv3-pub1"]
-      ) {
+      if (flowCheckboxes["chk-pub1-priv3"] || flowCheckboxes["chk-priv3-pub1"]) {
         affectedPopups.popup6 = true;
       }
-
       affectedPopups.popup8 = true;
       affectedPopups.popup13 = true;
       affectedPopups.popup14 = true;
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
-      if (
-        flowCheckboxes["chk-priv1-priv3"] ||
-        flowCheckboxes["chk-priv3-priv1"]
-      ) {
+      if (flowCheckboxes["chk-priv1-priv3"] || flowCheckboxes["chk-priv3-priv1"]) {
         affectedPopups.popup17 = true;
       }
     }
-
-    if (
-      flowCheckboxes["chk-priv2-priv3"] ||
-      flowCheckboxes["chk-priv3-priv2"]
-    ) {
+    if (flowCheckboxes["chk-priv2-priv3"] || flowCheckboxes["chk-priv3-priv2"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup7 = true;
       affectedPopups.popup8 = true;
@@ -156,7 +137,6 @@ const DiagramPreview2 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-
     if (flowCheckboxes["chk-pub1-sbi"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup6 = true;
@@ -181,76 +161,134 @@ const DiagramPreview2 = ({
     }
     if (flowCheckboxes["chk-priv1-sbi"]) {
       affectedPopups.popup5 = true;
-      if (flowCheckboxes["chk-priv1-sbi"]) affectedPopups.popup17 = true;
+      affectedPopups.popup17 = true;
     }
 
     setUpdatedPopups(affectedPopups);
   }, [flowCheckboxes]);
 
-  // This function is a direct translation of your snippet:
+  // Show/hide endpoints + ensure state reset when hiding
   const handleShowEndpoints = useCallback(() => {
-    let show = document.getElementById("chk-show-endpoints").checked;
-    // Set endpoint elements display to 'flex'
+    const show = document.getElementById("chk-show-endpoints").checked;
+
     endpointIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.style.display = show ? "flex" : "none";
     });
-    // For each flow-checkbox, set the parent label display:
+
     document.querySelectorAll(".flow-checkbox").forEach((checkbox) => {
       const label = checkbox.closest("label");
       if (label) {
-        // Ensure the show endpoints checkbox label stays visible:
         if (checkbox.id === "chk-show-endpoints") {
           label.style.display = "flex";
         } else {
           label.style.display = show ? "flex" : "none";
         }
       }
-      if (!show) checkbox.checked = false;
+      if (!show) checkbox.checked = false; // UI clear
     });
+
+    // IMPORTANT: also clear React state when hiding endpoints
+    if (!show) {
+      setFlowCheckboxes({}); // everything false
+      setActiveGroupIndex(null); // unlock groups
+    }
+
     updateFlowLines();
+  }, [setFlowCheckboxes, updateFlowLines]);
+
+  // keep refs to the latest versions of these callbacks for safe mount-only listeners
+  useEffect(() => {
+    handleShowEndpointsRef.current = handleShowEndpoints;
+  }, [handleShowEndpoints]);
+
+  useEffect(() => {
+    updateFlowLinesRef.current = updateFlowLines;
   }, [updateFlowLines]);
 
-  // Attach event listeners when component mounts:
+  // Setup DOM listeners ONCE (mount/unmount) and call the latest callbacks via refs
   useEffect(() => {
-    // Ensure the endpoints are updated on mount:
-    handleShowEndpoints();
-    // Add event listeners to checkboxes:
+    // wrapper listeners that call the current ref functions
+    const showHandler = () => handleShowEndpointsRef.current && handleShowEndpointsRef.current();
+    const changeHandler = () => updateFlowLinesRef.current && updateFlowLinesRef.current();
+
     const showEndpointsCheckbox = document.getElementById("chk-show-endpoints");
     if (showEndpointsCheckbox) {
-      showEndpointsCheckbox.addEventListener("change", handleShowEndpoints);
+      showEndpointsCheckbox.addEventListener("change", showHandler);
     }
+
     const flowCheckboxesEls = document.querySelectorAll(".flow-checkbox");
     flowCheckboxesEls.forEach((checkbox) => {
-      checkbox.addEventListener("change", updateFlowLines);
+      checkbox.addEventListener("change", changeHandler);
     });
-    // Cleanup listeners on unmount.
+
+    // Run once on mount to sync UI
+    showHandler();
+
     return () => {
       if (showEndpointsCheckbox) {
-        showEndpointsCheckbox.removeEventListener(
-          "change",
-          handleShowEndpoints
-        );
+        showEndpointsCheckbox.removeEventListener("change", showHandler);
       }
       flowCheckboxesEls.forEach((checkbox) => {
-        checkbox.removeEventListener("change", updateFlowLines);
+        checkbox.removeEventListener("change", changeHandler);
       });
-      // Remove any remaining LeaderLine instances.
-      Object.values(linesRef.current).forEach((linesArray) => {
-        linesArray.forEach((line) => line.remove());
-      });
+      Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
       linesRef.current = {};
     };
-  }, [handleShowEndpoints, updateFlowLines]);
+    // empty deps → run only on mount/unmount
+  }, []);
 
-  // Also, if flowCheckboxes state changes via React, call updateFlowLines.
+  // Call the latest updateFlowLines whenever the flowCheckboxes state changes
   useEffect(() => {
-    updateFlowLines();
-  }, [flowCheckboxes, updateFlowLines]);
+    updateFlowLinesRef.current && updateFlowLinesRef.current();
+  }, [flowCheckboxes]);
 
-  const handleFlowCheckboxChange = (e) => {
+  // Extra safety: if external state clears all, unlock groups
+  useEffect(() => {
+    const uiGroups = flowConfigGrouped.slice(1);
+    const anyChecked = uiGroups.flat().some(({ id }) => !!flowCheckboxes[id]);
+    if (!anyChecked && activeGroupIndex !== null) {
+      setActiveGroupIndex(null);
+    }
+  }, [flowCheckboxes, flowConfigGrouped, activeGroupIndex]);
+
+  // Single (non-grouped) checkbox handler
+  const handleFlowCheckboxChange1 = (e) => {
     const { id, checked } = e.target;
     setFlowCheckboxes((prev) => ({ ...prev, [id]: checked }));
+  };
+
+  // GROUPED checkbox handler — uses the same sliced groups as the renderer
+  const handleFlowCheckboxChange = (e, groupIndex) => {
+    const { id, checked } = e.target;
+
+    setFlowCheckboxes((prev) => {
+      const updated = { ...prev, [id]: checked };
+
+      // Work only with the UI-rendered groups to keep indices consistent
+      const uiGroups = flowConfigGrouped.slice(1);
+
+      const groupHasChecked = uiGroups[groupIndex]?.some(({ id }) => updated[id]);
+
+      if (groupHasChecked) {
+        // lock to this rendered group
+        setActiveGroupIndex(groupIndex);
+      } else {
+        // check if any group (rendered set) still has a checked item
+        const anyChecked = uiGroups.flat().some(({ id }) => updated[id]);
+        if (anyChecked) {
+          const firstActive = uiGroups.findIndex((group) =>
+            group.some(({ id }) => updated[id])
+          );
+          setActiveGroupIndex(firstActive);
+        } else {
+          // nothing checked at all → unlock everything
+          setActiveGroupIndex(null);
+        }
+      }
+
+      return updated;
+    });
   };
 
   return (
@@ -260,8 +298,9 @@ const DiagramPreview2 = ({
         <CheckPreviewDiagram flowCheckboxes={flowCheckboxes} />
         <div className="topo-img-wrapper">
           <img src={Topo2} alt="topo2" />
-            {/* Fixed endpoint elements with specific IDs */}
+          {/* Fixed endpoint elements */}
           <FlowEndpoints formData={formData} />
+
           {/* gateways points */}
           <>
             <div id="top2-gateway-1" className="gateway tp2-gtw-1"></div>
@@ -302,27 +341,18 @@ const DiagramPreview2 = ({
         </div>
       </div>
 
-      {/* Flow checkboxes */}
+      {/* Flow checkboxes (grouped UI) */}
       {flowCheckboxes["chk-show-endpoints"] && (
-        <div className="form-checkouts column">
-          {flowConfigGrouped.slice(1, 99).map((group, groupIndex) => (
-            <div className="flow-checkbox-group" key={`group-${groupIndex}`}>
-              {group.map(({ id, label }) => (
-                <FlowCheckbox
-                  key={id}
-                  id={id}
-                  label={label}
-                  checked={flowCheckboxes[id] ?? false}
-                  onChange={handleFlowCheckboxChange}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
+        <FlowCheckboxGroups
+          flowConfigGrouped={flowConfigGrouped}
+          flowCheckboxes={flowCheckboxes}
+          activeGroupIndex={activeGroupIndex}
+          handleFlowCheckboxChange={handleFlowCheckboxChange}
+        />
       )}
 
       <div className="diagram-btm">
-        {/* Flow Checkboxes */}
+        {/* First group (e.g., show endpoints) */}
         <div className="form-checkouts">
           {flowConfigGrouped
             .flat()
@@ -334,11 +364,12 @@ const DiagramPreview2 = ({
                   id={id}
                   label={label}
                   checked={flowCheckboxes[id] ?? false}
-                  onChange={handleFlowCheckboxChange}
+                  onChange={handleFlowCheckboxChange1}
                 />
               </div>
             ))}
         </div>
+
         <div className="generate-btn">
           <div>
             <button
@@ -400,6 +431,7 @@ const DiagramPreview2 = ({
           </div>
         </div>
       </div>
+
       {/* Render PopupTables component */}
       {popupwrap && (
         <PopupTables

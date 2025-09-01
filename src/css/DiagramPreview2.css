@@ -322,6 +322,31 @@
   right: 32%;
   top: 52.5%;
 }
+.disabled-group {
+  position: relative;
+  cursor: not-allowed;
+}
+
+/* .disabled-group::after {
+  content: "Uncheck the previous group first";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  background: #fff;
+  color: #000;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+} */
+
+.disabled-group:hover::after {
+  opacity: 1;
+}
+
 @media screen and (max-width:1440px) {
     .popup-btn.top1-btn-1 {
         top: 23%;
