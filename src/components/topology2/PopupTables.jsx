@@ -518,7 +518,6 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 {/* <td>{formData.spokeBCidr}</td> */}
                 <td>{formData.spokeBCidr}</td>
                 <td>Private IP</td>
-                {/* <td className="red-row">192.168.0.100</td> */}
                 <td className="red-row">{formData.firewallIp}</td>
                 <td>Static</td>
               </tr>
@@ -530,7 +529,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
       {/* Popup 12 - DRG Route Table Spoke Attachment A */}
       <Popup
         id="popup12"
-        title={formData.drgRtSpokeAttachmentA}
+        title={formData.drgRtSpokeAatt}
         isVisible={popups.popup12}
         onClose={() => setPopups((prev) => ({ ...prev, popup12: false }))}
       >
@@ -662,7 +661,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
       {/* Popup 14 - DRG Route Table Hub Attachment */}
       <Popup
         id="popup14"
-        title={formData.drgRt1HubAttachment}
+        title={formData.drgRiHubAtt}
         isVisible={popups.popup14}
         onClose={() => setPopups((prev) => ({ ...prev, popup14: false }))}
       >
@@ -846,14 +845,12 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <tr className='blue-row'>
                   <td>{formData.spokeACidr}</td>
                   <td>Private IP</td>
-                  {/* <td className="red-row">192.168.0.100</td> */}
                   <td className="red-row">{formData.firewallIp}</td>
                   <td>Static</td>
                 </tr>
                 <tr className='orange-row'>
-                  <td>{formData.hubPubSubnetCidr}</td>
+                  <td>{formData.hubPrivSubnetCidr}</td>
                   <td>Private IP</td>
-                  {/* <td className="red-row">192.168.0.100</td> */}
                   <td className="red-row">{formData.firewallIp}</td>
                   <td>Static</td>
                 </tr>
@@ -863,7 +860,6 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               <tr className="red-row">
                 <td>0.0.0.0/0</td>
                 <td>Private IP</td>
-                {/* <td>192.168.0.100</td> */}
                 <td>{formData.firewallIp}</td>
                 <td>Static</td>
               </tr>
@@ -874,14 +870,12 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <tr className="red-row">
                   <td>{formData.spokeBCidr}</td>
                   <td>Private IP</td>
-                  {/* <td>192.168.0.100</td> */}
                   <td>{formData.firewallIp}</td>
                   <td>Static</td>
                 </tr>
                 <tr className="red-row">
                   <td>{formData.hubPubSubnetCidr}</td>
                   <td>Private IP</td>
-                  {/* <td>192.168.0.100</td> */}
                   <td>{formData.firewallIp}</td>
                   <td>Static</td>
                 </tr>
@@ -918,14 +912,12 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <tr className="blue-row">
                   <td>{formData.spokeACidr}</td>
                   <td>Private IP</td>
-                  {/* <td className="red-row">192.168.0.100</td> */}
                   <td className="red-row">{formData.firewallIp}</td>
                   <td>Static</td>
                 </tr>
                 <tr className="blue-row">
                   <td>{formData.spokeBCidr}</td>
                   <td>Private IP</td>
-                  {/* <td className="red-row">192.168.0.100</td> */}
                   <td className="red-row">{formData.firewallIp}</td>
                   <td>Static</td>
                 </tr>
@@ -935,7 +927,6 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               <tr className="red-row">
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>
-                {/* <td>192.168.0.100</td> */}
                 <td>{formData.firewallIp}</td>
                 <td>Static</td>
               </tr>
@@ -944,7 +935,6 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               <tr className="red-row">
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>
-                {/* <td>192.168.0.100</td> */}
                 <td>{formData.firewallIp}</td>
                 <td>Static</td>
               </tr>

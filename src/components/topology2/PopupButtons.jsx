@@ -15,9 +15,9 @@ const PopupButtons = ({ formData, setPopups, updatedPopups, flowCheckboxes }) =>
     { id: "popup9", className: "green top1-btn-9", label: formData.internetGwRtName },
     { id: "popup10", className: "green top1-btn-10", label: formData.natGwRtName },
     { id: "popup11", className: "green top1-btn-11", label: formData.serviceGwRtName },
-    { id: "popup12", className: "green top1-btn-12", label: formData.drgRtSpokeAttachmentA },
+    { id: "popup12", className: "green top1-btn-12", label: formData.drgRtSpokeAatt },
     { id: "popup13", className: "green top1-btn-13", label: formData.drgRtSpokeAttachmentB },
-    { id: "popup14", className: "green top1-btn-14", label: formData.drgRt1HubAttachment },
+    { id: "popup14", className: "green top1-btn-14", label: formData.drgRiHubAtt },
     { id: "popup15", className: "green top1-btn-15", label: formData.vcnRt1HubAttachment },
     { id: "popup16", className: "green top1-btn-16", label: formData.vcnRt2HubAttachment },
   ];
