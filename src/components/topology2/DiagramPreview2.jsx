@@ -45,127 +45,252 @@ const DiagramPreview2 = ({
   const updateFlowLinesRef = useRef();
 
   // Update LeaderLines based on checked boxes
+  // const updateFlowLines = useCallback(() => {
+  //   // clear
+  //   Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
+  //   linesRef.current = {};
+
+  //   // draw for checked
+  //   Object.keys(connectionMap).forEach((key) => {
+  //     if (flowCheckboxes[key]) {
+  //       linesRef.current[key] = connectionMap[key].map(([s, e, opts = {}]) =>
+  //         createLeaderLine(s, e, opts)
+  //       );
+  //     }
+  //   });
+
+  //   // popups “updated” flags
+  //   const affectedPopups = {};
+  //   if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup17 = true;
+  //   }
+  //   if (flowCheckboxes["chk-inet1-pub1"] || flowCheckboxes["chk-pub1-inet1"]) {
+  //     affectedPopups.popup6 = true;
+  //   }
+  //   if (flowCheckboxes["chk-priv1-inet1-bypass-fw"]) {
+  //     affectedPopups.popup5 = true;
+  //   }
+  //   if (flowCheckboxes["chk-priv2-inet1"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup7 = true;
+  //     affectedPopups.popup10 = true;
+  //     affectedPopups.popup12 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //   }
+  //   if (flowCheckboxes["chk-priv3-inet1"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup8 = true;
+  //     affectedPopups.popup10 = true;
+  //     affectedPopups.popup13 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //   }
+  //   if (
+  //     flowCheckboxes["chk-pub1-priv2"] ||
+  //     flowCheckboxes["chk-priv2-pub1"] ||
+  //     flowCheckboxes["chk-priv1-priv2"] ||
+  //     flowCheckboxes["chk-priv2-priv1"]
+  //   ) {
+  //     affectedPopups.popup5 = true;
+  //     if (flowCheckboxes["chk-pub1-priv2"] || flowCheckboxes["chk-priv2-pub1"]) {
+  //       affectedPopups.popup6 = true;
+  //     }
+  //     affectedPopups.popup7 = true;
+  //     affectedPopups.popup12 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //     if (flowCheckboxes["chk-priv1-priv2"] || flowCheckboxes["chk-priv2-priv1"]) {
+  //       affectedPopups.popup17 = true;
+  //     }
+  //   }
+  //   if (
+  //     flowCheckboxes["chk-pub1-priv3"] ||
+  //     flowCheckboxes["chk-priv3-pub1"] ||
+  //     flowCheckboxes["chk-priv1-priv3"] ||
+  //     flowCheckboxes["chk-priv3-priv1"]
+  //   ) {
+  //     affectedPopups.popup5 = true;
+  //     if (flowCheckboxes["chk-pub1-priv3"] || flowCheckboxes["chk-priv3-pub1"]) {
+  //       affectedPopups.popup6 = true;
+  //     }
+  //     affectedPopups.popup8 = true;
+  //     affectedPopups.popup13 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //     if (flowCheckboxes["chk-priv1-priv3"] || flowCheckboxes["chk-priv3-priv1"]) {
+  //       affectedPopups.popup17 = true;
+  //     }
+  //   }
+  //   if (flowCheckboxes["chk-priv2-priv3"] || flowCheckboxes["chk-priv3-priv2"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup7 = true;
+  //     affectedPopups.popup8 = true;
+  //     affectedPopups.popup12 = true;
+  //     affectedPopups.popup13 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //   }
+  //   if (flowCheckboxes["chk-pub1-sbi"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup6 = true;
+  //   }
+  //   if (flowCheckboxes["chk-priv3-sbi"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup8 = true;
+  //     affectedPopups.popup11 = true;
+  //     affectedPopups.popup13 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //   }
+  //   if (flowCheckboxes["chk-priv2-sbi"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup7 = true;
+  //     affectedPopups.popup11 = true;
+  //     affectedPopups.popup12 = true;
+  //     affectedPopups.popup14 = true;
+  //     affectedPopups.popup15 = true;
+  //     affectedPopups.popup16 = true;
+  //   }
+  //   if (flowCheckboxes["chk-priv1-sbi"]) {
+  //     affectedPopups.popup5 = true;
+  //     affectedPopups.popup17 = true;
+  //   }
+
+  //   setUpdatedPopups(affectedPopups);
+  // }, [flowCheckboxes]);
+
   const updateFlowLines = useCallback(() => {
-    // clear
-    Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
-    linesRef.current = {};
+  // clear existing lines
+  Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
+  linesRef.current = {};
 
-    // draw for checked
-    Object.keys(connectionMap).forEach((key) => {
-      if (flowCheckboxes[key]) {
-        linesRef.current[key] = connectionMap[key].map(([s, e, opts = {}]) =>
-          createLeaderLine(s, e, opts)
-        );
-      }
+   // Double RAF to ensure DOM is fully painted
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      Object.keys(connectionMap).forEach((key) => {
+        if (flowCheckboxes[key]) {
+          linesRef.current[key] = connectionMap[key].map(([s, e, opts = {}]) =>
+            createLeaderLine(s, e, opts)
+          );
+        }
+      });
     });
-
-    // popups “updated” flags
-    const affectedPopups = {};
-    if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup17 = true;
-    }
-    if (flowCheckboxes["chk-inet1-pub1"] || flowCheckboxes["chk-pub1-inet1"]) {
+  });
+  // popups “updated” flags
+  const affectedPopups = {};
+  if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup17 = true;
+  }
+  if (flowCheckboxes["chk-inet1-pub1"] || flowCheckboxes["chk-pub1-inet1"]) {
+    affectedPopups.popup6 = true;
+  }
+  if (flowCheckboxes["chk-priv1-inet1-bypass-fw"]) {
+    affectedPopups.popup5 = true;
+  }
+  if (flowCheckboxes["chk-priv2-inet1"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup7 = true;
+    affectedPopups.popup10 = true;
+    affectedPopups.popup12 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+  }
+  if (flowCheckboxes["chk-priv3-inet1"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup8 = true;
+    affectedPopups.popup10 = true;
+    affectedPopups.popup13 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+  }
+  if (
+    flowCheckboxes["chk-pub1-priv2"] ||
+    flowCheckboxes["chk-priv2-pub1"] ||
+    flowCheckboxes["chk-priv1-priv2"] ||
+    flowCheckboxes["chk-priv2-priv1"]
+  ) {
+    affectedPopups.popup5 = true;
+    if (flowCheckboxes["chk-pub1-priv2"] || flowCheckboxes["chk-priv2-pub1"]) {
       affectedPopups.popup6 = true;
     }
-    if (flowCheckboxes["chk-priv1-inet1-bypass-fw"]) {
-      affectedPopups.popup5 = true;
-    }
-    if (flowCheckboxes["chk-priv2-inet1"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup7 = true;
-      affectedPopups.popup10 = true;
-      affectedPopups.popup12 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-    }
-    if (flowCheckboxes["chk-priv3-inet1"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup8 = true;
-      affectedPopups.popup10 = true;
-      affectedPopups.popup13 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-    }
-    if (
-      flowCheckboxes["chk-pub1-priv2"] ||
-      flowCheckboxes["chk-priv2-pub1"] ||
-      flowCheckboxes["chk-priv1-priv2"] ||
-      flowCheckboxes["chk-priv2-priv1"]
-    ) {
-      affectedPopups.popup5 = true;
-      if (flowCheckboxes["chk-pub1-priv2"] || flowCheckboxes["chk-priv2-pub1"]) {
-        affectedPopups.popup6 = true;
-      }
-      affectedPopups.popup7 = true;
-      affectedPopups.popup12 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-      if (flowCheckboxes["chk-priv1-priv2"] || flowCheckboxes["chk-priv2-priv1"]) {
-        affectedPopups.popup17 = true;
-      }
-    }
-    if (
-      flowCheckboxes["chk-pub1-priv3"] ||
-      flowCheckboxes["chk-priv3-pub1"] ||
-      flowCheckboxes["chk-priv1-priv3"] ||
-      flowCheckboxes["chk-priv3-priv1"]
-    ) {
-      affectedPopups.popup5 = true;
-      if (flowCheckboxes["chk-pub1-priv3"] || flowCheckboxes["chk-priv3-pub1"]) {
-        affectedPopups.popup6 = true;
-      }
-      affectedPopups.popup8 = true;
-      affectedPopups.popup13 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-      if (flowCheckboxes["chk-priv1-priv3"] || flowCheckboxes["chk-priv3-priv1"]) {
-        affectedPopups.popup17 = true;
-      }
-    }
-    if (flowCheckboxes["chk-priv2-priv3"] || flowCheckboxes["chk-priv3-priv2"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup7 = true;
-      affectedPopups.popup8 = true;
-      affectedPopups.popup12 = true;
-      affectedPopups.popup13 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-    }
-    if (flowCheckboxes["chk-pub1-sbi"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup6 = true;
-    }
-    if (flowCheckboxes["chk-priv3-sbi"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup8 = true;
-      affectedPopups.popup11 = true;
-      affectedPopups.popup13 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-    }
-    if (flowCheckboxes["chk-priv2-sbi"]) {
-      affectedPopups.popup5 = true;
-      affectedPopups.popup7 = true;
-      affectedPopups.popup11 = true;
-      affectedPopups.popup12 = true;
-      affectedPopups.popup14 = true;
-      affectedPopups.popup15 = true;
-      affectedPopups.popup16 = true;
-    }
-    if (flowCheckboxes["chk-priv1-sbi"]) {
-      affectedPopups.popup5 = true;
+    affectedPopups.popup7 = true;
+    affectedPopups.popup12 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+    if (flowCheckboxes["chk-priv1-priv2"] || flowCheckboxes["chk-priv2-priv1"]) {
       affectedPopups.popup17 = true;
     }
+  }
+  if (
+    flowCheckboxes["chk-pub1-priv3"] ||
+    flowCheckboxes["chk-priv3-pub1"] ||
+    flowCheckboxes["chk-priv1-priv3"] ||
+    flowCheckboxes["chk-priv3-priv1"]
+  ) {
+    affectedPopups.popup5 = true;
+    if (flowCheckboxes["chk-pub1-priv3"] || flowCheckboxes["chk-priv3-pub1"]) {
+      affectedPopups.popup6 = true;
+    }
+    affectedPopups.popup8 = true;
+    affectedPopups.popup13 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+    if (flowCheckboxes["chk-priv1-priv3"] || flowCheckboxes["chk-priv3-priv1"]) {
+      affectedPopups.popup17 = true;
+    }
+  }
+  if (flowCheckboxes["chk-priv2-priv3"] || flowCheckboxes["chk-priv3-priv2"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup7 = true;
+    affectedPopups.popup8 = true;
+    affectedPopups.popup12 = true;
+    affectedPopups.popup13 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+  }
+  if (flowCheckboxes["chk-pub1-sbi"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup6 = true;
+  }
+  if (flowCheckboxes["chk-priv3-sbi"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup8 = true;
+    affectedPopups.popup11 = true;
+    affectedPopups.popup13 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+  }
+  if (flowCheckboxes["chk-priv2-sbi"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup7 = true;
+    affectedPopups.popup11 = true;
+    affectedPopups.popup12 = true;
+    affectedPopups.popup14 = true;
+    affectedPopups.popup15 = true;
+    affectedPopups.popup16 = true;
+  }
+  if (flowCheckboxes["chk-priv1-sbi"]) {
+    affectedPopups.popup5 = true;
+    affectedPopups.popup17 = true;
+  }
 
-    setUpdatedPopups(affectedPopups);
-  }, [flowCheckboxes]);
+  setUpdatedPopups(affectedPopups);
+}, [flowCheckboxes]);
 
   // Show/hide endpoints + ensure state reset when hiding
   const handleShowEndpoints = useCallback(() => {

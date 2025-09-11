@@ -2,7 +2,7 @@ import React from "react";
 import FlowCheckbox from "../common/FlowCheckbox";
 
 const FlowCheckboxGroups = ({
-  flowConfigGrouped,
+  flowConfigGrouped, 
   flowCheckboxes,
   activeGroupIndex,
   handleFlowCheckboxChange,
