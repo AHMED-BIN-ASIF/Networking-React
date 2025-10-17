@@ -260,25 +260,25 @@
     padding: 40px 0;
     border-left: 1px solid #000;
 }
-.diagram-topology-two .form-checkouts.column::-webkit-scrollbar {
+.diagram-topology .form-checkouts.column::-webkit-scrollbar {
   width: 6px; /* width of the scrollbar */
 }
 
-.diagram-topology-two .form-checkouts.column::-webkit-scrollbar-track {
+.diagram-topology .form-checkouts.column::-webkit-scrollbar-track {
   background: transparent; /* background of the scrollbar track */
 }
 
-.diagram-topology-two .form-checkouts.column::-webkit-scrollbar-thumb {
+.diagram-topology .form-checkouts.column::-webkit-scrollbar-thumb {
   background-color: #6b6a6a;  /* scrollbar thumb color */
   border-radius: 4px;      /* roundness */
   border: 1px solid transparent; /* for spacing/padding effect */
 }
 
-.diagram-topology-two .form-checkouts.column::-webkit-scrollbar-thumb:hover {
+.diagram-topology .form-checkouts.column::-webkit-scrollbar-thumb:hover {
   background-color: #000;  /* darker on hover */
 }
 
-.diagram-topology-two .diagram-btm .flow-checkbox-group {
+.diagram-topology .diagram-btm .flow-checkbox-group {
   border: none;
 }
 .flow-checkbox-group {

@@ -1,3 +1,4 @@
+// src/pages/Topology1.js
 import React, { useState } from 'react';
 import Header from '../components/common/Header';
 import DiagramForm from '../components/topology1/DiagramForm';
@@ -37,13 +38,10 @@ const Topology1 = () => {
     generateTF: false,
   });
   const popupwrap = Object.values(popups).some(flag => flag);
+  
   // Flow checkbox state.
   const [flowCheckboxes, setFlowCheckboxes] = useState({
     'chk-show-endpoints': false,
-    'chk-pub-priv-db': false,
-    'chk-pub-inet': false,
-    'chk-priv-inet': false,
-    'chk-pub-priv-bidirectional': false,
   });
 
   const handleUpdateFormData = (key, value) => {
@@ -100,11 +98,32 @@ const Topology1 = () => {
     ]
   };
 
+  const flowConfigGrouped = [
+    [{ id: 'chk-show-endpoints', label: 'Show Endpoints' }],
+    // Group 1: PUB1/PRIV1/PRIV2 → DB1
+    [
+      { id: 'chk-pub-priv-db', label: 'Flow from PUB1 / PRIV1 / PRIV2 → DB1' },
+    ],
+    // Group 2: PUB1 → INET1
+    [
+      { id: 'chk-pub-inet', label: 'Flow from PUB1 → INET1' },
+    ],
+    // Group 3: PRIV1/PRIV2 → INET1
+    [
+      { id: 'chk-priv-inet', label: 'Flow from PRIV1 / PRIV2 → INET1' },
+    ],
+    // Group 4: PUB1 ↔ PRIV1/PRIV2
+    [
+      { id: 'chk-pub-priv-bidirectional', label: 'Flow from PUB1 ↔ PRIV1 / PRIV2' },
+    ],
+  ];
+
   return (
     <main>
-      <Header title='Simple Topology 1' />
+      <Header title='Single VCN Architecture' />
       <section className='topology-section'>
-        <div className="container">
+        <div className={`container ${(flowCheckboxes["chk-show-endpoints"]) ? "left" : '' } `}>
+          {/* REMOVED the outer form element - DiagramForm already contains a form */}
           <DiagramForm 
             fieldGroups={fieldGroups}
             onFieldChange={handleUpdateFormData}
@@ -120,6 +139,7 @@ const Topology1 = () => {
                 flowCheckboxes={flowCheckboxes}
                 setFlowCheckboxes={setFlowCheckboxes}
                 popupwrap={popupwrap}
+                flowConfigGrouped={flowConfigGrouped}
               />
             </div>
           )}
