@@ -94,6 +94,7 @@ const DiagramPreview = ({
   setFlowCheckboxes,
   popupwrap,
   flowConfigGrouped,
+  onExportJSON
 }) => {
   const linesRef = useRef({});
   const [updatedPopups, setUpdatedPopups] = useState({});
@@ -269,25 +270,9 @@ const DiagramPreview = ({
     });
   };
 
-//   const downloadFiles = () => {
-//     const content = `
-// Create VCN Name: ${formData.vpcName}
-// Create VCN CIDR: ${formData.vpcCIDR}
-// Create Security List Name: ${formData.publicSLName}
-// Create Routing Table Name: ${formData.publicRTName}
-//     `.trim();
-//     const blob = new Blob([content], { type: "text/plain" });
-//     const url = URL.createObjectURL(blob);
-//     const a = document.createElement("a");
-//     a.href = url;
-//     a.download = "terraform_code.txt";
-//     a.click();
-//     URL.revokeObjectURL(url);
-//   };
-
   return (
     <div className="diagram-topology diagram-topology-one">
-      <h3>Topology 1</h3>
+      <h3>Single VCN Architecture</h3>
         <CheckPreviewDiagram flowCheckboxes={flowCheckboxes} />
       <div className="topo-img-wrapper">
         <img src={Topo1} alt="topo1" />
@@ -342,6 +327,7 @@ const DiagramPreview = ({
         </div>
 
         <div className="generate-btn">
+          
           <div>
             <button
               className="network-btn"
@@ -376,6 +362,14 @@ const DiagramPreview = ({
               }
             >
               Close All
+            </button>
+          </div>
+          <div>
+            <button
+              className="network-btn"
+              onClick={onExportJSON}
+            >
+              Export JSON
             </button>
           </div>
         </div>

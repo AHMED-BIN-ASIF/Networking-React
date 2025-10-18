@@ -22,7 +22,7 @@ const DiagramForm = ({ fieldGroups, onFieldChange, onPopulate, onSubmit }) => {
             Populate Fields
           </button>
           <button type="submit" className="network-btn">
-            Generate Network
+            Submit & Generate Network
           </button>
         </div>
       </form>

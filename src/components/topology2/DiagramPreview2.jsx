@@ -34,6 +34,7 @@ const DiagramPreview2 = ({
   setFlowCheckboxes,
   popupwrap,
   flowConfigGrouped,
+  onExportJSON,
 }) => {
   const linesRef = useRef({});
   const [updatedPopups, setUpdatedPopups] = useState({});
@@ -419,7 +420,7 @@ const DiagramPreview2 = ({
   return (
     <div className="diagram-topology-two">
       <div>
-        <h3>Topology 2</h3>
+        <h3>Hub and Spoke VCN Architecture</h3>
         <CheckPreviewDiagram flowCheckboxes={flowCheckboxes} />
         <div className="topo-img-wrapper">
           <img src={Topo2} alt="topo2" />
@@ -552,6 +553,14 @@ const DiagramPreview2 = ({
               }
             >
               Close All
+            </button>
+          </div>
+          <div>
+            <button
+              className="network-btn"
+              onClick={onExportJSON}
+            >
+              Export JSON
             </button>
           </div>
         </div>

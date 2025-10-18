@@ -68,9 +68,85 @@ const Topology1 = () => {
     setFormData(sampleData);
   };
 
+  // Convert form data to JSON structure
+  const convertToJSON = () => {
+    return {
+      "VCN": {
+        "VCN_Name": formData.vpcName,
+        "VPC_CIDR": formData.vpcCIDR,
+        "Subnets": {
+          "Public_Subnet": {
+            "Subnet_Name": formData.publicSubnetName,
+            "Subnet_CIDR": formData.publicSubnetCIDR,
+            "Security_List_Name": formData.publicSLName,
+            "Route_Table_Name": formData.publicRTName
+          },
+          "Private_Subnet_1": {
+            "Subnet_Name": formData.privateSubnetRange,
+            "Subnet_CIDR": formData.privateSubnetCIDR,
+            "Security_List_Name": formData.privateSLName,
+            "Route_Table_Name": formData.privateRTName
+          },
+          "Private_Subnet_2": {
+            "Subnet_Name": formData.SubnetName,
+            "Subnet_CIDR": formData.SubnetRange,
+            "Security_List_Name": formData.SLName,
+            "Route_Table_Name": formData.RTName
+          }
+        }
+      }
+    };
+  };
+
+  // Export JSON to file
+  const handleExportJSON = () => {
+    const jsonData = convertToJSON();
+    const dataStr = JSON.stringify(jsonData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${formData.vpcName || 'topology1'}-config.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Send data to webhook
+  const handleSendToWebhook = async () => {
+    const jsonData = convertToJSON();
+    
+    // Replace with your actual webhook URL
+    const webhookUrl = 'https://n8n.i1h.nl/webhook-test/d8e35ed9-40cd-48b9-ab10-8635b9fc50ff';
+    
+    try {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+      });
+
+      if (response.ok) {
+        console.log('Data successfully sent to webhook!');
+      } else {
+        console.log('Failed to send data to webhook. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending to webhook:', error);
+      console.log('Error sending data to webhook. Please check the console for details.');
+    }
+  };
+
   const handleGenerateNetwork = (e) => {
     e.preventDefault();
     setPreviewData(formData);
+    
+    // Auto-send to webhook on form submit
+    handleSendToWebhook();
   };
 
   const fieldGroups = {
@@ -123,7 +199,6 @@ const Topology1 = () => {
       <Header title='Single VCN Architecture' />
       <section className='topology-section'>
         <div className={`container ${(flowCheckboxes["chk-show-endpoints"]) ? "left" : '' } `}>
-          {/* REMOVED the outer form element - DiagramForm already contains a form */}
           <DiagramForm 
             fieldGroups={fieldGroups}
             onFieldChange={handleUpdateFormData}
@@ -140,6 +215,8 @@ const Topology1 = () => {
                 setFlowCheckboxes={setFlowCheckboxes}
                 popupwrap={popupwrap}
                 flowConfigGrouped={flowConfigGrouped}
+            onExportJSON={handleExportJSON}
+
               />
             </div>
           )}
