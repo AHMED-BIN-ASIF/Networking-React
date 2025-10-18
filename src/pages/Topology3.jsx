@@ -4,7 +4,7 @@ import Header from '../components/common/Header'
 const Topology3 = () => {
   return (
     <div>
-      <Header title='Simple Topology 3' />
+      <Header title='Hub and Spoke VCN with site-to-site VPN to on-premises Architecture' />
     </div>
   )
 }
