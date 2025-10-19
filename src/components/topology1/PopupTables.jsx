@@ -128,19 +128,32 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>0.0.0.0/0</td>
-              <td>Internet Gateway</td>
-              <td>IGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
+            {flowCheckboxes["chk-pub-priv-db"] && (
+              <tr>
               <td>
                 All &lt;REGION&gt; Services In Oracle Services Network
               </td>
               <td>Service Gateway</td>
               <td>SGW</td>
               <td>Static</td>
+            </tr>
+            )}
+            {flowCheckboxes["chk-pub-inet"] && (
+              <tr>
+              <td>
+                0.0.0.0/0
+              </td>
+              <td>Internet Gateway</td>
+              <td>IGW</td>
+              <td>Static</td>
+            </tr>
+            )}
+            <tr>
+              <td>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -162,19 +175,32 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>0.0.0.0/0</td>
-              <td>NAT Gateway</td>
-              <td>NGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
+             {flowCheckboxes["chk-pub-priv-db"] && (
+              <tr>
               <td>
                 All &lt;REGION&gt; Services In Oracle Services Network
               </td>
               <td>Service Gateway</td>
               <td>SGW</td>
               <td>Static</td>
+            </tr>
+            )}
+            {flowCheckboxes["chk-priv-inet"] && (
+              <tr>
+              <td>
+                0.0.0.0/0
+              </td>
+              <td>NAT Gateway</td>
+              <td>NGW</td>
+              <td>Static</td>
+            </tr>
+            )}
+            <tr>
+              <td>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -196,19 +222,31 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>0.0.0.0/0</td>
-              <td>NAT Gateway</td>
-              <td>NGW</td>
-              <td>Static</td>
-            </tr>
-            <tr>
+             {flowCheckboxes["chk-pub-priv-db"] && (
+              <tr>
               <td>
                 All &lt;REGION&gt; Services In Oracle Services Network
               </td>
               <td>Service Gateway</td>
               <td>SGW</td>
               <td>Static</td>
+            </tr>
+            )}
+            {flowCheckboxes["chk-priv-inet"] && (
+              <tr>
+              <td>
+                0.0.0.0/0
+              </td>
+              <td>NAT Gateway</td>
+              <td>NGW</td>
+              <td>Static</td>
+            </tr>
+            )}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>

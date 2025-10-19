@@ -126,22 +126,22 @@ const DiagramPreview = ({
     // popups "updated" flags for Topology1
     const affectedPopups = {};
     if (flowCheckboxes["chk-pub-priv-db"]) {
-      affectedPopups.popup3 = true;
+      affectedPopups.popup4 = true;
+      affectedPopups.popup5 = true;
       affectedPopups.popup6 = true;
     }
     if (flowCheckboxes["chk-pub-inet"]) {
-      affectedPopups.popup1 = true;
       affectedPopups.popup4 = true;
     }
     if (flowCheckboxes["chk-priv-inet"]) {
-      affectedPopups.popup2 = true;
       affectedPopups.popup5 = true;
+      affectedPopups.popup6 = true;
     }
-    if (flowCheckboxes["chk-pub-priv-bidirectional"]) {
-      affectedPopups.popup1 = true;
-      affectedPopups.popup2 = true;
-      affectedPopups.popup3 = true;
-    }
+    // if (flowCheckboxes["chk-pub-priv-bidirectional"]) {
+    //   affectedPopups.popup1 = true;
+    //   affectedPopups.popup2 = true;
+    //   affectedPopups.popup3 = true;
+    // }
 
     setUpdatedPopups(affectedPopups);
   }, [flowCheckboxes]);

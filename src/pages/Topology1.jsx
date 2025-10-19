@@ -119,7 +119,7 @@ const Topology1 = () => {
     const jsonData = convertToJSON();
     
     // Replace with your actual webhook URL
-    const webhookUrl = 'https://n8n.i1h.nl/webhook-test/d8e35ed9-40cd-48b9-ab10-8635b9fc50ff';
+    const webhookUrl = 'https://n8n.i1h.nl/webhook/d8e35ed9-40cd-48b9-ab10-8635b9fc50ff';
     
     try {
       const response = await fetch(webhookUrl, {
