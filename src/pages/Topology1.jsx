@@ -145,8 +145,6 @@ const Topology1 = () => {
     e.preventDefault();
     setPreviewData(formData);
     
-    // Auto-send to webhook on form submit
-    handleSendToWebhook();
   };
 
   const fieldGroups = {
@@ -216,6 +214,7 @@ const Topology1 = () => {
                 popupwrap={popupwrap}
                 flowConfigGrouped={flowConfigGrouped}
             onExportJSON={handleExportJSON}
+            onSendToWebhook={handleSendToWebhook}
 
               />
             </div>

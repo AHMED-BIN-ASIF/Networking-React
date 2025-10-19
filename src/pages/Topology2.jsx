@@ -220,7 +220,6 @@ const convertToJSON = () => {
   const handleGenerateNetwork = (e) => {
     e.preventDefault();
     setPreviewData(formData);
-    handleSendToWebhook();
   };
 
   // Grouped fields for DiagramForm2
@@ -600,6 +599,7 @@ const convertToJSON = () => {
                 popupwrap={popupwrap}
                 flowConfigGrouped={flowConfigGrouped}
                 onExportJSON={handleExportJSON}
+                onSendToWebhook={handleSendToWebhook}
               />
             </div>
           )}

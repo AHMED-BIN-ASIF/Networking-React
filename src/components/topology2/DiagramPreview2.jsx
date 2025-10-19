@@ -35,6 +35,7 @@ const DiagramPreview2 = ({
   popupwrap,
   flowConfigGrouped,
   onExportJSON,
+  onSendToWebhook,
 }) => {
   const linesRef = useRef({});
   const [updatedPopups, setUpdatedPopups] = useState({});
@@ -561,6 +562,14 @@ const DiagramPreview2 = ({
               onClick={onExportJSON}
             >
               Export JSON
+            </button>
+          </div>
+          <div>
+            <button
+              className="network-btn"
+              onClick={onSendToWebhook}
+            >
+              Send JSON
             </button>
           </div>
         </div>
