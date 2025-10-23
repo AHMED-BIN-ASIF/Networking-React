@@ -418,6 +418,63 @@ const DiagramPreview2 = ({
     });
   };
 
+ // Update the webhook status state
+const [webhookStatus, setWebhookStatus] = useState({ 
+  isOpen: false, 
+  messages: [], 
+  status: 'loading' // 'loading', 'success', 'error'
+});
+const webhookTimeoutRef = useRef(null);
+
+// Enhanced webhook handler function
+const handleDeployToOCI = () => {
+  setWebhookStatus({ 
+    isOpen: true, 
+    messages: ['Initializing deployment to OCI...'], 
+    status: 'loading' 
+  });
+  
+  if (onSendToWebhook) {
+    onSendToWebhook((message, isError = false) => {
+      setWebhookStatus(prev => {
+        const newMessages = [...prev.messages, message];
+        let newStatus = prev.status;
+        
+        // Determine status based on message content or isError flag
+        if (isError || message.toLowerCase().includes('error') || message.toLowerCase().includes('failed')) {
+          newStatus = 'error';
+        } else if (message.toLowerCase().includes('success') || message.toLowerCase().includes('completed')) {
+          newStatus = 'success';
+        }
+        
+        return {
+          ...prev,
+          messages: newMessages,
+          status: newStatus
+        };
+      });
+      
+      // Reset timeout
+      if (webhookTimeoutRef.current) {
+        clearTimeout(webhookTimeoutRef.current);
+      }
+      
+      // Close popup after 10 seconds of last message
+      webhookTimeoutRef.current = setTimeout(() => {
+        setWebhookStatus({ isOpen: false, messages: [], status: 'loading' });
+      }, 10000);
+    });
+  }
+};
+
+useEffect(() => {
+  return () => {
+    if (webhookTimeoutRef.current) {
+      clearTimeout(webhookTimeoutRef.current);
+    }
+  };
+}, []);
+
   return (
     <div className="diagram-topology-two">
       <div>
@@ -567,9 +624,9 @@ const DiagramPreview2 = ({
           <div>
             <button
               className="network-btn"
-              onClick={onSendToWebhook}
+              onClick={handleDeployToOCI}
             >
-              Send JSON
+              Deploy to OCI
             </button>
           </div>
         </div>
@@ -584,6 +641,153 @@ const DiagramPreview2 = ({
           flowCheckboxes={flowCheckboxes}
         />
       )}
+
+ {webhookStatus.isOpen && (
+  <div className="webhook-status-popup" style={{
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'white',
+    border: '2px solid #b91c1c',
+    borderRadius: '12px',
+    padding: '0',
+    minWidth: '450px',
+    maxWidth: '600px',
+    maxHeight: '400px',
+    overflow: 'hidden',
+    zIndex: 10000,
+    boxShadow: '0 8px 32px rgba(185, 28, 28, 0.2)',
+    fontFamily: 'Arial, sans-serif'
+  }}>
+    {/* Header */}
+    <div style={{ 
+      background: webhookStatus.status === 'error' ? '#dc2626' : 
+                 webhookStatus.status === 'success' ? '#16a34a' : '#b91c1c',
+      color: 'white',
+      padding: '20px',
+      display: 'flex', 
+      justifyContent: 'space-between', 
+      alignItems: 'center',
+      position: 'relative'
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {webhookStatus.status === 'loading' && (
+          <div style={{
+            width: '20px',
+            height: '20px',
+            border: '2px solid rgba(255,255,255,0.3)',
+            borderTop: '2px solid white',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite'
+          }}></div>
+        )}
+        {webhookStatus.status === 'success' && (
+          <div style={{ fontSize: '20px' }}>✅</div>
+        )}
+        {webhookStatus.status === 'error' && (
+          <div style={{ fontSize: '20px' }}>❌</div>
+        )}
+        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>
+          {webhookStatus.status === 'loading' && 'Deploying to OCI'}
+          {webhookStatus.status === 'success' && 'Deployment Successful'}
+          {webhookStatus.status === 'error' && 'Deployment Failed'}
+        </h3>
+      </div>
+      <button 
+        onClick={() => setWebhookStatus({ isOpen: false, messages: [], status: 'loading' })}
+        style={{ 
+          background: 'rgba(255,255,255,0.2)', 
+          border: 'none', 
+          borderRadius: '50%',
+          width: '30px',
+          height: '30px',
+          fontSize: '16px', 
+          cursor: 'pointer',
+          color: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'background 0.3s'
+        }}
+        onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.3)'}
+        onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
+      >
+        ×
+      </button>
+    </div>
+    
+    {/* Messages Body */}
+    <div style={{ 
+      background: 'white',
+      padding: '20px',
+      maxHeight: '280px', 
+      overflow: 'auto'
+    }}>
+      {webhookStatus.messages.map((message, index) => (
+        <div key={index} style={{ 
+          padding: '12px 16px',
+          margin: '8px 0',
+          background: index === webhookStatus.messages.length - 1 ? 
+            (webhookStatus.status === 'error' ? '#fecaca' : 
+             webhookStatus.status === 'success' ? '#bbf7d0' : '#fecaca') : '#f8f9fa',
+          border: `1px solid ${index === webhookStatus.messages.length - 1 ? 
+            (webhookStatus.status === 'error' ? '#dc2626' : 
+             webhookStatus.status === 'success' ? '#16a34a' : '#b91c1c') : '#e9ecef'}`,
+          borderRadius: '8px',
+          fontSize: '14px',
+          lineHeight: '1.4',
+          color: '#333',
+          position: 'relative',
+          paddingLeft: '40px'
+        }}>
+          <div style={{
+            position: 'absolute',
+            left: '12px',
+            top: '12px',
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+            background: index === webhookStatus.messages.length - 1 ? 
+              (webhookStatus.status === 'error' ? '#dc2626' : 
+               webhookStatus.status === 'success' ? '#16a34a' : '#b91c1c') : '#6c757d',
+            color: 'white',
+            fontSize: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 'bold'
+          }}>
+            {index + 1}
+          </div>
+          {message}
+        </div>
+      ))}
+    </div>
+    
+    {/* Progress Footer */}
+    <div style={{
+      background: '#f8f9fa',
+      padding: '15px 20px',
+      borderTop: '1px solid #e9ecef',
+      fontSize: '12px',
+      color: '#6c757d',
+      textAlign: 'center'
+    }}>
+      {webhookStatus.status === 'loading' && 'Please wait while we deploy your infrastructure...'}
+      {webhookStatus.status === 'success' && '🎉 Your infrastructure has been successfully deployed!'}
+      {webhookStatus.status === 'error' && '⚠️ There was an issue with the deployment. Please check the logs above.'}
+    </div>
+  </div>
+)}
+
+{/* Add CSS animation for loading spinner */}
+<style jsx>{`
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`}</style>
     </div>
   );
 };
