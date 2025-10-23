@@ -271,32 +271,81 @@ const DiagramPreview = ({
     });
   };
 
- const [webhookStatus, setWebhookStatus] = useState({ 
+// Update the webhook status state to include countdown
+const [webhookStatus, setWebhookStatus] = useState({ 
   isOpen: false, 
   messages: [], 
-  status: 'loading' // 'loading', 'success', 'error'
+  status: 'loading', // 'loading', 'success', 'error'
+  countdown: 30
 });
 const webhookTimeoutRef = useRef(null);
+const countdownIntervalRef = useRef(null);
 
-// Enhanced webhook handler function
+// Enhanced webhook handler with countdown timer
 const handleDeployToOCI = () => {
   setWebhookStatus({ 
     isOpen: true, 
     messages: ['Initializing deployment to OCI...'], 
-    status: 'loading' 
+    status: 'loading',
+    countdown: 30
   });
   
+  // Start countdown timer
+  countdownIntervalRef.current = setInterval(() => {
+    setWebhookStatus(prev => {
+      const newCountdown = prev.countdown - 1;
+      if (newCountdown <= 0) {
+        // Auto close when countdown reaches 0
+        clearInterval(countdownIntervalRef.current);
+        return { isOpen: false, messages: [], status: 'loading', countdown: 30 };
+      }
+      return { ...prev, countdown: newCountdown };
+    });
+  }, 1000);
+  
+  let webhookCompleted = false;
+  
+  const deploymentTimeout = setTimeout(() => {
+    setWebhookStatus(prev => {
+      if (prev.status === 'loading' && !webhookCompleted) {
+        return {
+          ...prev,
+          messages: [...prev.messages, 'Deployment timeout - Connection lost or server not responding'],
+          status: 'error'
+        };
+      }
+      return prev;
+    });
+  }, 25000); // 25 seconds to allow for countdown
+  
   if (onSendToWebhook) {
-    onSendToWebhook((message, isError = false) => {
+    Promise.resolve(onSendToWebhook((message, isError = false) => {
       setWebhookStatus(prev => {
         const newMessages = [...prev.messages, message];
         let newStatus = prev.status;
         
-        // Determine status based on message content or isError flag
-        if (isError || message.toLowerCase().includes('error') || message.toLowerCase().includes('failed')) {
+        // Enhanced error detection
+        if (isError || 
+            message.toLowerCase().includes('error') || 
+            message.toLowerCase().includes('failed') ||
+            message.toLowerCase().includes('network error') ||
+            message.toLowerCase().includes('timeout') ||
+            message.toLowerCase().includes('unable') ||
+            message.toLowerCase().includes('could not') ||
+            message.toLowerCase().includes('connection') && message.toLowerCase().includes('failed') ||
+            /\b(4\d{2}|5\d{2})\b/.test(message)) {
           newStatus = 'error';
-        } else if (message.toLowerCase().includes('success') || message.toLowerCase().includes('completed')) {
+          clearTimeout(deploymentTimeout);
+          webhookCompleted = true;
+        } else if (message.toLowerCase().includes('success') || 
+                   message.toLowerCase().includes('completed') ||
+                   message.toLowerCase().includes('deployed') ||
+                   message.toLowerCase().includes('finished') ||
+                   message.toLowerCase().includes('done') ||
+                   message.toLowerCase().includes('created successfully')) {
           newStatus = 'success';
+          clearTimeout(deploymentTimeout);
+          webhookCompleted = true;
         }
         
         return {
@@ -305,20 +354,46 @@ const handleDeployToOCI = () => {
           status: newStatus
         };
       });
+    }))
+    .then(() => {
+      clearTimeout(deploymentTimeout);
+      webhookCompleted = true;
       
-      // Reset timeout
-      if (webhookTimeoutRef.current) {
-        clearTimeout(webhookTimeoutRef.current);
-      }
+      setWebhookStatus(prev => {
+        if (prev.status === 'loading') {
+          return {
+            ...prev,
+            messages: [...prev.messages, 'Deployment request processed successfully!'],
+            status: 'success'
+          };
+        }
+        return prev;
+      });
+    })
+    .catch((error) => {
+      clearTimeout(deploymentTimeout);
+      webhookCompleted = true;
       
-      // Close popup after 10 seconds of last message
-      webhookTimeoutRef.current = setTimeout(() => {
-        setWebhookStatus({ isOpen: false, messages: [], status: 'loading' });
-      }, 10000);
+      setWebhookStatus(prev => ({
+        ...prev,
+        messages: [...prev.messages, `Network Error: ${error.message || 'Failed to connect to deployment service'}`],
+        status: 'error'
+      }));
     });
   }
 };
 
+// Add cleanup for timeout and countdown
+useEffect(() => {
+  return () => {
+    if (webhookTimeoutRef.current) {
+      clearTimeout(webhookTimeoutRef.current);
+    }
+    if (countdownIntervalRef.current) {
+      clearInterval(countdownIntervalRef.current);
+    }
+  };
+}, []);
   return (
     <div className="diagram-topology diagram-topology-one">
       <h3>Single VCN Architecture</h3>
@@ -422,12 +497,18 @@ const handleDeployToOCI = () => {
             </button>
           </div>
           <div>
-            <button
-              className="network-btn"
-              onClick={handleDeployToOCI}
-            >
-              Deploy to OCI
-            </button>
+           <button
+    className="network-btn"
+    onClick={handleDeployToOCI}
+    disabled={webhookStatus.isOpen}
+    style={{
+      opacity: webhookStatus.isOpen ? 0.6 : 1,
+      cursor: webhookStatus.isOpen ? 'not-allowed' : 'pointer',
+      backgroundColor: webhookStatus.isOpen ? '#999' : ''
+    }}
+  >
+    {webhookStatus.isOpen ? 'Deploying...' : 'Deploy to OCI'}
+  </button>
           </div>
         </div>
       </div>
@@ -501,27 +582,44 @@ const handleDeployToOCI = () => {
           {webhookStatus.status === 'error' && 'Deployment Failed'}
         </h3>
       </div>
-      <button 
-        onClick={() => setWebhookStatus({ isOpen: false, messages: [], status: 'loading' })}
-        style={{ 
-          background: 'rgba(255,255,255,0.2)', 
-          border: 'none', 
-          borderRadius: '50%',
-          width: '30px',
-          height: '30px',
-          fontSize: '16px', 
-          cursor: 'pointer',
-          color: 'white',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'background 0.3s'
-        }}
-        onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.3)'}
-        onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
-      >
-        ×
-      </button>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Countdown Timer */}
+        <div style={{
+          background: 'rgba(255,255,255,0.2)',
+          borderRadius: '15px',
+          padding: '5px 10px',
+          fontSize: '12px',
+          fontWeight: 'bold',
+          minWidth: '50px',
+          textAlign: 'center'
+        }}>
+          {webhookStatus.countdown}s
+        </div>
+        <button 
+          onClick={() => {
+            clearInterval(countdownIntervalRef.current);
+            setWebhookStatus({ isOpen: false, messages: [], status: 'loading', countdown: 30 });
+          }}
+          style={{ 
+            background: 'rgba(255,255,255,0.2)', 
+            border: 'none', 
+            borderRadius: '50%',
+            width: '30px',
+            height: '30px',
+            fontSize: '16px', 
+            cursor: 'pointer',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.3s'
+          }}
+          onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.3)'}
+          onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
+        >
+          ×
+        </button>
+      </div>
     </div>
     
     {/* Messages Body */}
@@ -581,9 +679,9 @@ const handleDeployToOCI = () => {
       color: '#6c757d',
       textAlign: 'center'
     }}>
-      {webhookStatus.status === 'loading' && 'Please wait while we deploy your infrastructure...'}
-      {webhookStatus.status === 'success' && '🎉 Your infrastructure has been successfully deployed!'}
-      {webhookStatus.status === 'error' && '⚠️ There was an issue with the deployment. Please check the logs above.'}
+      {webhookStatus.status === 'loading' && `Please wait while we deploy your infrastructure... (Auto-close in ${webhookStatus.countdown}s)`}
+      {webhookStatus.status === 'success' && `🎉 Your infrastructure has been successfully deployed! (Auto-close in ${webhookStatus.countdown}s)`}
+      {webhookStatus.status === 'error' && `⚠️ There was an issue with the deployment. Please check the logs above. (Auto-close in ${webhookStatus.countdown}s)`}
     </div>
   </div>
 )}
