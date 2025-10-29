@@ -10,12 +10,12 @@ import InputGroup from './InputGroup';
  *   - 0 subGroups: span-2
  *   - n subGroups: span-(n+1)
  */
-const InputGroupLarge = ({ title, fields = [], subGroups = [], onFieldChange, spanClass  }) => {
+const InputGroupLarge = ({ title, fields = [], subGroups = [], onFieldChange, spanClass, rowSpan  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(prev => !prev);
   
   return (
-    <div className={`form-col span-${spanClass}`}>  {/* applies span-2, span-3, span-4, etc. */}
+    <div className={`form-col span-${spanClass} row-${rowSpan}`}>  {/* applies span-2, span-3, span-4, etc. */}
       <h5 className="grp-label" onClick={toggleOpen} style={{ cursor: 'pointer' }}>
         {title} 
         {/* <span className="toggle-icon">{isOpen ? '▲' : '▼'}</span> */}

@@ -1,0 +1,452 @@
+.diagram-topology-three {
+    margin-top: 10px;
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+}
+.diagram-topology-three .topo-img-wrapper {
+    position: relative;
+}
+.diagram-topology-three img {
+    width: 100%;
+}
+.network-tp3-label-grp {
+    color: #b00013;
+    font-family: "Lato", serif;
+    position: absolute;
+    z-index: 5;
+    line-height: 1;
+    font-size: 14px;
+  }
+  .network-tp3-label-name {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .network-tp3-label-domain {
+    font-weight: 600;
+    color: #555;
+    display: block;
+  }
+  .diagram-topology-three .nlg-1 {
+    top: 7.5%;
+    left: 12%;
+  }
+  /* 2 */
+  .diagram-topology-three .nlg-2{
+    top: 14.5%;
+    left: 14.5%;
+  }
+  .diagram-topology-three .nlg-3 {
+    top: 24%;
+    left: 14.5%;
+  }
+  .diagram-topology-three .nlg-4 {
+    top: 40.5%;
+    left: 12%;
+  }
+  .diagram-topology-three .nlg-5 {
+    top: 48.5%;
+    left: 14.5%;
+  }
+  .diagram-topology-three .nlg-6 {
+    top: 68%;
+    left: 12%;
+  }
+  .diagram-topology-three .nlg-7 {
+    top: 74.5%;
+    left: 14.5%;
+  }
+  .diagram-topology-three .nlg-8 {
+    top: 50%;
+    left: 1.5%;
+  }
+  .diagram-topology-three .nlg-8 .network-label-name {
+    max-width: 75px;
+  }
+  
+  /* Popup  */
+
+  .popup-btn span {
+    white-space: nowrap;
+  }
+  .text-blue {
+    color: #3f71a6;
+  }
+  .text-green {
+    color: #3fa65c;
+  }
+  .popup-btn.top1-btn-1 {
+    top: 11%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-2 {
+    top: 21.5%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-3 {
+    top: 46%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-4 {
+    top: 71.5%;
+    right: 54.7%;
+  }
+  .popup-btn.top1-btn-5 {
+    top: 11%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-6 {
+    top: 29.3%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-7 {
+    top: 53.5%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-8 {
+    top: 79.5%;
+    right: 48%;
+  }
+  .popup-btn.top1-btn-9 {
+    top: 10%;
+    right: 42%;
+  }
+  .popup-btn.top1-btn-10 {
+    top: 18%;
+    right: 42%;
+  }
+  .popup-btn.top1-btn-11 {
+    top: 25.5%;
+    right: 42%;
+  }
+  .popup-btn.top1-btn-12 {
+    bottom: 36%;
+    right: 35.5%;
+    align-items: end;
+  }
+  .popup-btn.top1-btn-13 {
+    bottom: 36.2%;
+    right: 25.5%;
+    align-items: flex-start;
+  }
+  .popup-btn.top1-btn-14 {
+    top: 32%;
+    right: 26.5%;
+    justify-content: start;
+  }
+  .popup-btn.top1-btn-14 .updated-badge,
+  .popup-btn.top1-btn-18 .updated-badge {
+    margin-top: 75%;
+  }
+  .popup-btn.top1-btn-15 {
+    top: 40.2%;
+    right: 23.5%;
+    align-items: flex-start;
+  }
+  .popup-btn.top1-btn-16 {
+    top: 46%;
+    right: 24%;
+  }
+  .popup-btn.top1-btn-18 {
+    bottom: 18.5%;
+    left: 3%;
+    justify-content: start;
+  }
+  .popup-btn.top1-btn-19 {
+    bottom: 30%;
+    right: 33%;
+    align-items: end;
+  }
+  .popup-btn.top1-btn-20 {
+    bottom: 30%;
+    right: 28%;
+    align-items: start;
+  }
+  .popup-btn.top1-priv-rt-btn {
+    top: 16%;
+    left: 34%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-btn.top1-priv-rt-btn img {
+    width: 30px;
+    margin: 0 auto;
+  }
+  /* flow label  */
+  .check-preview {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    max-width: 700px;
+    margin: 20px auto;
+  }
+  .pr-gateway {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+  }
+  .pr-gateway.op {
+    width: 50px;
+  }
+  .pr-gateway.att {
+    width: 70px;
+    opacity: .7;
+  }
+  .pr-gateway .gt-icon {
+    max-width: 34px;
+  }
+  .pr-gateway .gt-icon.op {
+    max-width: 50px;
+  }
+  .pr-gateway .gt-icon.att {
+    max-width: 70px;
+  }
+  .pr-gateway span {
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+  }
+  /* flow labels */
+.flow-label {
+    position: absolute;
+    background: #a2d8ff;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    color: #333;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: bold;
+  }
+  .flow-label.tp3-label-1 {
+    top: 16%;
+    left: 31%;
+  }
+  .flow-label.tp3-label-2 {
+    top: 25%;
+    left: 31%;
+  }
+  .flow-label.tp3-label-3 {
+    top: 50%;
+    left: 31%;
+  }
+  .flow-label.tp3-label-4 {
+    top: 75%;
+    left: 31%;
+  }
+  .flow-label.tp3-label-5 {
+    top: 16%;
+    right: 3%;
+  }
+  .flow-label.tp3-label-6 {
+    top: 76%;
+    right: 15%;
+  }
+  .flow-label.tp3-label-7 {
+    top: 16%;
+    left: 24%;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    text-align: center;
+  }
+  .flow-label.tp3-label-8 {
+    bottom: 37%;
+    left: 3%;
+  }
+  .flow-label-fw1 {
+    position: absolute;
+    border-radius: 4px;
+    color: #b00013;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: bold;
+  }
+  .flow-label-fw1.tp3-label-7-1 {
+    top: 19.5%;
+    left: 24%;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    text-align: center;
+  }
+.diagram-btm {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin: 20px 0 0;
+}
+  .generate-btn {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+.diagram-topology-three .form-checkouts.column {
+  background: #fffffff6;
+  position: fixed;
+  inset: 0 0 0 auto;
+  height: 100%;
+  max-height: 100vh;
+  overflow: auto;
+  max-width: 180px;
+  width: 100%;
+  flex-direction: column;
+    align-items: start;
+    flex-wrap: nowrap;
+    padding: 40px 0;
+    border-left: 1px solid #000;
+}
+.diagram-topology .form-checkouts.column::-webkit-scrollbar {
+  width: 6px; /* width of the scrollbar */
+}
+
+.diagram-topology .form-checkouts.column::-webkit-scrollbar-track {
+  background: transparent; /* background of the scrollbar track */
+}
+
+.diagram-topology .form-checkouts.column::-webkit-scrollbar-thumb {
+  background-color: #6b6a6a;  /* scrollbar thumb color */
+  border-radius: 4px;      /* roundness */
+  border: 1px solid transparent; /* for spacing/padding effect */
+}
+
+.diagram-topology .form-checkouts.column::-webkit-scrollbar-thumb:hover {
+  background-color: #000;  /* darker on hover */
+}
+
+.diagram-topology .diagram-btm .flow-checkbox-group {
+  border: none;
+}
+.flow-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid #000;
+  padding: 5px 20px;
+  width: 100%;
+}
+.diagram-topology-three .form-checkouts label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    font-size: 12px;
+}
+.form-checkouts input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+}
+.gateway {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  /* background-color: #000; */
+}
+.gateway.tp3-gtw-1 {
+  top: 10%;
+  right: 40.8%;
+}
+.gateway.tp3-gtw-2 {
+  top: 17.8%;
+  right: 41%;
+}
+.gateway.tp3-gtw-3 {
+  right: 40.8%;
+  top: 25.3%;
+}
+.gateway.tp3-gtw-4 {
+  right: 32%;
+  top: 49%;
+}
+.gateway.tp3-gtw-5 {
+  left: 4.7%;
+  bottom: 14.5%;
+}
+.disabled-group {
+  position: relative;
+  cursor: not-allowed;
+}
+
+/* .disabled-group::after {
+  content: "Uncheck the previous group first";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  background: #fff;
+  color: #000;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+} */
+
+.disabled-group:hover::after {
+  opacity: 1;
+}
+
+@media screen and (max-width:1440px) {
+    .popup-btn.top1-btn-1 {
+        top: 23%;
+        right: 44.5%;
+    }
+    .popup-btn.top1-btn-2 {
+        top: 46%;
+        right: 44.5%;
+    }
+    .popup-btn.top1-btn-3 {
+        top: 67%;
+        right: 44.5%;
+    }
+    .popup-btn.top1-btn-4 {
+        top: 23%;
+        right: 36.5%;
+    }
+    .popup-btn.top1-btn-5 {
+        top: 48%;
+        right: 36.5%;
+    }
+    .popup-btn.top1-btn-6 {
+        top: 68%;
+        right: 36.5%;
+    }
+}
+@media screen and (max-width:1280px) {
+    .popup-btn.top1-btn-1 {
+        top: 20%;
+        right: 44%;
+    }
+    .popup-btn.top1-btn-2 {
+        top: 43%;
+        right: 44%;
+    }
+    .popup-btn.top1-btn-3 {
+        top: 65%;
+        right: 44%;
+    }
+    .popup-btn.top1-btn-4 {
+        top: 21%;
+        right: 36%;
+    }
+    .popup-btn.top1-btn-5 {
+        top: 45%;
+        right: 36%;
+    }
+    .popup-btn.top1-btn-6 {
+        top: 65%;
+        right: 36%;
+    }
+    .flow-label.tp3-label-5 {
+        right: 16.5%;
+    }
+}

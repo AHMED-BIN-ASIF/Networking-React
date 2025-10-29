@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../components/common/Header';
 import '../css/Home.css';
-import Topo1 from '../assets/images/topo1.png';
-import Topo2 from '../assets/images/topo2.png';
-import Topo3 from '../assets/images/topo3.png';
+import Topo1 from '../assets/images/topo1-thumb.png';
+import Topo2 from '../assets/images/topo2-thumb.png';
+import Topo3 from '../assets/images/topo3-thumb.png';
 import { Link } from 'react-router-dom';
 import { desc } from 'framer-motion/client';
 
