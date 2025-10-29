@@ -50,20 +50,20 @@ const Topology1 = () => {
 
   const handlePopulateFields = () => {
     const sampleData = {
-      vpcName: "OraStage-VCN",
+      vpcName: "OraStageVCN",
       vpcCIDR: "10.0.0.0/16",
-      publicSubnetName: "PUB-SUBNET",
+      publicSubnetName: "PUBSUBNET",
       publicSubnetCIDR: "10.0.1.0/24",
-      publicSLName: "PUB-SL",
-      publicRTName: "PUB-RT",
-      privateSubnetRange: "WEB-SUBNET",
+      publicSLName: "PUBSL",
+      publicRTName: "PUBRT",
+      privateSubnetRange: "WEBSUBNET",
       privateSubnetCIDR: "10.0.2.0/24",
-      privateSLName: "WEB-SL",
-      privateRTName: "WEB-RT",
-      SubnetName: "APP-SUBNET",
+      privateSLName: "WEBSL",
+      privateRTName: "WEBRT",
+      SubnetName: "APPSUBNET",
       SubnetRange: "10.0.3.0/24",
-      SLName: "APP-SL",
-      RTName: "APP-RT"
+      SLName: "APPSL",
+      RTName: "APPRT"
     };
     setFormData(sampleData);
   };
