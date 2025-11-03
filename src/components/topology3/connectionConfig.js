@@ -289,8 +289,8 @@ export const connectionMap = {
   ],
   "chk-op1-fw1-priv1": [
     ["top3-op", "top3-gateway-5", { path: "staright",startSocket: 'right',endSocket: 'right',color: "red" }],
-    ["top3-gateway-5", "top3-gateway-4", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [0, 80], endSocketGravity: [0, 380],color: "red" }],
-    ["top3-gateway-4", "top3-fw-1", { path: "grid", startSocket: 'top', endSocket: 'left',startSocketGravity: [0, -400], endSocketGravity: [-10, 0],color: "red" }],
+    ["top3-gateway-5", "top3-gateway-4", { path: "arc", startSocket: 'bottom', endSocket: 'left', color: "red"}],
+    ["top3-gateway-4", "top3-fw-1", { path: "arc", startSocket: 'top', endSocket: 'left', color: "red" }],
     ["top3-fw-1", "top3-priv-1", { path: "straight", startSocket: 'bottom', endSocket: 'bottom',color: "red" }],
     //prev
     ["fw-op1-fw1-priv1-step1-op1", "fw-op1-fw1-priv1-step2-gtw-op", { path: "straight",color: "red" }],
@@ -301,9 +301,9 @@ export const connectionMap = {
   ],
   "chk-priv1-fw1-op1": [
     ["top3-priv-1", "top3-fw-1", { path: "straight", startSocket: 'top', endSocket: 'top' }],
-    ["top3-fw-1", "top3-gateway-4", { path: "grid", startSocket: 'top', endSocket: 'top', startSocketGravity: [0, -120], endSocketGravity: [15, 0] }],
-    ["top3-gateway-4", "top3-gateway-5", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [25, 0], endSocketGravity: [0, 120] }],
-    ["top3-gateway-5", "top3-op", { path: "grid",startSocket: 'left', endSocket: 'bottom',startSocketGravity: [-2, 0] }],
+    ["top3-fw-1", "top3-gateway-4", { path: "arc", startSocket: 'top', endSocket: 'top',}],
+    ["top3-gateway-4", "top3-gateway-5", { path: "arc", startSocket: 'bottom', endSocket: 'left', }],
+    ["top3-gateway-5", "top3-op", { path: "straight",startSocket: 'left', endSocket: 'bottom', }],
     //prev
     ["rev-priv1-fw1-op1-step1-priv1", "rev-priv1-fw1-op1-step2-fw1", { path: "straight" }],
     ["rev-priv1-fw1-op1-step2-fw1", "rev-priv1-fw1-op1-step3-gtw-att", { path: "straight" }],
@@ -312,8 +312,8 @@ export const connectionMap = {
   ],
   "chk-op1-pub1": [
     ["top3-op", "top3-gateway-5", { path: "staright",startSocket: 'right',endSocket: 'right',color: "red" }],
-    ["top3-gateway-5", "top3-gateway-4", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [0, 80], endSocketGravity: [0, 380],color: "red" }],
-    ["top3-gateway-4", "top3-fw-1", { path: "grid", startSocket: 'top', endSocket: 'left',startSocketGravity: [0, -400], endSocketGravity: [-10, 0],color: "red" }],
+    ["top3-gateway-5", "top3-gateway-4", { path: "arc", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [0, 80], endSocketGravity: [0, 380],color: "red" }],
+    ["top3-gateway-4", "top3-fw-1", { path: "arc", startSocket: 'top', endSocket: 'left',startSocketGravity: [0, -400], endSocketGravity: [-10, 0],color: "red" }],
     ["top3-fw-1", "top3-pub-1", { path: "straight", startSocket: 'left', endSocket: 'left',color: "red" }],
     //prev
     ["fw-op1-pub1-step1-op1", "fw-op1-pub1-step2-gtw-op", { path: "straight",color: "red" }],
@@ -323,9 +323,9 @@ export const connectionMap = {
   ],
   "chk-pub1-op1": [
     ["top3-pub-1", "top3-fw-1", { path: "straight", startSocket: 'top', endSocket: 'top' }],
-    ["top3-fw-1", "top3-gateway-4", { path: "grid", startSocket: 'top', endSocket: 'top', startSocketGravity: [0, -120], endSocketGravity: [15, 0] }],
-    ["top3-gateway-4", "top3-gateway-5", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [25, 0], endSocketGravity: [0, 120] }],
-    ["top3-gateway-5", "top3-op", { path: "grid",startSocket: 'left', endSocket: 'bottom',startSocketGravity: [-2, 0] }],
+    ["top3-fw-1", "top3-gateway-4", { path: "arc", startSocket: 'top', endSocket: 'top', startSocketGravity: [0, -120], endSocketGravity: [15, 0] }],
+    ["top3-gateway-4", "top3-gateway-5", { path: "arc", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [25, 0], endSocketGravity: [0, 120] }],
+    ["top3-gateway-5", "top3-op", { path: "straight",startSocket: 'left', endSocket: 'bottom',startSocketGravity: [-2, 0] }],
     //prev
     ["rev-pub1-op1-step1-pub1", "rev-pub1-op1-step2-fw1", { path: "straight" }],
     ["rev-pub1-op1-step2-fw1", "rev-pub1-op1-step3-gtw-att", { path: "straight" }],
@@ -334,8 +334,8 @@ export const connectionMap = {
   ],
   "chk-op1-priv2": [
     ["top3-op", "top3-gateway-5", { path: "staright",startSocket: 'right',endSocket: 'right',color: "red" }],
-    ["top3-gateway-5", "top3-gateway-4", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [0, 80], endSocketGravity: [0, 380],color: "red" }],
-    ["top3-gateway-4", "top3-fw-1", { path: "grid", startSocket: 'top', endSocket: 'left',startSocketGravity: [0, -400], endSocketGravity: [-10, 0],color: "red" }],
+    ["top3-gateway-5", "top3-gateway-4", { path: "arc", startSocket: 'top', endSocket: 'top',color: "red" }],
+    ["top3-gateway-4", "top3-fw-1", { path: "arc", startSocket: 'right', endSocket: 'right',color: "red" }],
     ["top3-fw-1", "top3-priv-2", { path: "straight", startSocket: 'left', endSocket: 'left',color: "red" }],
     //prev
     ["fw-op1-priv2-step1-op1", "fw-op1-priv2-step2-gtw-op", { path: "straight", color: "red" }],
@@ -345,9 +345,9 @@ export const connectionMap = {
   ],
   "chk-priv2-op1": [
     ["top3-priv-2", "top3-fw-1", { path: "straight", startSocket: 'top', endSocket: 'top' }],
-    ["top3-fw-1", "top3-gateway-4", { path: "grid", startSocket: 'top', endSocket: 'top', startSocketGravity: [0, -120], endSocketGravity: [15, 0] }],
-    ["top3-gateway-4", "top3-gateway-5", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [25, 0], endSocketGravity: [0, 120] }],
-    ["top3-gateway-5", "top3-op", { path: "grid",startSocket: 'left', endSocket: 'bottom',startSocketGravity: [-2, 0] }],
+    ["top3-fw-1", "top3-gateway-4", { path: "arc", startSocket: 'top', endSocket: 'top',  }],
+    ["top3-gateway-4", "top3-gateway-5", { path: "arc", startSocket: 'bottom', endSocket: 'left', }],
+    ["top3-gateway-5", "top3-op", { path: "arc",startSocket: 'left', endSocket: 'bottom', }],
     //prev
     ["rev-priv2-op1-step1-priv2", "rev-priv2-op1-step2-fw1", { path: "straight" }],
     ["rev-priv2-op1-step2-fw1", "rev-priv2-op1-step3-gtw-att", { path: "straight" }],
@@ -356,8 +356,8 @@ export const connectionMap = {
   ],
   "chk-op1-priv3": [
     ["top3-op", "top3-gateway-5", { path: "staright",startSocket: 'right',endSocket: 'right',color: "red" }],
-    ["top3-gateway-5", "top3-gateway-4", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [0, 80], endSocketGravity: [0, 380],color: "red" }],
-    ["top3-gateway-4", "top3-fw-1", { path: "grid", startSocket: 'top', endSocket: 'left',startSocketGravity: [0, -400], endSocketGravity: [-10, 0],color: "red" }],
+    ["top3-gateway-5", "top3-gateway-4", { path: "arc", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [0, 80], endSocketGravity: [0, 380],color: "red" }],
+    ["top3-gateway-4", "top3-fw-1", { path: "arc", startSocket: 'top', endSocket: 'left',startSocketGravity: [0, -400], endSocketGravity: [-10, 0],color: "red" }],
     ["top3-fw-1", "top3-priv-3", { path: "straight", startSocket: 'left', endSocket: 'left',color: "red" }],
     //prev
     ["fw-op1-priv3-step1-op1", "fw-op1-priv3-step2-gtw-op", { path: "straight", color: "red" }],
@@ -367,9 +367,9 @@ export const connectionMap = {
   ],
   "chk-priv3-op1": [
     ["top3-priv-3", "top3-fw-1", { path: "straight", startSocket: 'top', endSocket: 'top' }],
-    ["top3-fw-1", "top3-gateway-4", { path: "grid", startSocket: 'top', endSocket: 'top', startSocketGravity: [0, -120], endSocketGravity: [15, 0] }],
-    ["top3-gateway-4", "top3-gateway-5", { path: "grid", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [25, 0], endSocketGravity: [0, 120] }],
-    ["top3-gateway-5", "top3-op", { path: "grid",startSocket: 'left', endSocket: 'bottom',startSocketGravity: [-2, 0] }],
+    ["top3-fw-1", "top3-gateway-4", { path: "arc", startSocket: 'top', endSocket: 'top', startSocketGravity: [0, -120], endSocketGravity: [15, 0] }],
+    ["top3-gateway-4", "top3-gateway-5", { path: "arc", startSocket: 'bottom', endSocket: 'left',startSocketGravity: [25, 0], endSocketGravity: [0, 120] }],
+    ["top3-gateway-5", "top3-op", { path: "straight",startSocket: 'left', endSocket: 'bottom',startSocketGravity: [-2, 0] }],
     //prev
     ["rev-priv3-op1-step1-priv3", "rev-priv3-op1-step2-fw1", { path: "straight" }],
     ["rev-priv3-op1-step2-fw1", "rev-priv3-op1-step3-gtw-att", { path: "straight" }],
