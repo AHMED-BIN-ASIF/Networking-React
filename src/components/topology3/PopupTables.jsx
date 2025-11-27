@@ -249,14 +249,22 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               </tr>
             )}
             {(flowCheckboxes["chk-op1-pub1"] ||
-              flowCheckboxes["chk-pub1-op1"] ||
-              flowCheckboxes["chk-op1-priv2"]|| 
+              flowCheckboxes["chk-pub1-op1"] 
+            ) && (
+              <tr className="green-row">
+                <td>{formData.onPremSubnetCidr}</td>
+                <td>Dynamic Routing Gateway</td>
+                <td>DRG</td>
+                <td>Static</td>
+              </tr>
+            )}
+            {(flowCheckboxes["chk-op1-priv2"]|| 
               flowCheckboxes["chk-priv2-op1"] ||
               flowCheckboxes["chk-op1-priv3"]|| 
               flowCheckboxes["chk-priv3-op1"]
             ) && (
-              <tr className="green-row">
-                <td>{formData.onPremSubnetCidr}</td>
+              <tr >
+                <td className="blue-row">{formData.spokeACidr}</td>
                 <td>Dynamic Routing Gateway</td>
                 <td>DRG</td>
                 <td>Static</td>

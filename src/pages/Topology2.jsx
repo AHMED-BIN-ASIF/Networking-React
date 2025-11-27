@@ -562,14 +562,14 @@ const convertToJSON = () => {
       { id: "chk-priv2-priv3", label: "PRIV2 → PRIV3" },
       { id: "chk-priv3-priv2", label: "PRIV3 → PRIV2" },
     ],
-    // Group 15: SBI Access
-    [{ id: "chk-priv1-sbi", label: "PRIV1 → SBI" }],
-    // Group 16: SBI Access
-    [{ id: "chk-priv2-sbi", label: "PRIV2 → SBI" }],
-    // Group 16: SBI Access
-    [{ id: "chk-priv3-sbi", label: "PRIV3 → SBI" }],
-    // Group 16: SBI Access
-    [{ id: "chk-pub1-sbi", label: "PUB1 → SBI" }],
+    // Group 15: DB1 Access
+    [{ id: "chk-priv1-sbi", label: "PRIV1 → DB1" }],
+    // Group 16: DB1 Access
+    [{ id: "chk-priv2-sbi", label: "PRIV2 → DB1" }],
+    // Group 16: DB1 Access
+    [{ id: "chk-priv3-sbi", label: "PRIV3 → DB1" }],
+    // Group 16: DB1 Access
+    [{ id: "chk-pub1-sbi", label: "PUB1 → DB1" }],
   ];
 
   return (

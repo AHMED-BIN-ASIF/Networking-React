@@ -224,17 +224,17 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             )}
             {(flowCheckboxes["chk-priv2-sbi"]) && (
               <tr>
-                <td>All CDG Services In Oracle Services...</td>
-                <td>Service Gateway</td>
-                <td>SGW</td>
+                <td className='blue-row'>{formData.spokeACidr}</td>
+                <td>Dynamic Routing Gateway</td>
+                <td>DRG</td>
                 <td>Static</td>
               </tr>
             )}
             {(flowCheckboxes["chk-priv3-sbi"]) && (
-              <tr className='orange-row'>
-                <td>All CDG Services In Oracle Services...</td>
-                <td>Service Gateway</td>
-                <td>SGW</td>
+              <tr className=''>
+                <td className='blue-row'>{formData.spokeACidr}</td>
+                <td>Dynamic Routing Gateway</td>
+                <td>DRG</td>
                 <td>Static</td>
               </tr>
             )}
@@ -289,10 +289,10 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               </tr>
             )}
             {(flowCheckboxes["chk-pub1-sbi"]) && (
-              <tr className='orange-row'>
+              <tr className=''>
                 <td>All CDG Services In Oracle Services...</td>
-                <td>Service Gateway</td>
-                <td>SGW</td>
+                <td>Private IP</td>
+                <td className='red-row'>{formData.firewallIp}</td>
                 <td>Static</td>
               </tr>
             )}
