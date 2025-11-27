@@ -1,5 +1,7 @@
 // src/components/topology1/DiagramPreview.js
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import Topo1 from "../../assets/images/topo-1.jpg";
 import "../../css/DiagramPreview.css";
 import FlowCheckbox from "../common/FlowCheckbox";
@@ -98,6 +100,7 @@ const DiagramPreview = ({
   onSendToWebhook,
 }) => {
   const linesRef = useRef({});
+  const diagramRef = useRef(null);
   const [updatedPopups, setUpdatedPopups] = useState({});
   const [activeGroupIndex, setActiveGroupIndex] = useState(null);
 
@@ -394,8 +397,271 @@ useEffect(() => {
     }
   };
 }, []);
+
+  // Export diagram as PDF
+  const handleExportDiagram = async () => {
+    if (!diagramRef.current) {
+      console.error('Diagram container not found');
+      return;
+    }
+
+    try {
+      // Hide the "Show Endpoints" checkbox container before capturing
+      const showEndpointsCheckbox = document.getElementById("chk-show-endpoints");
+      const checkboxGroup = showEndpointsCheckbox?.closest('.flow-checkbox-group');
+      const formCheckouts = checkboxGroup?.parentElement;
+      const originalDisplayCheckbox = formCheckouts?.style.display;
+      
+      // Hide the form-checkouts div that contains the Show Endpoints checkbox
+      if (formCheckouts) {
+        formCheckouts.style.display = 'none';
+      }
+
+      // Hide the buttons section (diagram-btm) that contains all the action buttons
+      const diagramBtm = diagramRef.current.querySelector('.diagram-btm');
+      const originalDisplayButtons = diagramBtm?.style.display;
+      if (diagramBtm) {
+        diagramBtm.style.display = 'none';
+      }
+
+      // Capture the diagram with all its content
+      const canvas = await html2canvas(diagramRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2, // Higher quality
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+        width: diagramRef.current.scrollWidth,
+        height: diagramRef.current.scrollHeight,
+      });
+
+      // Restore the checkbox visibility
+      if (formCheckouts) {
+        formCheckouts.style.display = originalDisplayCheckbox || '';
+      }
+
+      // Restore the buttons visibility
+      if (diagramBtm) {
+        diagramBtm.style.display = originalDisplayButtons || '';
+      }
+
+      // Convert canvas to PDF
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      
+      // Calculate PDF dimensions (A4 landscape in mm)
+      const pdfWidth = 297; // A4 landscape width in mm
+      const pdfHeight = 210; // A4 landscape height in mm
+      
+      // Calculate scaling to fit the image
+      const ratio = Math.min(pdfWidth / (imgWidth * 0.264583), pdfHeight / (imgHeight * 0.264583));
+      const scaledWidth = imgWidth * 0.264583 * ratio; // Convert px to mm
+      const scaledHeight = imgHeight * 0.264583 * ratio;
+      
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      // Add diagram on first page
+      const xOffset = (pdfWidth - scaledWidth) / 2;
+      const yOffset = (pdfHeight - scaledHeight) / 2;
+      pdf.addImage(imgData, 'PNG', xOffset, yOffset, scaledWidth, scaledHeight);
+
+      // Helper function to remove duplicate routes
+      const removeDuplicateRoutes = (routes) => {
+        const seen = new Set();
+        return routes.filter(route => {
+          const key = `${route.destination}|${route.targetType}|${route.target}|${route.routeType}`;
+          if (seen.has(key)) {
+            return false;
+          }
+          seen.add(key);
+          return true;
+        });
+      };
+
+      // Add routing tables on separate pages (one table per page)
+      // Include ALL routing entries regardless of checkbox state
+      const routingTables = [
+        {
+          name: formData.publicRTName || 'Public Route Table',
+          routes: removeDuplicateRoutes([
+            {
+              destination: 'All <REGION> Services In Oracle Services Network',
+              targetType: 'Service Gateway',
+              target: 'SGW',
+              routeType: 'Static'
+            },
+            {
+              destination: '0.0.0.0/0',
+              targetType: 'Internet Gateway',
+              target: 'IGW',
+              routeType: 'Static'
+            }
+          ])
+        },
+        {
+          name: formData.privateRTName || 'Private Route Table 1',
+          routes: removeDuplicateRoutes([
+            {
+              destination: 'All <REGION> Services In Oracle Services Network',
+              targetType: 'Service Gateway',
+              target: 'SGW',
+              routeType: 'Static'
+            },
+            {
+              destination: '0.0.0.0/0',
+              targetType: 'NAT Gateway',
+              target: 'NGW',
+              routeType: 'Static'
+            }
+          ])
+        },
+        {
+          name: formData.RTName || 'Private Route Table 2',
+          routes: removeDuplicateRoutes([
+            {
+              destination: 'All <REGION> Services In Oracle Services Network',
+              targetType: 'Service Gateway',
+              target: 'SGW',
+              routeType: 'Static'
+            },
+            {
+              destination: '0.0.0.0/0',
+              targetType: 'NAT Gateway',
+              target: 'NGW',
+              routeType: 'Static'
+            }
+          ])
+        }
+      ];
+
+      // Add each routing table on its own separate page
+      routingTables.forEach((rt) => {
+        pdf.addPage();
+        
+        // Title
+        pdf.setFontSize(16);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(rt.name, 20, 25);
+        
+        // Table header - adjust column widths to fit landscape A4 (297mm width)
+        // Leave margins: 20mm left, 20mm right = 257mm usable width
+        const startY = 35;
+        const rowHeight = 12; // Increased to accommodate multi-line text
+        const colWidths = [100, 60, 40, 57]; // Total: 257mm
+        const headers = ['Destination', 'Target Type', 'Target', 'Route Type'];
+        
+        // Draw header row - draw each header individually to ensure visibility
+        pdf.setFillColor(70, 130, 180); // Steel blue color
+        pdf.setTextColor(255, 255, 255); // White text
+        pdf.setFontSize(11);
+        pdf.setFont('helvetica', 'bold');
+        
+        // Draw all header backgrounds first
+        let currentX = 20;
+        headers.forEach((header, i) => {
+          pdf.rect(currentX, startY, colWidths[i], rowHeight, 'F');
+          currentX += colWidths[i];
+        });
+        
+        // Now draw all header text on top
+        currentX = 20;
+        headers.forEach((header, i) => {
+          // Calculate center position for text
+          const textY = startY + 6.5;
+          
+          // Ensure white text color
+          pdf.setTextColor(255, 255, 255);
+          
+          // Draw text - try without align option first, then with manual centering
+          const textWidth = pdf.getTextWidth(header);
+          const centeredX = currentX + (colWidths[i] - textWidth) / 2;
+          
+          pdf.text(header, centeredX, textY);
+          
+          currentX += colWidths[i];
+        });
+        
+        // Draw table rows with data
+        let currentY = startY + rowHeight;
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(9);
+        pdf.setDrawColor(180, 180, 180); // Gray border color
+        
+        rt.routes.forEach((route, routeIndex) => {
+          // Set row background color
+          if (routeIndex % 2 === 0) {
+            pdf.setFillColor(250, 250, 250); // Very light gray
+          } else {
+            pdf.setFillColor(255, 255, 255); // White
+          }
+          
+          currentX = 20;
+          const rowData = [
+            route.destination,
+            route.targetType,
+            route.target,
+            route.routeType
+          ];
+          
+          // Draw all cell backgrounds first
+          currentX = 20;
+          rowData.forEach((data, i) => {
+            // Draw cell background
+            pdf.rect(currentX, currentY, colWidths[i], rowHeight, 'F');
+            // Draw cell border
+            pdf.rect(currentX, currentY, colWidths[i], rowHeight, 'S');
+            currentX += colWidths[i];
+          });
+          
+          // Now draw all cell text on top
+          currentX = 20;
+          rowData.forEach((data, i) => {
+            // Explicitly set text color to black
+            pdf.setTextColor(0, 0, 0);
+            
+            // Split text to fit in cell width
+            const lines = pdf.splitTextToSize(data, colWidths[i] - 6);
+            
+            // Calculate text position - same approach for all columns
+            let textX;
+            if (i === 0) {
+              // First column: left aligned
+              textX = currentX + 3;
+            } else {
+              // Other columns: center aligned using manual calculation
+              const textWidth = pdf.getTextWidth(lines[0] || '');
+              textX = currentX + (colWidths[i] - textWidth) / 2;
+            }
+            
+            // Draw all lines of text (handle multi-line)
+            lines.forEach((line, lineIndex) => {
+              const textY = currentY + 4 + (lineIndex * 3.5); // 3.5mm line spacing
+              if (textY < currentY + rowHeight - 1) { // Make sure it fits in cell
+                pdf.text(line || '', textX, textY);
+              }
+            });
+            
+            currentX += colWidths[i];
+          });
+          
+          currentY += rowHeight;
+        });
+      });
+      
+      pdf.save(`${formData.vpcName || 'topology1'}-diagram.pdf`);
+    } catch (error) {
+      console.error('Error exporting diagram:', error);
+      alert('Failed to export diagram. Please try again.');
+    }
+  };
+
   return (
-    <div className="diagram-topology diagram-topology-one">
+    <div ref={diagramRef} className="diagram-topology diagram-topology-one">
       <h3>Single VCN Architecture</h3>
         <CheckPreviewDiagram flowCheckboxes={flowCheckboxes} />
       <div className="topo-img-wrapper">
@@ -494,6 +760,14 @@ useEffect(() => {
               onClick={onExportJSON}
             >
               Export JSON
+            </button>
+          </div>
+          <div>
+            <button
+              className="network-btn"
+              onClick={handleExportDiagram}
+            >
+              Export Diagram
             </button>
           </div>
           <div>

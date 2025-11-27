@@ -50,7 +50,7 @@ const Topology1 = () => {
 
   const handlePopulateFields = () => {
     const sampleData = {
-      vpcName: "OraStageVCN",
+      vpcName: "ONFAVCN",
       vpcCIDR: "10.0.0.0/16",
       publicSubnetName: "PUBSUBNET",
       publicSubnetCIDR: "10.0.1.0/24",

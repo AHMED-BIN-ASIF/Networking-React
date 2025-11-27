@@ -165,7 +165,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
               <tr className="green-row">
                 <td>0.0.0.0/0</td>
                 <td>NAT Gateway</td>
-                <td>DRG</td>
+                <td>NGW</td>
                 <td>Static</td>
               </tr>
             )}

@@ -5,7 +5,6 @@ import Topo1 from '../assets/images/topo1-thumb.png';
 import Topo2 from '../assets/images/topo2-thumb.png';
 import Topo3 from '../assets/images/topo3-thumb.png';
 import { Link } from 'react-router-dom';
-import { desc } from 'framer-motion/client';
 
 const topologyData = [
   { id: 1, image: Topo1, name: 'Single VCN Architecture', description: 'One network with public and private subnets. Simple setup for basic applications with direct internet access.' },

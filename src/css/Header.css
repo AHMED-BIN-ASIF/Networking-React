@@ -18,6 +18,29 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logout-button {
+    background-color: #dc2626;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .logout-button:hover {
+    background-color: #b91c1c;
+    border-color: #b91c1c;
+  }
   
   .header-title {
     font-size: 1.5rem; /* text-2xl */

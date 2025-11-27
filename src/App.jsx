@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Sidebar from "./components/common/Sidebar";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import Layout from "./components/common/Layout";
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Topology1 from "./pages/Topology1";
 import Topology2 from "./pages/Topology2";
@@ -12,24 +15,93 @@ import Topology7 from "./pages/Topology7";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="app-container">
-        {/* Background Layers and other styling can be added here */}
-        <Sidebar />
-        <div  className="app-content">
+    <AuthProvider>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/topology-1" element={<Topology1 />} />
-          <Route path="/topology-2" element={<Topology2 />} />
-          <Route path="/topology-3" element={<Topology3 />} />
-          <Route path="/topology-4" element={<Topology4 />} />
-          <Route path="/topology-5" element={<Topology5 />} />
-          <Route path="/topology-6" element={<Topology6 />} />
-          <Route path="/topology-7" element={<Topology7 />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Home />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-1"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology1 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-2"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology2 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-3"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology3 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-4"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology4 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-5"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology5 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-6"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology6 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/topology-7"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Topology7 />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-        </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

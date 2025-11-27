@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { connectionMap, endpointIds } from "./connectionConfig";
 import Topo2 from "../../assets/images/topo-2.jpg";
 import "../../css/DiagramPreview2.css";
@@ -38,6 +40,7 @@ const DiagramPreview2 = ({
   onSendToWebhook,
 }) => {
   const linesRef = useRef({});
+  const diagramRef = useRef(null);
   const [updatedPopups, setUpdatedPopups] = useState({});
   // activeGroupIndex refers to the *rendered* groups (flowConfigGrouped.slice(1))
   const [activeGroupIndex, setActiveGroupIndex] = useState(null);
@@ -542,8 +545,331 @@ useEffect(() => {
   };
 }, []);
 
+  // Export diagram as PDF
+  const handleExportDiagram = async () => {
+    if (!diagramRef.current) {
+      console.error('Diagram container not found');
+      return;
+    }
+
+    try {
+      // Hide the "Show Endpoints" checkbox container before capturing
+      const showEndpointsCheckbox = document.getElementById("chk-show-endpoints");
+      const checkboxGroup = showEndpointsCheckbox?.closest('.flow-checkbox-group');
+      const formCheckouts = checkboxGroup?.parentElement;
+      const originalDisplayCheckbox = formCheckouts?.style.display;
+      
+      // Hide the form-checkouts div that contains the Show Endpoints checkbox
+      if (formCheckouts) {
+        formCheckouts.style.display = 'none';
+      }
+
+      // Hide the buttons section (diagram-btm) that contains all the action buttons
+      const diagramBtm = diagramRef.current.querySelector('.diagram-btm');
+      const originalDisplayButtons = diagramBtm?.style.display;
+      if (diagramBtm) {
+        diagramBtm.style.display = 'none';
+      }
+
+      // Capture the diagram with all its content
+      const canvas = await html2canvas(diagramRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2, // Higher quality
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+        width: diagramRef.current.scrollWidth,
+        height: diagramRef.current.scrollHeight,
+      });
+
+      // Restore the checkbox visibility
+      if (formCheckouts) {
+        formCheckouts.style.display = originalDisplayCheckbox || '';
+      }
+
+      // Restore the buttons visibility
+      if (diagramBtm) {
+        diagramBtm.style.display = originalDisplayButtons || '';
+      }
+
+      // Convert canvas to PDF
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      
+      // Calculate PDF dimensions (A4 landscape in mm)
+      const pdfWidth = 297; // A4 landscape width in mm
+      const pdfHeight = 210; // A4 landscape height in mm
+      
+      // Calculate scaling to fit the image
+      const ratio = Math.min(pdfWidth / (imgWidth * 0.264583), pdfHeight / (imgHeight * 0.264583));
+      const scaledWidth = imgWidth * 0.264583 * ratio; // Convert px to mm
+      const scaledHeight = imgHeight * 0.264583 * ratio;
+      
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      // Center the image on the page
+      const xOffset = (pdfWidth - scaledWidth) / 2;
+      const yOffset = (pdfHeight - scaledHeight) / 2;
+      
+      pdf.addImage(imgData, 'PNG', xOffset, yOffset, scaledWidth, scaledHeight);
+
+      // Helper function to remove duplicate routes
+      const removeDuplicateRoutes = (routes, includeAction = false) => {
+        const seen = new Set();
+        return routes.filter(route => {
+          // For DRG Hub table, include action in key; for others, ignore empty/null actions
+          const action = includeAction ? route.routeType : (route.routeType || '');
+          const key = `${route.destination}|${route.targetType}|${route.target}|${action}`;
+          if (seen.has(key)) {
+            return false;
+          }
+          seen.add(key);
+          return true;
+        });
+      };
+
+      // Add routing tables on separate pages (one table per page)
+      // Include ALL routing entries regardless of checkbox state
+      const routingTables = [
+        {
+          name: formData.hubPrivRtName || 'Hub Private Route Table',
+          routes: removeDuplicateRoutes([
+            { destination: '0.0.0.0/0', targetType: 'NAT Gateway', target: 'NGW', routeType: 'Static' },
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: 'All <REGION> Services In Oracle Services Network', targetType: 'Service Gateway', target: 'SGW', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.hubPubRtName || 'Hub Public Route Table',
+          routes: removeDuplicateRoutes([
+            { destination: '0.0.0.0/0', targetType: 'Internet Gateway', target: 'IGW', routeType: 'Static' },
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            { destination: 'All <REGION> Services In Oracle Services Network', targetType: 'Service Gateway', target: 'SGW', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.spokeAPrivRtName || 'Spoke A Private Route Table',
+          routes: removeDuplicateRoutes([
+            { destination: '0.0.0.0/0', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: formData.hubVcnCidr || 'Hub VCN CIDR', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: 'All <REGION> Services In Oracle Services Network', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.spokeBPrivRtName || 'Spoke B Private Route Table',
+          routes: removeDuplicateRoutes([
+            { destination: formData.hubVcnCidr || 'Hub VCN CIDR', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: '0.0.0.0/0', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' },
+            { destination: 'All <REGION> Services In Oracle Services Network', targetType: 'Dynamic Routing Gateway', target: 'DRG', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.natGwRtName || 'NAT Gateway Route Table',
+          routes: removeDuplicateRoutes([
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.serviceGwRtName || 'Service Gateway Route Table',
+          routes: removeDuplicateRoutes([
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.drgRtSpokeAatt || 'DRG Route Table Spoke Attachment A',
+          routes: removeDuplicateRoutes([
+            { destination: formData.hubVcnCidr || 'Hub VCN CIDR', targetType: 'Virtual Cloud Network', target: 'HUB-VCN-ATTACHMENT', routeType: 'Static' },
+            { destination: '0.0.0.0/0', targetType: 'Virtual Cloud Network', target: 'HUB-VCN-ATTACHMENT', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Virtual Cloud Network', target: 'HUB-VCN-ATTACHMENT', routeType: 'Static' }
+            // Note: chk-priv2-sbi also requires 0.0.0.0/0 but it's already included above
+          ])
+        },
+        {
+          name: formData.drgRtSpokeAttachmentB || 'DRG Route Table Spoke Attachment B',
+          routes: removeDuplicateRoutes([
+            { destination: formData.hubVcnCidr || 'Hub VCN CIDR', targetType: 'Virtual Cloud Network', target: 'HUB-VCN-ATTACHMENT', routeType: 'Static' },
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Virtual Cloud Network', target: 'HUB-VCN-ATTACHMENT', routeType: 'Static' },
+            { destination: '0.0.0.0/0', targetType: 'Virtual Cloud Network', target: 'HUB-VCN-ATTACHMENT', routeType: 'Static' }
+          ])
+        },
+        {
+          name: formData.drgRiHubAtt || 'DRG Route Table Hub Attachment',
+          routes: removeDuplicateRoutes([
+            { destination: '10', targetType: 'Attachment', target: 'SPOKE-VCN-A-ATTACHMENT', routeType: 'Accept' },
+            { destination: '20', targetType: 'Attachment', target: 'SPOKE-VCN-B-ATTACHMENT', routeType: 'Accept' }
+          ])
+        },
+        {
+          name: formData.vcnRt1HubAttachment || 'VCN Route Table 1 Hub Attachment',
+          routes: removeDuplicateRoutes([
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Virtual Cloud Network', target: 'SPOKE-VCN-A-ATTACHMENT', routeType: 'Static' },
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Virtual Cloud Network', target: 'SPOKE-VCN-B-ATTACHMENT', routeType: 'Static' }
+            // Note: SBI flows use the same routes as other flows, already included
+          ])
+        },
+        {
+          name: formData.vcnRt2HubAttachment || 'VCN Route Table 2 Hub Attachment',
+          routes: removeDuplicateRoutes([
+            // For chk-pub1-priv2, chk-priv2-pub1, chk-priv1-priv2, chk-priv2-priv1
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            { destination: formData.hubPrivSubnetCidr || 'Hub Private Subnet CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            // For chk-priv2-inet1
+            { destination: '0.0.0.0/0', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            // For chk-pub1-priv3, chk-priv3-pub1
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            { destination: formData.hubPubSubnetCidr || 'Hub Public Subnet CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            // For chk-priv3-inet1 (0.0.0.0/0 already included above)
+            // For chk-priv1-priv3, chk-priv3-priv1 (spokeBCidr and hubPrivSubnetCidr already included)
+            // For chk-priv2-priv3, chk-priv3-priv2 (spokeACidr and spokeBCidr already included)
+            // For chk-priv2-sbi, chk-priv3-sbi
+            { destination: 'All <REGION> Services In Oracle Services Network', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' }
+          ])
+        },
+        {
+          name: 'RT-Priv1',
+          routes: removeDuplicateRoutes([
+            // chk-priv1-inet1-fw
+            { destination: '0.0.0.0/0', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            // chk-priv1-priv2 / chk-priv2-priv1
+            { destination: formData.spokeACidr || 'Spoke A CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            // chk-priv1-priv3 / chk-priv3-priv1
+            { destination: formData.spokeBCidr || 'Spoke B CIDR', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' },
+            // chk-priv1-sbi
+            { destination: 'All <REGION> Services In Oracle Services Network', targetType: 'Private IP', target: formData.firewallIp || 'Firewall IP', routeType: 'Static' }
+          ])
+        }
+      ];
+
+      // Add each routing table on its own separate page
+      routingTables.forEach((rt) => {
+        pdf.addPage();
+        
+        // Title
+        pdf.setFontSize(16);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(rt.name, 20, 25);
+        
+        // Table header - adjust column widths to fit landscape A4 (297mm width)
+        const startY = 35;
+        const rowHeight = 12; // Increased to accommodate multi-line text
+        // Check if this is DRG Hub Attachment table (different columns)
+        const isDRGHubTable = rt.name.includes('DRG Route Table Hub Attachment') || rt.name.includes('DRG Hub Attachment');
+        const colWidths = isDRGHubTable ? [50, 60, 90, 57] : [100, 60, 40, 57]; // Total: 257mm
+        const headers = isDRGHubTable 
+          ? ['Priority', 'Match type', 'Match criteria', 'Action']
+          : ['Destination', 'Target Type', 'Target', 'Route Type'];
+        
+        // Draw all header backgrounds first
+        let currentX = 20;
+        headers.forEach((header, i) => {
+          pdf.rect(currentX, startY, colWidths[i], rowHeight, 'F');
+          currentX += colWidths[i];
+        });
+        
+        // Now draw all header text on top
+        currentX = 20;
+        headers.forEach((header, i) => {
+          // Calculate center position for text
+          const textY = startY + 6.5;
+          
+          // Ensure white text color
+          pdf.setTextColor(255, 255, 255);
+          
+          // Draw text - try without align option first, then with manual centering
+          const textWidth = pdf.getTextWidth(header);
+          const centeredX = currentX + (colWidths[i] - textWidth) / 2;
+          
+          pdf.text(header, centeredX, textY);
+          
+          currentX += colWidths[i];
+        });
+        
+        // Draw table rows with data
+        let currentY = startY + rowHeight;
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(9);
+        pdf.setDrawColor(180, 180, 180); // Gray border color
+        
+        rt.routes.forEach((route, routeIndex) => {
+          // Set row background color
+          if (routeIndex % 2 === 0) {
+            pdf.setFillColor(250, 250, 250); // Very light gray
+          } else {
+            pdf.setFillColor(255, 255, 255); // White
+          }
+          
+          // Draw all cell backgrounds first
+          currentX = 20;
+          const rowData = [
+            route.destination,
+            route.targetType,
+            route.target,
+            route.routeType
+          ];
+          
+          rowData.forEach((data, i) => {
+            // Draw cell background
+            pdf.rect(currentX, currentY, colWidths[i], rowHeight, 'F');
+            // Draw cell border
+            pdf.rect(currentX, currentY, colWidths[i], rowHeight, 'S');
+            currentX += colWidths[i];
+          });
+          
+          // Now draw all cell text on top
+          currentX = 20;
+          rowData.forEach((data, i) => {
+            // Explicitly set text color to black
+            pdf.setTextColor(0, 0, 0);
+            
+            // Split text to fit in cell width
+            const lines = pdf.splitTextToSize(data, colWidths[i] - 6);
+            
+            // Calculate text position - same approach for all columns
+            let textX;
+            if (i === 0) {
+              // First column: left aligned
+              textX = currentX + 3;
+            } else {
+              // Other columns: center aligned using manual calculation
+              const textWidth = pdf.getTextWidth(lines[0] || '');
+              textX = currentX + (colWidths[i] - textWidth) / 2;
+            }
+            
+            // Draw all lines of text (handle multi-line)
+            lines.forEach((line, lineIndex) => {
+              const textY = currentY + 4 + (lineIndex * 3.5); // 3.5mm line spacing
+              if (textY < currentY + rowHeight - 1) { // Make sure it fits in cell
+                pdf.text(line || '', textX, textY);
+              }
+            });
+            
+            currentX += colWidths[i];
+          });
+          
+          currentY += rowHeight;
+        });
+      });
+      
+      pdf.save(`${formData.hubVcnName || 'topology2'}-diagram.pdf`);
+    } catch (error) {
+      console.error('Error exporting diagram:', error);
+      alert('Failed to export diagram. Please try again.');
+    }
+  };
+
   return (
-    <div className="diagram-topology-two">
+    <div ref={diagramRef} className="diagram-topology-two">
       <div>
         <h3>Hub and Spoke VCN Architecture</h3>
         <CheckPreviewDiagram flowCheckboxes={flowCheckboxes} />
@@ -686,6 +1012,14 @@ useEffect(() => {
               onClick={onExportJSON}
             >
               Export JSON
+            </button>
+          </div>
+          <div>
+            <button
+              className="network-btn"
+              onClick={handleExportDiagram}
+            >
+              Export Diagram
             </button>
           </div>
           <div>
