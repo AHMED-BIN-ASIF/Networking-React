@@ -53,187 +53,215 @@ const DiagramPreview3 = ({
   const updateFlowLinesRef = useRef();
 
   const updateFlowLines = useCallback(() => {
-  // clear existing lines
-  Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
-  linesRef.current = {};
+    // clear existing lines safely
+    Object.values(linesRef.current).forEach((arr) => {
+      if (Array.isArray(arr)) {
+        arr.forEach((line) => {
+          if (line && typeof line.remove === 'function') {
+            try {
+              line.remove();
+            } catch (error) {
+              console.warn('Error removing line:', error);
+            }
+          }
+        });
+      }
+    });
+    linesRef.current = {};
 
-   // Double RAF to ensure DOM is fully painted
-  window.requestAnimationFrame(() => {
+    // Double RAF to ensure DOM is fully painted AND elements exist
     window.requestAnimationFrame(() => {
-      Object.keys(connectionMap).forEach((key) => {
-        if (flowCheckboxes[key]) {
-          linesRef.current[key] = connectionMap[key].map(([s, e, opts = {}]) =>
-            createLeaderLine(s, e, opts)
-          );
-        }
+      window.requestAnimationFrame(() => {
+        Object.keys(connectionMap).forEach((key) => {
+          if (flowCheckboxes[key]) {
+            linesRef.current[key] = connectionMap[key].map(([s, e, opts = {}]) => {
+              const startEl = document.getElementById(s);
+              const endEl = document.getElementById(e);
+              
+              // Only create line if both elements exist
+              if (startEl && endEl) {
+                try {
+                  return createLeaderLine(s, e, opts);
+                } catch (error) {
+                  console.warn(`Error creating line from ${s} to ${e}:`, error);
+                  return null;
+                }
+              } else {
+                console.warn(`Elements not found for line: ${s} -> ${e}`);
+                return null;
+              }
+            }).filter(line => line !== null); // Remove null entries
+          }
+        });
       });
     });
-  });
-  // popups “updated” flags
-  const affectedPopups = {};
-  if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup17 = true;
-  }
-  if (flowCheckboxes["chk-inet1-pub1"] || flowCheckboxes["chk-pub1-inet1"]) {
-    affectedPopups.popup6 = true;
-  }
-  if (flowCheckboxes["chk-priv1-inet1-bypass-fw"]) {
-    affectedPopups.popup5 = true;
-  }
-  if (flowCheckboxes["chk-priv2-inet1"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup7 = true;
-    affectedPopups.popup10 = true;
-    affectedPopups.popup12 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-  }
-  if (flowCheckboxes["chk-priv3-inet1"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup8 = true;
-    affectedPopups.popup10 = true;
-    affectedPopups.popup13 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-  }
-  if (
-    flowCheckboxes["chk-pub1-priv2"] ||
-    flowCheckboxes["chk-priv2-pub1"] ||
-    flowCheckboxes["chk-priv1-priv2"] ||
-    flowCheckboxes["chk-priv2-priv1"]
-  ) {
-    affectedPopups.popup5 = true;
-    if (flowCheckboxes["chk-pub1-priv2"] || flowCheckboxes["chk-priv2-pub1"]) {
-      affectedPopups.popup6 = true;
-    }
-    affectedPopups.popup7 = true;
-    affectedPopups.popup12 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-    if (flowCheckboxes["chk-priv1-priv2"] || flowCheckboxes["chk-priv2-priv1"]) {
+
+    // popups “updated” flags
+    const affectedPopups = {};
+    if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
+      affectedPopups.popup5 = true;
       affectedPopups.popup17 = true;
     }
-  }
-  if (
-    flowCheckboxes["chk-pub1-priv3"] ||
-    flowCheckboxes["chk-priv3-pub1"] ||
-    flowCheckboxes["chk-priv1-priv3"] ||
-    flowCheckboxes["chk-priv3-priv1"]
-  ) {
-    affectedPopups.popup5 = true;
-    if (flowCheckboxes["chk-pub1-priv3"] || flowCheckboxes["chk-priv3-pub1"]) {
+    if (flowCheckboxes["chk-inet1-pub1"] || flowCheckboxes["chk-pub1-inet1"]) {
       affectedPopups.popup6 = true;
     }
-    affectedPopups.popup8 = true;
-    affectedPopups.popup13 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-    if (flowCheckboxes["chk-priv1-priv3"] || flowCheckboxes["chk-priv3-priv1"]) {
+    if (flowCheckboxes["chk-priv1-inet1-bypass-fw"]) {
+      affectedPopups.popup5 = true;
+    }
+    if (flowCheckboxes["chk-priv2-inet1"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup10 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-priv3-inet1"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup10 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (
+      flowCheckboxes["chk-pub1-priv2"] ||
+      flowCheckboxes["chk-priv2-pub1"] ||
+      flowCheckboxes["chk-priv1-priv2"] ||
+      flowCheckboxes["chk-priv2-priv1"]
+    ) {
+      affectedPopups.popup5 = true;
+      if (flowCheckboxes["chk-pub1-priv2"] || flowCheckboxes["chk-priv2-pub1"]) {
+        affectedPopups.popup6 = true;
+      }
+      affectedPopups.popup7 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+      if (flowCheckboxes["chk-priv1-priv2"] || flowCheckboxes["chk-priv2-priv1"]) {
+        affectedPopups.popup17 = true;
+      }
+    }
+    if (
+      flowCheckboxes["chk-pub1-priv3"] ||
+      flowCheckboxes["chk-priv3-pub1"] ||
+      flowCheckboxes["chk-priv1-priv3"] ||
+      flowCheckboxes["chk-priv3-priv1"]
+    ) {
+      affectedPopups.popup5 = true;
+      if (flowCheckboxes["chk-pub1-priv3"] || flowCheckboxes["chk-priv3-pub1"]) {
+        affectedPopups.popup6 = true;
+      }
+      affectedPopups.popup8 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+      if (flowCheckboxes["chk-priv1-priv3"] || flowCheckboxes["chk-priv3-priv1"]) {
+        affectedPopups.popup17 = true;
+      }
+    }
+    if (flowCheckboxes["chk-priv2-priv3"] || flowCheckboxes["chk-priv3-priv2"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-pub1-sbi"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup6 = true;
+    }
+    if (flowCheckboxes["chk-priv3-sbi"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup11 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-priv2-sbi"]) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup11 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+    }
+    if (flowCheckboxes["chk-priv1-sbi"]) {
+      affectedPopups.popup5 = true;
       affectedPopups.popup17 = true;
     }
-  }
-  if (flowCheckboxes["chk-priv2-priv3"] || flowCheckboxes["chk-priv3-priv2"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup7 = true;
-    affectedPopups.popup8 = true;
-    affectedPopups.popup12 = true;
-    affectedPopups.popup13 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-  }
-  if (flowCheckboxes["chk-pub1-sbi"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup6 = true;
-  }
-  if (flowCheckboxes["chk-priv3-sbi"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup8 = true;
-    affectedPopups.popup11 = true;
-    affectedPopups.popup13 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-  }
-  if (flowCheckboxes["chk-priv2-sbi"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup7 = true;
-    affectedPopups.popup11 = true;
-    affectedPopups.popup12 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-  }
-  if (flowCheckboxes["chk-priv1-sbi"]) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup17 = true;
-  }
-  if(
-    flowCheckboxes["chk-op1-fw1-priv1"] ||
-    flowCheckboxes["chk-priv1-fw1-op1"]   
-  )
-  {    
-    affectedPopups.popup5 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-    affectedPopups.popup17 = true;
-    affectedPopups.popup18 = true;
-    affectedPopups.popup19 = true;
-    affectedPopups.popup20 = true;
-  }
-  if (
-    flowCheckboxes["chk-op1-pub1"] ||
-    flowCheckboxes["chk-pub1-op1"]
-  ) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup6 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-    affectedPopups.popup18 = true;
-    affectedPopups.popup19 = true;
-    affectedPopups.popup20 = true;
-  }
-  if (
-    flowCheckboxes["chk-op1-priv2"] ||
-    flowCheckboxes["chk-priv2-op1"]
-  ) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup7 = true;
-    affectedPopups.popup12 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-    affectedPopups.popup18 = true;
-    affectedPopups.popup19 = true;
-    affectedPopups.popup20 = true;
-  }
-  if (
-    flowCheckboxes["chk-op1-priv3"] ||
-    flowCheckboxes["chk-priv3-op1"]
-  ) {
-    affectedPopups.popup5 = true;
-    affectedPopups.popup8 = true;
-    affectedPopups.popup13 = true;
-    affectedPopups.popup14 = true;
-    affectedPopups.popup15 = true;
-    affectedPopups.popup16 = true;
-    affectedPopups.popup18 = true;
-    affectedPopups.popup19 = true;
-    affectedPopups.popup20 = true;
-  }
-  setUpdatedPopups(affectedPopups);
-}, [flowCheckboxes]);
+    if(
+      flowCheckboxes["chk-op1-fw1-priv1"] ||
+      flowCheckboxes["chk-priv1-fw1-op1"]   
+    )
+    {    
+      affectedPopups.popup5 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+      affectedPopups.popup17 = true;
+      affectedPopups.popup18 = true;
+      affectedPopups.popup19 = true;
+      affectedPopups.popup20 = true;
+    }
+    if (
+      flowCheckboxes["chk-op1-pub1"] ||
+      flowCheckboxes["chk-pub1-op1"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup6 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+      affectedPopups.popup18 = true;
+      affectedPopups.popup19 = true;
+      affectedPopups.popup20 = true;
+    }
+    if (
+      flowCheckboxes["chk-op1-priv2"] ||
+      flowCheckboxes["chk-priv2-op1"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup7 = true;
+      affectedPopups.popup12 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+      affectedPopups.popup18 = true;
+      affectedPopups.popup19 = true;
+      affectedPopups.popup20 = true;
+    }
+    if (
+      flowCheckboxes["chk-op1-priv3"] ||
+      flowCheckboxes["chk-priv3-op1"]
+    ) {
+      affectedPopups.popup5 = true;
+      affectedPopups.popup8 = true;
+      affectedPopups.popup13 = true;
+      affectedPopups.popup14 = true;
+      affectedPopups.popup15 = true;
+      affectedPopups.popup16 = true;
+      affectedPopups.popup18 = true;
+      affectedPopups.popup19 = true;
+      affectedPopups.popup20 = true;
+    }
+    setUpdatedPopups(affectedPopups);
+  }, [flowCheckboxes]);
 
   // Show/hide endpoints + ensure state reset when hiding
   const handleShowEndpoints = useCallback(() => {
-    const show = document.getElementById("chk-show-endpoints").checked;
+    const show = document.getElementById("chk-show-endpoints")?.checked;
+    if (typeof show === 'undefined') return;
 
     endpointIds.forEach((id) => {
       const el = document.getElementById(id);
@@ -249,16 +277,36 @@ const DiagramPreview3 = ({
           label.style.display = show ? "flex" : "none";
         }
       }
-      if (!show) checkbox.checked = false; // UI clear
+      if (!show) checkbox.checked = false;
     });
 
-    // IMPORTANT: also clear React state when hiding endpoints
+    // IMPORTANT: Use setTimeout to avoid state updates during render
     if (!show) {
-      setFlowCheckboxes({}); // everything false
-      setActiveGroupIndex(null); // unlock groups
+      setTimeout(() => {
+        setFlowCheckboxes({});
+        setActiveGroupIndex(null);
+        
+        // Clean up lines after state update
+        setTimeout(() => {
+          Object.values(linesRef.current).forEach((arr) => {
+            if (Array.isArray(arr)) {
+              arr.forEach((line) => {
+                if (line && typeof line.remove === 'function') {
+                  try {
+                    line.remove();
+                  } catch (error) {
+                    console.warn('Error removing line:', error);
+                  }
+                }
+              });
+            }
+          });
+          linesRef.current = {};
+        }, 100);
+      }, 0);
+    } else {
+      updateFlowLines();
     }
-
-    updateFlowLines();
   }, [setFlowCheckboxes, updateFlowLines]);
 
   // keep refs to the latest versions of these callbacks for safe mount-only listeners
@@ -272,9 +320,17 @@ const DiagramPreview3 = ({
 
   // Setup DOM listeners ONCE (mount/unmount) and call the latest callbacks via refs
   useEffect(() => {
-    // wrapper listeners that call the current ref functions
-    const showHandler = () => handleShowEndpointsRef.current && handleShowEndpointsRef.current();
-    const changeHandler = () => updateFlowLinesRef.current && updateFlowLinesRef.current();
+    const showHandler = () => {
+      if (handleShowEndpointsRef.current) {
+        setTimeout(handleShowEndpointsRef.current, 0);
+      }
+    };
+    
+    const changeHandler = () => {
+      if (updateFlowLinesRef.current) {
+        setTimeout(updateFlowLinesRef.current, 0);
+      }
+    };
 
     const showEndpointsCheckbox = document.getElementById("chk-show-endpoints");
     if (showEndpointsCheckbox) {
@@ -283,20 +339,32 @@ const DiagramPreview3 = ({
 
     const flowCheckboxesEls = document.querySelectorAll(".flow-checkbox");
     flowCheckboxesEls.forEach((checkbox) => {
-      checkbox.addEventListener("change", changeHandler);
+      if (checkbox.id !== "chk-show-endpoints") {
+        checkbox.addEventListener("change", changeHandler);
+      }
     });
 
-    // Run once on mount to sync UI
-    showHandler();
+    // Run once on mount with delay
+    const initTimer = setTimeout(() => {
+      showHandler();
+    }, 100);
 
     return () => {
+      clearTimeout(initTimer);
       if (showEndpointsCheckbox) {
         showEndpointsCheckbox.removeEventListener("change", showHandler);
       }
       flowCheckboxesEls.forEach((checkbox) => {
         checkbox.removeEventListener("change", changeHandler);
       });
-      Object.values(linesRef.current).forEach((arr) => arr.forEach((l) => l.remove()));
+      // Cleanup lines
+      Object.values(linesRef.current).forEach((arr) => {
+        if (Array.isArray(arr)) {
+          arr.forEach((l) => {
+            if (l && typeof l.remove === 'function') l.remove()
+          });
+        }
+      });
       linesRef.current = {};
     };
     // empty deps → run only on mount/unmount
@@ -304,7 +372,10 @@ const DiagramPreview3 = ({
 
   // Call the latest updateFlowLines whenever the flowCheckboxes state changes
   useEffect(() => {
-    updateFlowLinesRef.current && updateFlowLinesRef.current();
+    if (updateFlowLinesRef.current) {
+      const timer = setTimeout(updateFlowLinesRef.current, 0);
+      return () => clearTimeout(timer);
+    }
   }, [flowCheckboxes]);
 
   // Extra safety: if external state clears all, unlock groups
@@ -319,7 +390,34 @@ const DiagramPreview3 = ({
   // Single (non-grouped) checkbox handler
   const handleFlowCheckboxChange1 = (e) => {
     const { id, checked } = e.target;
-    setFlowCheckboxes((prev) => ({ ...prev, [id]: checked }));
+    
+    // Use functional update to avoid state conflicts
+    setFlowCheckboxes((prev) => {
+      const newState = { ...prev, [id]: checked };
+      
+      // Only reset lines when unchecking the "Show Endpoints" checkbox
+      if (id === "chk-show-endpoints" && !checked) {
+        // Schedule cleanup for after render
+        setTimeout(() => {
+          Object.values(linesRef.current).forEach((arr) => {
+            if (Array.isArray(arr)) {
+              arr.forEach((line) => {
+                if (line && typeof line.remove === 'function') {
+                  try {
+                    line.remove();
+                  } catch (error) {
+                    console.warn('Error removing line:', error);
+                  }
+                }
+              });
+            }
+          });
+          linesRef.current = {};
+        }, 0);
+      }
+      
+      return newState;
+    });
   };
 
   // GROUPED checkbox handler — uses the same sliced groups as the renderer

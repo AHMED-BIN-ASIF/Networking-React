@@ -250,7 +250,7 @@ export const connectionMap = {
   "chk-priv1-sbi": [
     ["top3-priv-1", "top3-fw-1", { path: "arc" }],
     ["top3-fw-1", "top3-gateway-3", { path: "arc",startSocket: 'top',endSocket: 'top' }],
-    ["top3-gateway-3", "top3-sbi", { path: "arc" }],
+    ["top3-gateway-3", "top3-db1", { path: "arc" }],
     //prev
     ["pre-priv1-sbi-1", "pre-priv1-sbi-2", { path: "straight" }],
     ["pre-priv1-sbi-2", "gtw-priv1-sbi-3", { path: "straight" }],
@@ -261,7 +261,7 @@ export const connectionMap = {
   "chk-priv2-sbi": [
     ["top3-priv-2", "top3-fw-1", { path: "arc" }],
     ["top3-fw-1", "top3-gateway-3", { path: "arc", startSocket: 'top',endSocket: 'top' }],
-    ["top3-gateway-3", "top3-sbi", { path: "arc" }],
+    ["top3-gateway-3", "top3-db1", { path: "arc" }],
     //prev
     ["pre-priv2-sbi-1", "pre-priv2-sbi-2", { path: "straight" }],
     ["pre-priv2-sbi-2", "gtw-priv2-sbi-3", { path: "straight" }],
@@ -271,7 +271,7 @@ export const connectionMap = {
   "chk-priv3-sbi": [
     ["top3-priv-3", "top3-fw-1", { path: "arc" }],
     ["top3-fw-1", "top3-gateway-3", { path: "arc" }],
-    ["top3-gateway-3", "top3-sbi", { path: "arc" }],
+    ["top3-gateway-3", "top3-db1", { path: "arc" }],
     //prev
     ["pre-priv3-sbi-1", "pre-priv3-sbi-2", { path: "straight" }],
     ["pre-priv3-sbi-2", "gtw-priv3-sbi-3", { path: "straight" }],
@@ -281,7 +281,7 @@ export const connectionMap = {
   "chk-pub1-sbi": [
     ["top3-pub-1", "top3-fw-1", { path: "arc" }],
     ["top3-fw-1", "top3-gateway-3", { path: "arc" }],
-    ["top3-gateway-3", "top3-sbi", { path: "arc" }],
+    ["top3-gateway-3", "top3-db1", { path: "arc" }],
     //prev
     ["pre-pub1-sbi-1", "pre-pub1-sbi-2", { path: "straight" }],
     ["pre-pub1-sbi-2", "gtw-pub1-sbi-3", { path: "straight" }],
@@ -336,7 +336,7 @@ export const connectionMap = {
     ["top3-op", "top3-gateway-5", { path: "arc",startSocket: 'right',endSocket: 'right',color: "red" }],
     ["top3-gateway-5", "top3-gateway-4", { path: "arc", startSocket: 'top', endSocket: 'top',color: "red" }],
     ["top3-gateway-4", "top3-fw-1", { path: "arc", startSocket: 'right', endSocket: 'right',color: "red" }],
-    ["top3-fw-1", "top3-priv-2", { path: "straight", startSocket: 'left', endSocket: 'left',color: "red" }],
+    ["top3-fw-1", "top3-priv-2", { path: "arc", startSocket: 'left', endSocket: 'left',color: "red" }],
     //prev
     ["fw-op1-priv2-step1-op1", "fw-op1-priv2-step2-gtw-op", { path: "arc", color: "red" }],
     ["fw-op1-priv2-step2-gtw-op", "fw-op1-priv2-step3-gtw-att", { path: "arc", color: "red" }],
@@ -385,7 +385,7 @@ export const endpointIds = [
   "top3-priv-1",
   "top3-priv-2",
   "top3-priv-3",
-  "top3-sbi",
+  "top3-db1",
   "top3-inet-1",
   "fw1-grp",
   "top3-op",

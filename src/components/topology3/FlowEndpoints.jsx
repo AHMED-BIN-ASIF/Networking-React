@@ -18,8 +18,8 @@ const FlowEndpoints = ({ formData }) => (
     <div id="top3-inet-1" className="flow-label tp3-label-5">
       {"INET1"}
     </div>
-    <div id="top3-sbi" className="flow-label tp3-label-6">
-      {"SB1"}
+    <div id="top3-db1" className="flow-label tp3-label-6">
+      {"DB1"}
     </div>
     <div id="fw1-grp">
       <div id="top3-fw-1" className="flow-label tp3-label-7">
