@@ -338,10 +338,10 @@ export const connectionMap = {
     ["top3-gateway-4", "top3-fw-1", { path: "arc", startSocket: 'right', endSocket: 'right',color: "red" }],
     ["top3-fw-1", "top3-priv-2", { path: "arc", startSocket: 'left', endSocket: 'left',color: "red" }],
     //prev
-    ["fw-op1-priv2-step1-op1", "fw-op1-priv2-step2-gtw-op", { path: "arc", color: "red" }],
-    ["fw-op1-priv2-step2-gtw-op", "fw-op1-priv2-step3-gtw-att", { path: "arc", color: "red" }],
-    ["fw-op1-priv2-step3-gtw-att", "fw-op1-priv2-step4-fw1", { path: "arc", color: "red" }],
-    ["fw-op1-priv2-step4-fw1", "fw-op1-priv2-step5-priv2", { path: "arc", color: "red" }],
+    ["fw-op1-priv2-step1-op1", "fw-op1-priv2-step2-gtw-op", { path: "straight", color: "red" }],
+    ["fw-op1-priv2-step2-gtw-op", "fw-op1-priv2-step3-gtw-att", { path: "straight", color: "red" }],
+    ["fw-op1-priv2-step3-gtw-att", "fw-op1-priv2-step4-fw1", { path: "straight", color: "red" }],
+    ["fw-op1-priv2-step4-fw1", "fw-op1-priv2-step5-priv2", { path: "straight", color: "red" }],
   ],
   "chk-priv2-op1": [
     ["top3-priv-2", "top3-fw-1", { path: "arc", startSocket: 'top', endSocket: 'bottom' }],
