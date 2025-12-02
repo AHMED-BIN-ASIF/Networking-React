@@ -246,46 +246,46 @@ export const connectionMap = {
     ],
   ],
 
-  // Group 15 (SBI)
-  "chk-priv1-sbi": [
+  // Group 15 (DB1)
+  "chk-priv1-db1": [
     ["top2-priv-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
     ["top2-gateway-3", "top2-db1", { path: "arc" }],
     //prev
-    ["pre-priv1-sbi-1", "pre-priv1-sbi-2", { path: "straight" }],
-    ["pre-priv1-sbi-2", "gtw-priv1-sbi-3", { path: "straight" }],
-    ["gtw-priv1-sbi-3", "pre-priv1-sbi-4", { path: "straight" }],
+    ["pre-priv1-db1-1", "pre-priv1-db1-2", { path: "straight" }],
+    ["pre-priv1-db1-2", "gtw-priv1-db1-3", { path: "straight" }],
+    ["gtw-priv1-db1-3", "pre-priv1-db1-4", { path: "straight" }],
   ],
 
-  // Group 16 (SBI)
-  "chk-priv2-sbi": [
+  // Group 16 (DB1)
+  "chk-priv2-db1": [
     ["top2-priv-2", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
     ["top2-gateway-3", "top2-db1", { path: "arc" }],
     //prev
-    ["pre-priv2-sbi-1", "pre-priv2-sbi-2", { path: "straight" }],
-    ["pre-priv2-sbi-2", "gtw-priv2-sbi-3", { path: "straight" }],
-    ["gtw-priv2-sbi-3", "pre-priv2-sbi-4", { path: "straight" }],
+    ["pre-priv2-db1-1", "pre-priv2-db1-2", { path: "straight" }],
+    ["pre-priv2-db1-2", "gtw-priv2-db1-3", { path: "straight" }],
+    ["gtw-priv2-db1-3", "pre-priv2-db1-4", { path: "straight" }],
   ],
-  // Group 17 (SBI)
-  "chk-priv3-sbi": [
+  // Group 17 (DB1)
+  "chk-priv3-db1": [
     ["top2-priv-3", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
     ["top2-gateway-3", "top2-db1", { path: "arc" }],
     //prev
-    ["pre-priv3-sbi-1", "pre-priv3-sbi-2", { path: "straight" }],
-    ["pre-priv3-sbi-2", "gtw-priv3-sbi-3", { path: "straight" }],
-    ["gtw-priv3-sbi-3", "pre-priv3-sbi-4", { path: "straight" }],
+    ["pre-priv3-db1-1", "pre-priv3-db1-2", { path: "straight" }],
+    ["pre-priv3-db1-2", "gtw-priv3-db1-3", { path: "straight" }],
+    ["gtw-priv3-db1-3", "pre-priv3-db1-4", { path: "straight" }],
   ],
-  // Group 18 (SBI)
-  "chk-pub1-sbi": [
+  // Group 18 (DB1)
+  "chk-pub1-db1": [
     ["top2-pub-1", "top2-fw-1", { path: "arc" }],
     ["top2-fw-1", "top2-gateway-3", { path: "arc" }],
     ["top2-gateway-3", "top2-db1", { path: "arc" }],
     //prev
-    ["pre-pub1-sbi-1", "pre-pub1-sbi-2", { path: "straight" }],
-    ["pre-pub1-sbi-2", "gtw-pub1-sbi-3", { path: "straight" }],
-    ["gtw-pub1-sbi-3", "pre-pub1-sbi-4", { path: "straight" }],
+    ["pre-pub1-db1-1", "pre-pub1-db1-2", { path: "straight" }],
+    ["pre-pub1-db1-2", "gtw-pub1-db1-3", { path: "straight" }],
+    ["gtw-pub1-db1-3", "pre-pub1-db1-4", { path: "straight" }],
   ],
 };
 

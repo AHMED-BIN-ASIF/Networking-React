@@ -171,11 +171,11 @@ const DiagramPreview2 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-    if (flowCheckboxes["chk-pub1-sbi"]) {
+    if (flowCheckboxes["chk-pub1-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup6 = true;
     }
-    if (flowCheckboxes["chk-priv3-sbi"]) {
+    if (flowCheckboxes["chk-priv3-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup8 = true;
       affectedPopups.popup11 = true;
@@ -184,7 +184,7 @@ const DiagramPreview2 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-    if (flowCheckboxes["chk-priv2-sbi"]) {
+    if (flowCheckboxes["chk-priv2-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup7 = true;
       affectedPopups.popup11 = true;
@@ -193,7 +193,7 @@ const DiagramPreview2 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-    if (flowCheckboxes["chk-priv1-sbi"]) {
+    if (flowCheckboxes["chk-priv1-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup17 = true;
     }
@@ -558,7 +558,7 @@ const DiagramPreview2 = ({
             flowCheckboxes["chk-priv2-priv1"] ||
             flowCheckboxes["chk-priv1-priv3"] ||
             flowCheckboxes["chk-priv3-priv1"] ||
-            flowCheckboxes["chk-priv1-sbi"]) && (
+            flowCheckboxes["chk-priv1-db1"]) && (
             <div
               className="popup-btn top1-priv-rt-btn"
               onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
@@ -731,12 +731,14 @@ const DiagramPreview2 = ({
       )}
 
       {/* Add CSS animation for loading spinner */}
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
+
+      {/* // Replace line ~32 in your return statement with: */}
+<style jsx="true">{`
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`}</style>
     </div>
   );
 };

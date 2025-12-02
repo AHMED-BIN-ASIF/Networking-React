@@ -309,70 +309,70 @@ const CheckPreviewDiagram = ({flowCheckboxes}) => {
             </div>
           </div>
         )}
-        {flowCheckboxes["chk-priv1-sbi"] && (
+        {flowCheckboxes["chk-priv1-db1"] && (
           <div className="check-preview">
-            <div id="pre-priv1-sbi-1" className="flow-label endpoint">
+            <div id="pre-priv1-db1-1" className="flow-label endpoint">
               {"PRIV1"}
             </div>
-            <div id="pre-priv1-sbi-2" className="flow-label endpoint">
+            <div id="pre-priv1-db1-2" className="flow-label endpoint">
               {"FW1"}
             </div>
-            <div id="gtw-priv1-sbi-3" className="pr-gateway">
+            <div id="gtw-priv1-db1-3" className="pr-gateway">
               <img src={Gateway} alt="Gateway" className="gt-icon" />
               <span>Service Gateway</span>
             </div>
-            <div id="pre-priv1-sbi-4" className="flow-label endpoint">
+            <div id="pre-priv1-db1-4" className="flow-label endpoint">
               {"SB1"}
             </div>
           </div>
         )}
-        {flowCheckboxes["chk-priv2-sbi"] && (
+        {flowCheckboxes["chk-priv2-db1"] && (
           <div className="check-preview">
-            <div id="pre-priv2-sbi-1" className="flow-label endpoint">
+            <div id="pre-priv2-db1-1" className="flow-label endpoint">
               {"PRIV2"}
             </div>
-            <div id="pre-priv2-sbi-2" className="flow-label endpoint">
+            <div id="pre-priv2-db1-2" className="flow-label endpoint">
               {"FW1"}
             </div>
-            <div id="gtw-priv2-sbi-3" className="pr-gateway">
+            <div id="gtw-priv2-db1-3" className="pr-gateway">
               <img src={Gateway} alt="Gateway" className="gt-icon" />
               <span>Service Gateway</span>
             </div>
-            <div id="pre-priv2-sbi-4" className="flow-label endpoint">
+            <div id="pre-priv2-db1-4" className="flow-label endpoint">
               {"SB1"}
             </div>
           </div>
         )}
-        {flowCheckboxes["chk-priv3-sbi"] && (
+        {flowCheckboxes["chk-priv3-db1"] && (
           <div className="check-preview">
-            <div id="pre-priv3-sbi-1" className="flow-label endpoint">
+            <div id="pre-priv3-db1-1" className="flow-label endpoint">
               {"PRIV3"}
             </div>
-            <div id="pre-priv3-sbi-2" className="flow-label endpoint">
+            <div id="pre-priv3-db1-2" className="flow-label endpoint">
               {"FW1"}
             </div>
-            <div id="gtw-priv3-sbi-3" className="pr-gateway">
+            <div id="gtw-priv3-db1-3" className="pr-gateway">
               <img src={Gateway} alt="Gateway" className="gt-icon" />
               <span>Service Gateway</span>
             </div>
-            <div id="pre-priv3-sbi-4" className="flow-label endpoint">
+            <div id="pre-priv3-db1-4" className="flow-label endpoint">
               {"SB1"}
             </div>
           </div>
         )}
-        {flowCheckboxes["chk-pub1-sbi"] && (
+        {flowCheckboxes["chk-pub1-db1"] && (
           <div className="check-preview">
-            <div id="pre-pub1-sbi-1" className="flow-label endpoint">
+            <div id="pre-pub1-db1-1" className="flow-label endpoint">
               {"PUB1"}
             </div>
-            <div id="pre-pub1-sbi-2" className="flow-label endpoint">
+            <div id="pre-pub1-db1-2" className="flow-label endpoint">
               {"FW1"}
             </div>
-            <div id="gtw-pub1-sbi-3" className="pr-gateway">
+            <div id="gtw-pub1-db1-3" className="pr-gateway">
               <img src={Gateway} alt="Gateway" className="gt-icon" />
               <span>Service Gateway</span>
             </div>
-            <div id="pre-pub1-sbi-4" className="flow-label endpoint">
+            <div id="pre-pub1-db1-4" className="flow-label endpoint">
               {"SB1"}
             </div>
           </div>

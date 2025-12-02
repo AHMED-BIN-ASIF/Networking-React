@@ -206,7 +206,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 </tr>
               </>
             )}
-            {(flowCheckboxes["chk-pub1-sbi"]) && (
+            {(flowCheckboxes["chk-pub1-db1"]) && (
               <tr>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Service Gateway</td>
@@ -214,7 +214,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv1-sbi"]) && (
+            {(flowCheckboxes["chk-priv1-db1"]) && (
               <tr className='orange-row'>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Service Gateway</td>
@@ -222,7 +222,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr>
                 <td className='blue-row'>{formData.spokeACidr}</td>
                 <td>Dynamic Routing Gateway</td>
@@ -230,7 +230,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv3-sbi"]) && (
+            {(flowCheckboxes["chk-priv3-db1"]) && (
               <tr className=''>
                 <td className='blue-row'>{formData.spokeACidr}</td>
                 <td>Dynamic Routing Gateway</td>
@@ -288,7 +288,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-pub1-sbi"]) && (
+            {(flowCheckboxes["chk-pub1-db1"]) && (
               <tr className=''>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>
@@ -345,7 +345,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr>
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Dynamic Routing Gateway</td>
@@ -409,7 +409,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv3-sbi"]) && (
+            {(flowCheckboxes["chk-priv3-db1"]) && (
               <tr>
                 <td className='blue-row'>All CDG Services In Oracle Services...</td>
                 <td>Dynamic Routing Gateway</td>
@@ -504,7 +504,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
             </tr>
           </thead>
           <tbody>
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr className="blue-row">
                 <td>{formData.spokeACidr}</td>
                 <td>Private IP</td>
@@ -513,7 +513,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv3-sbi"]) && (
+            {(flowCheckboxes["chk-priv3-db1"]) && (
               <tr className="blue-row">
                 {/* <td>{formData.spokeBCidr}</td> */}
                 <td>{formData.spokeBCidr}</td>
@@ -567,7 +567,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>HUB-VCN-ATTACHMENT</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr className="green-row">
                 <td>0.0.0.0/0</td>
                 <td>Virtual Cloud Network</td>
@@ -647,7 +647,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>HUB-VCN-ATTACHMENT</td>
               </tr>
             )}
-            {flowCheckboxes["chk-priv3-sbi"] && (
+            {flowCheckboxes["chk-priv3-db1"] && (
               <tr className="green-row">
                 <td>0.0.0.0/0</td>
                 <td>Virtual Cloud Network</td>
@@ -723,7 +723,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 </tr>
               </>
             )}
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr>
                 <td>10</td>
                 <td>Attachment</td>
@@ -731,7 +731,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>-</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv3-sbi"]) && (
+            {(flowCheckboxes["chk-priv3-db1"]) && (
               <tr className='red-row'>
                 <td>20</td>
                 <td>Attachment</td>
@@ -802,14 +802,14 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 </tr>
               </>
             )}
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr className="blue-row">
                 <td>{formData.spokeACidr}</td>
                 <td>Virtual Cloud Network</td>
                 <td>SPOKE-VCN-A-ATTACHMENT</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv3-sbi"]) && (
+            {(flowCheckboxes["chk-priv3-db1"]) && (
               <tr className="blue-row">
                 <td>{formData.spokeBCidr}</td>
                 <td>Virtual Cloud Network</td>
@@ -923,7 +923,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 </tr>
               </>
             )}
-            {(flowCheckboxes["chk-priv2-sbi"]) && (
+            {(flowCheckboxes["chk-priv2-db1"]) && (
               <tr className="red-row">
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>
@@ -931,7 +931,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv3-sbi"]) && (
+            {(flowCheckboxes["chk-priv3-db1"]) && (
               <tr className="red-row">
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>
@@ -991,7 +991,7 @@ const PopupTables = ({ formData, popups, setPopups, flowCheckboxes }) => {
                 <td>Static</td>
               </tr>
             )}
-            {(flowCheckboxes["chk-priv1-sbi"]) && (
+            {(flowCheckboxes["chk-priv1-db1"]) && (
               <tr className="red-row">
                 <td>All CDG Services In Oracle Services...</td>
                 <td>Private IP</td>

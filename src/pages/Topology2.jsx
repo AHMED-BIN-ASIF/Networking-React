@@ -563,13 +563,13 @@ const convertToJSON = () => {
       { id: "chk-priv3-priv2", label: "PRIV3 → PRIV2" },
     ],
     // Group 15: DB1 Access
-    [{ id: "chk-priv1-sbi", label: "PRIV1 → DB1" }],
+    [{ id: "chk-priv1-db1", label: "PRIV1 → DB1" }],
     // Group 16: DB1 Access
-    [{ id: "chk-priv2-sbi", label: "PRIV2 → DB1" }],
+    [{ id: "chk-priv2-db1", label: "PRIV2 → DB1" }],
     // Group 16: DB1 Access
-    [{ id: "chk-priv3-sbi", label: "PRIV3 → DB1" }],
+    [{ id: "chk-priv3-db1", label: "PRIV3 → DB1" }],
     // Group 16: DB1 Access
-    [{ id: "chk-pub1-sbi", label: "PUB1 → DB1" }],
+    [{ id: "chk-pub1-db1", label: "PUB1 → DB1" }],
   ];
 
   return (

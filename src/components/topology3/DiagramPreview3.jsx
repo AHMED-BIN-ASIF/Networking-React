@@ -96,7 +96,7 @@ const DiagramPreview3 = ({
       });
     });
 
-    // popups “updated” flags
+    // popups "updated" flags
     const affectedPopups = {};
     if (flowCheckboxes["chk-fw1-inet1"] || flowCheckboxes["chk-priv1-inet1-fw"]) {
       affectedPopups.popup5 = true;
@@ -174,11 +174,11 @@ const DiagramPreview3 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-    if (flowCheckboxes["chk-pub1-sbi"]) {
+    if (flowCheckboxes["chk-pub1-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup6 = true;
     }
-    if (flowCheckboxes["chk-priv3-sbi"]) {
+    if (flowCheckboxes["chk-priv3-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup8 = true;
       affectedPopups.popup11 = true;
@@ -187,7 +187,7 @@ const DiagramPreview3 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-    if (flowCheckboxes["chk-priv2-sbi"]) {
+    if (flowCheckboxes["chk-priv2-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup7 = true;
       affectedPopups.popup11 = true;
@@ -196,7 +196,7 @@ const DiagramPreview3 = ({
       affectedPopups.popup15 = true;
       affectedPopups.popup16 = true;
     }
-    if (flowCheckboxes["chk-priv1-sbi"]) {
+    if (flowCheckboxes["chk-priv1-db1"]) {
       affectedPopups.popup5 = true;
       affectedPopups.popup17 = true;
     }
@@ -322,13 +322,19 @@ const DiagramPreview3 = ({
   useEffect(() => {
     const showHandler = () => {
       if (handleShowEndpointsRef.current) {
-        setTimeout(handleShowEndpointsRef.current, 0);
+        // Use requestAnimationFrame to ensure this runs after render
+        requestAnimationFrame(() => {
+          setTimeout(handleShowEndpointsRef.current, 0);
+        });
       }
     };
     
     const changeHandler = () => {
       if (updateFlowLinesRef.current) {
-        setTimeout(updateFlowLinesRef.current, 0);
+        // Use requestAnimationFrame to ensure this runs after render
+        requestAnimationFrame(() => {
+          setTimeout(updateFlowLinesRef.current, 0);
+        });
       }
     };
 
@@ -344,10 +350,12 @@ const DiagramPreview3 = ({
       }
     });
 
-    // Run once on mount with delay
+    // DON'T call handlers immediately on mount - let the initial render complete first
+    // This is key to avoiding the setState during render error
     const initTimer = setTimeout(() => {
-      showHandler();
-    }, 100);
+      // Only initialize after everything is rendered
+      updateFlowLinesRef.current?.();
+    }, 500); // Increased delay to ensure render is complete
 
     return () => {
       clearTimeout(initTimer);
@@ -373,8 +381,11 @@ const DiagramPreview3 = ({
   // Call the latest updateFlowLines whenever the flowCheckboxes state changes
   useEffect(() => {
     if (updateFlowLinesRef.current) {
-      const timer = setTimeout(updateFlowLinesRef.current, 0);
-      return () => clearTimeout(timer);
+      // Use requestAnimationFrame to ensure this doesn't run during render
+      requestAnimationFrame(() => {
+        const timer = setTimeout(updateFlowLinesRef.current, 0);
+        return () => clearTimeout(timer);
+      });
     }
   }, [flowCheckboxes]);
 
@@ -424,32 +435,35 @@ const DiagramPreview3 = ({
   const handleFlowCheckboxChange = (e, groupIndex) => {
     const { id, checked } = e.target;
 
-    setFlowCheckboxes((prev) => {
-      const updated = { ...prev, [id]: checked };
+    // Use requestAnimationFrame to ensure this runs after render
+    requestAnimationFrame(() => {
+      setFlowCheckboxes((prev) => {
+        const updated = { ...prev, [id]: checked };
 
-      // Work only with the UI-rendered groups to keep indices consistent
-      const uiGroups = flowConfigGrouped.slice(1);
+        // Work only with the UI-rendered groups to keep indices consistent
+        const uiGroups = flowConfigGrouped.slice(1);
 
-      const groupHasChecked = uiGroups[groupIndex]?.some(({ id }) => updated[id]);
+        const groupHasChecked = uiGroups[groupIndex]?.some(({ id }) => updated[id]);
 
-      if (groupHasChecked) {
-        // lock to this rendered group
-        setActiveGroupIndex(groupIndex);
-      } else {
-        // check if any group (rendered set) still has a checked item
-        const anyChecked = uiGroups.flat().some(({ id }) => updated[id]);
-        if (anyChecked) {
-          const firstActive = uiGroups.findIndex((group) =>
-            group.some(({ id }) => updated[id])
-          );
-          setActiveGroupIndex(firstActive);
+        if (groupHasChecked) {
+          // lock to this rendered group
+          setActiveGroupIndex(groupIndex);
         } else {
-          // nothing checked at all → unlock everything
-          setActiveGroupIndex(null);
+          // check if any group (rendered set) still has a checked item
+          const anyChecked = uiGroups.flat().some(({ id }) => updated[id]);
+          if (anyChecked) {
+            const firstActive = uiGroups.findIndex((group) =>
+              group.some(({ id }) => updated[id])
+            );
+            setActiveGroupIndex(firstActive);
+          } else {
+            // nothing checked at all → unlock everything
+            setActiveGroupIndex(null);
+          }
         }
-      }
 
-      return updated;
+        return updated;
+      });
     });
   };
 
@@ -486,7 +500,7 @@ const DiagramPreview3 = ({
             flowCheckboxes["chk-priv2-priv1"] ||
             flowCheckboxes["chk-priv1-priv3"] ||
             flowCheckboxes["chk-priv3-priv1"] ||
-            flowCheckboxes["chk-priv1-sbi"] ||
+            flowCheckboxes["chk-priv1-db1"] ||
             flowCheckboxes["chk-op1-fw1-priv1"] ||
             flowCheckboxes["chk-priv1-fw1-op1"]
           ) && (

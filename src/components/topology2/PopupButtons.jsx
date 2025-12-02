@@ -43,7 +43,7 @@ const PopupButtons = ({ formData, setPopups, updatedPopups, flowCheckboxes }) =>
         flowCheckboxes["chk-priv2-priv1"] ||
         flowCheckboxes["chk-priv1-priv3"] ||
         flowCheckboxes["chk-priv3-priv1"] ||
-        flowCheckboxes["chk-priv1-sbi"]) && (
+        flowCheckboxes["chk-priv1-db1"]) && (
         <div
           className="popup-btn top1-priv-rt-btn"
           onClick={() => setPopups((prev) => ({ ...prev, popup17: true }))}
